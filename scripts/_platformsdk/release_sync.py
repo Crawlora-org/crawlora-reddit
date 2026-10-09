@@ -456,6 +456,8 @@ def _read_manifest(root: Path) -> tuple[dict[str, Any], dict[str, str]]:
     wanted_repo = _repository_url(expected["repository"])
     if str(config.get("repository", "")).rstrip("/").removesuffix(".git").lower() != wanted_repo.lower():
         raise ReleaseSyncError(f"platform.json repository must identify {expected['repository']}")
+    if _normalize_remote(str(config.get("php_repository", ""))) != expected["repository"].lower():
+        raise ReleaseSyncError("platform.json php_repository must identify the primary platform repository")
     package_repo = npm_package.get("repository")
     package_repo = package_repo.get("url") if isinstance(package_repo, dict) else package_repo
     if npm_package.get("name") != expected["npm"] or npm_package.get("version") != version:
@@ -488,6 +490,11 @@ def _read_manifest(root: Path) -> tuple[dict[str, Any], dict[str, str]]:
         raise ReleaseSyncError("java/pom.xml coordinates/version do not match the platform manifest")
     if composer.get("name") != expected["packagist"] or php_composer.get("name") != expected["packagist"]:
         raise ReleaseSyncError("root and php/composer.json package names do not match the platform manifest")
+    if any(
+        _normalize_remote(str(package.get("support", {}).get("source", ""))) != expected["repository"].lower()
+        for package in (composer, php_composer)
+    ):
+        raise ReleaseSyncError("root and php/composer.json source links must identify the primary repository")
     manifest = {**expected, "platform": platform, "version": version, "contract_revision": revision}
     return config, manifest
 
