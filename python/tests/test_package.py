@@ -28,7 +28,7 @@ class MockTransport:
 class PackageTests(unittest.TestCase):
     def test_platform_metadata_and_aliases(self):
         self.assertEqual(client_package.PLATFORM, "reddit")
-        self.assertEqual(client_package.__version__, "0.1.0")
+        self.assertEqual(client_package.__version__, "0.1.1")
         self.assertIs(client_package.Client, client_package.RedditClient)
         self.assertIs(client_package.AsyncClient, client_package.AsyncRedditClient)
         self.assertEqual(client_package.OPERATION_COUNT, len(client_package.OPERATION_IDS))

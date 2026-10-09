@@ -7,7 +7,7 @@ from .async_client import AsyncCrawloraClient
 class RedditClient(CrawloraClient):
     """Synchronous Reddit API client."""
     def __init__(self, *args: Any, **kwargs: Any) -> None:
-        kwargs.setdefault('user_agent', 'crawlora-reddit-python/0.1.0')
+        kwargs.setdefault('user_agent', 'crawlora-reddit-python/0.1.1')
         super().__init__(*args, **kwargs)
 
     def comments(self, **params: Any) -> Any:
@@ -85,7 +85,7 @@ class RedditClient(CrawloraClient):
 class AsyncRedditClient(AsyncCrawloraClient):
     """Asynchronous Reddit API client."""
     def __init__(self, *args: Any, **kwargs: Any) -> None:
-        kwargs.setdefault('user_agent', 'crawlora-reddit-python/0.1.0')
+        kwargs.setdefault('user_agent', 'crawlora-reddit-python/0.1.1')
         super().__init__(*args, **kwargs)
 
     async def comments(self, **params: Any) -> Any:
