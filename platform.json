@@ -5,19 +5,62 @@
   "display_name": "Reddit",
   "general_sdk_version": "1.46.0-sdk.1",
   "golang_module_name": "github.com/Crawlora-org/crawlora-reddit",
-  "golang_version": "0.1.0",
+  "golang_version": "0.1.1",
   "group_name": "reddit",
   "java_description": "Java client for Crawlora's hosted Reddit API, with search, post and comment details, subreddit feeds, user history, domain listings, trends, and leads. Requires a Crawlora API key.",
   "maven_artifact_id": "crawlora-reddit",
   "maven_group_id": "net.crawlora",
   "module_name": "crawlora_reddit",
   "npm_name": "@crawlora-org/reddit",
+  "php": {
+    "changelog": [
+      "# Changelog",
+      "",
+      "## 0.1.1 — 2026-10-09",
+      "",
+      "- Align the PHP package with release version 0.1.1.",
+      "",
+      "## 0.1.0",
+      "",
+      "- Initial focused Reddit PHP client for Crawlora's hosted API."
+    ]
+  },
   "php_package_name": "crawlora/reddit",
   "php_repository": "https://github.com/Crawlora-org/crawlora-reddit-php",
   "platform": "reddit",
   "python_name": "crawlora-reddit",
+  "releases": [
+    {
+      "changes": [
+        "Align all generated client packages with release version 0.1.1."
+      ],
+      "date": "2026-10-09",
+      "version": "0.1.1"
+    },
+    {
+      "changes": [
+        "Initial Reddit JavaScript and Python clients for Crawlora's hosted API.",
+        "Includes promise-based JavaScript and synchronous/asynchronous Python interfaces, generated from contract revision `sha256:441a9c4645a94738c644f66d38610950951f585a268d92be35900149133ce821`."
+      ],
+      "date": "2026-10-07",
+      "version": "0.1.0"
+    }
+  ],
   "repository": "https://github.com/Crawlora-org/crawlora-reddit",
+  "ruby": {
+    "changelog": [
+      "# Changelog",
+      "",
+      "## 0.1.1 — 2026-10-09",
+      "",
+      "- Align the Ruby package with release version 0.1.1.",
+      "",
+      "## 0.1.0",
+      "",
+      "- Initial focused Reddit Ruby client for Crawlora's hosted API."
+    ]
+  },
   "ruby_gem_name": "crawlora-reddit",
   "source_contract_sha256": "6ce716c52b7f17a1ab0960cdaefaeb1b40b71c25ad41be55e80b8b0910624f9d",
-  "version": "0.1.0"
+  "version": "0.1.1"
 }
