@@ -26,7 +26,7 @@
     ]
   },
   "php_package_name": "crawlora/reddit",
-  "php_repository": "https://github.com/Crawlora-org/crawlora-reddit-php",
+  "php_repository": "https://github.com/Crawlora-org/crawlora-reddit",
   "platform": "reddit",
   "python_name": "crawlora-reddit",
   "releases": [

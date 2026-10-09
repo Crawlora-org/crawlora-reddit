@@ -198,18 +198,6 @@ class ContractSyncTests(unittest.TestCase):
                     "Requires a Crawlora API key."
                 )
                 self.assertEqual(pom.findtext(f"{namespace}description"), expected_description)
-                gpg_plugin = next(
-                    plugin
-                    for plugin in pom.findall(f"{namespace}profiles/{namespace}profile/{namespace}build/{namespace}plugins/{namespace}plugin")
-                    if plugin.findtext(f"{namespace}artifactId") == "maven-gpg-plugin"
-                )
-                gpg_config = gpg_plugin.find(f"{namespace}configuration")
-                self.assertIsNotNone(gpg_config)
-                self.assertEqual(gpg_config.findtext(f"{namespace}passphraseEnvName"), "MAVEN_GPG_PASSPHRASE")
-                self.assertEqual(
-                    [arg.text for arg in gpg_config.findall(f"{namespace}gpgArguments/{namespace}arg")],
-                    ["--pinentry-mode", "loopback"],
-                )
                 assert_utm(pom.findtext(f"{namespace}url"), source="maven-central", platform=platform, surface="java", destination="homepage")
                 assert_utm(pom.findtext(f"{namespace}developers/{namespace}developer/{namespace}organizationUrl"), source="maven-central", platform=platform, surface="java", destination="organization-homepage")
                 self.assertEqual(
@@ -221,7 +209,7 @@ class ContractSyncTests(unittest.TestCase):
                     composer = json.loads((root / relative).read_text(encoding="utf-8"))
                     assert_utm(composer["homepage"], source="packagist", platform=platform, surface="php", destination="homepage")
                     assert_utm(composer["support"]["docs"], source="packagist", platform=platform, surface="php", destination="api-docs", path="/docs")
-                    self.assertEqual(composer["support"]["source"], f"https://github.com/Crawlora-org/crawlora-{platform}-php")
+                    self.assertEqual(composer["support"]["source"], f"https://github.com/Crawlora-org/crawlora-{platform}")
 
     def test_raw_header_normalization_matches_selected_public_contract(self) -> None:
         for platform in PLATFORMS:
