@@ -19,7 +19,19 @@ from .generate import regenerate
 from .spec import PLATFORMS as SUPPORTED_PLATFORMS, config_for, dumps, select
 
 
-PLATFORMS = tuple(SUPPORTED_PLATFORMS)
+ALL_PLATFORMS = tuple(SUPPORTED_PLATFORMS)
+_PACKAGE_ROOT = Path(__file__).resolve().parents[2]
+_PACKAGE_CONFIG = _PACKAGE_ROOT / "platform.json"
+if _PACKAGE_CONFIG.is_file():
+    _PACKAGE_PLATFORM = json.loads(_PACKAGE_CONFIG.read_text(encoding="utf-8")).get("platform")
+    if _PACKAGE_PLATFORM not in SUPPORTED_PLATFORMS:
+        raise ValueError(f"unsupported package platform in {_PACKAGE_CONFIG}: {_PACKAGE_PLATFORM!r}")
+    # Vendored sync tests run in a single-platform package repository. The
+    # canonical generator suite has no root platform.json and tests every
+    # platform from PLATFORMS.
+    PLATFORMS = (_PACKAGE_PLATFORM,)
+else:
+    PLATFORMS = ALL_PLATFORMS
 
 
 def _operation(platform: str, suffix: str, *, description: str = "A fixture operation") -> dict:
@@ -317,7 +329,7 @@ class ContractSyncTests(unittest.TestCase):
         return path
 
     def test_cycles_are_retained_and_unrelated_changes_are_noop(self) -> None:
-        for platform in ("reddit", "tiktok", "amazon", "imdb"):
+        for platform in PLATFORMS:
             with self.subTest(platform=platform), tempfile.TemporaryDirectory(prefix="platform-sync-") as temp:
                 root = Path(temp) / "client"
                 root.mkdir()
