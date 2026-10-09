@@ -198,6 +198,18 @@ class ContractSyncTests(unittest.TestCase):
                     "Requires a Crawlora API key."
                 )
                 self.assertEqual(pom.findtext(f"{namespace}description"), expected_description)
+                gpg_plugin = next(
+                    plugin
+                    for plugin in pom.findall(f"{namespace}profiles/{namespace}profile/{namespace}build/{namespace}plugins/{namespace}plugin")
+                    if plugin.findtext(f"{namespace}artifactId") == "maven-gpg-plugin"
+                )
+                gpg_config = gpg_plugin.find(f"{namespace}configuration")
+                self.assertIsNotNone(gpg_config)
+                self.assertEqual(gpg_config.findtext(f"{namespace}passphraseEnvName"), "MAVEN_GPG_PASSPHRASE")
+                self.assertEqual(
+                    [arg.text for arg in gpg_config.findall(f"{namespace}gpgArguments/{namespace}arg")],
+                    ["--pinentry-mode", "loopback"],
+                )
                 assert_utm(pom.findtext(f"{namespace}url"), source="maven-central", platform=platform, surface="java", destination="homepage")
                 assert_utm(pom.findtext(f"{namespace}developers/{namespace}developer/{namespace}organizationUrl"), source="maven-central", platform=platform, surface="java", destination="organization-homepage")
                 self.assertEqual(
