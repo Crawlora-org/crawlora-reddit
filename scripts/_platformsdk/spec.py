@@ -131,17 +131,23 @@ def select(spec: dict, platform: str) -> dict:
             if method not in HTTP_METHODS or not isinstance(original, dict):
                 continue
             identifier = original.get("operationId", "")
-            if not identifier.startswith(platform + "-") or original.get("deprecated"):
+            if original.get("deprecated"):
                 continue
             tags = {str(tag).strip().lower() for tag in original.get("tags", []) if str(tag).strip()}
             allowed_tags = PLATFORM_TAG_ALIASES.get(platform, frozenset({platform}))
+            if tags.intersection(PLATFORM_EXCLUDED_TAGS.get(platform, frozenset())):
+                continue
+            path_matches = path.startswith("/" + platform + "/")
+            tag_matches = bool(tags.intersection(allowed_tags))
+            if not isinstance(identifier, str) or not identifier.startswith(platform + "-"):
+                if path_matches or tag_matches:
+                    raise ValueError(
+                        f"unexpected operation ID for {platform} operation at {path}: {identifier!r}"
+                    )
+                continue
             if not path.startswith("/" + platform + "/"):
-                if tags.intersection(PLATFORM_EXCLUDED_TAGS.get(platform, frozenset())):
-                    continue
                 raise ValueError(f"unexpected path for {identifier}: {path}")
             if tags and tags.isdisjoint(allowed_tags):
-                if tags.intersection(PLATFORM_EXCLUDED_TAGS.get(platform, frozenset())):
-                    continue
                 raise ValueError(f"unexpected tag for {identifier}: {sorted(tags)}")
             if identifier in seen:
                 raise ValueError(f"duplicate operation: {identifier}")
