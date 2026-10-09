@@ -1,0 +1,29 @@
+{
+  "name": "crawlora/reddit",
+  "description": "Reddit client for the Crawlora hosted API",
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.1",
+    "ext-curl": "*",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Crawlora\\Reddit\\": "php/src/Crawlora/Reddit/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Crawlora\\Reddit\\Tests\\": "php/tests/"
+    }
+  },
+  "scripts": {
+    "test": "php php/tests/client_test.php"
+  },
+  "homepage": "https://crawlora.net/?utm_source=packagist&utm_medium=referral&utm_campaign=platform-clients&utm_content=reddit-php-homepage",
+  "support": {
+    "source": "https://github.com/Crawlora-org/crawlora-reddit-php",
+    "docs": "https://crawlora.net/docs?utm_source=packagist&utm_medium=referral&utm_campaign=platform-clients&utm_content=reddit-php-api-docs"
+  }
+}

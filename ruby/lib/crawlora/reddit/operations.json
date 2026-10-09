@@ -1,0 +1,987 @@
+{
+  "platform": "reddit",
+  "operationCount": 12,
+  "operationIds": [
+    "reddit-comments",
+    "reddit-domain-posts",
+    "reddit-leads",
+    "reddit-post",
+    "reddit-search",
+    "reddit-subreddit-about",
+    "reddit-subreddit-comments",
+    "reddit-subreddit-posts",
+    "reddit-subreddits-posts",
+    "reddit-trends",
+    "reddit-user-comments",
+    "reddit-user-posts"
+  ],
+  "methods": {
+    "comments": "reddit-comments",
+    "domain_posts": "reddit-domain-posts",
+    "leads": "reddit-leads",
+    "post": "reddit-post",
+    "search": "reddit-search",
+    "subreddit_about": "reddit-subreddit-about",
+    "subreddit_comments": "reddit-subreddit-comments",
+    "subreddit_posts": "reddit-subreddit-posts",
+    "subreddits_posts": "reddit-subreddits-posts",
+    "trends": "reddit-trends",
+    "user_comments": "reddit-user-comments",
+    "user_posts": "reddit-user-posts"
+  },
+  "operations": {
+    "reddit-comments": {
+      "id": "reddit-comments",
+      "method": "GET",
+      "path": "/reddit/comments/{id}",
+      "pathParams": [
+        "id"
+      ],
+      "queryParams": [
+        {
+          "name": "sort",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "confidence",
+            "top",
+            "new",
+            "controversial",
+            "old",
+            "qa"
+          ]
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "type": "integer"
+        },
+        {
+          "name": "depth",
+          "in": "query",
+          "type": "integer"
+        },
+        {
+          "name": "include_metrics",
+          "in": "query",
+          "type": "boolean"
+        }
+      ],
+      "params": [
+        {
+          "description": "Reddit post id or t3_ id",
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "x-example": "1tka90t"
+        },
+        {
+          "default": "confidence",
+          "description": "Comment order: confidence, top, new, controversial, old, or qa. Applied to the anonymous HTML request when metrics are enabled.",
+          "enum": [
+            "confidence",
+            "top",
+            "new",
+            "controversial",
+            "old",
+            "qa"
+          ],
+          "in": "query",
+          "name": "sort",
+          "type": "string"
+        },
+        {
+          "description": "Maximum comments returned, defaults to 25 and clamps to 100",
+          "in": "query",
+          "name": "limit",
+          "type": "integer"
+        },
+        {
+          "default": 3,
+          "description": "Maximum flat comment depth returned in metrics mode.",
+          "in": "query",
+          "name": "depth",
+          "type": "integer"
+        },
+        {
+          "default": false,
+          "description": "Include public post and per-comment engagement metrics; costs 3 credits instead of 1",
+          "in": "query",
+          "name": "include_metrics",
+          "type": "boolean"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "reddit-domain-posts": {
+      "id": "reddit-domain-posts",
+      "method": "GET",
+      "path": "/reddit/domain/{domain}/posts",
+      "pathParams": [
+        "domain"
+      ],
+      "queryParams": [
+        {
+          "name": "sort",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "hot",
+            "new",
+            "top",
+            "rising"
+          ]
+        },
+        {
+          "name": "time",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "hour",
+            "day",
+            "week",
+            "month",
+            "year",
+            "all"
+          ]
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "type": "integer"
+        },
+        {
+          "name": "after",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "params": [
+        {
+          "description": "Domain hostname, without scheme or path",
+          "in": "path",
+          "name": "domain",
+          "required": true,
+          "type": "string",
+          "x-example": "openai.com"
+        },
+        {
+          "default": "hot",
+          "description": "Sort: hot, new, top, or rising",
+          "enum": [
+            "hot",
+            "new",
+            "top",
+            "rising"
+          ],
+          "in": "query",
+          "name": "sort",
+          "type": "string"
+        },
+        {
+          "description": "Time window for top sort: hour, day, week, month, year, or all",
+          "enum": [
+            "hour",
+            "day",
+            "week",
+            "month",
+            "year",
+            "all"
+          ],
+          "in": "query",
+          "name": "time",
+          "type": "string"
+        },
+        {
+          "description": "Maximum posts, defaults to 25 and clamps to 100",
+          "in": "query",
+          "name": "limit",
+          "type": "integer"
+        },
+        {
+          "description": "Reddit pagination token",
+          "in": "query",
+          "name": "after",
+          "type": "string"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "reddit-leads": {
+      "id": "reddit-leads",
+      "method": "GET",
+      "path": "/reddit/leads",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "q",
+          "in": "query",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "subreddit",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "sort",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "relevance",
+            "hot",
+            "new",
+            "top",
+            "comments"
+          ]
+        },
+        {
+          "name": "time",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "hour",
+            "day",
+            "week",
+            "month",
+            "year",
+            "all"
+          ]
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "type": "integer"
+        },
+        {
+          "name": "min_score",
+          "in": "query",
+          "type": "integer"
+        },
+        {
+          "name": "classifier",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "auto",
+            "heuristic",
+            "llm"
+          ]
+        }
+      ],
+      "params": [
+        {
+          "description": "What you offer, in plain language",
+          "in": "query",
+          "name": "q",
+          "required": true,
+          "type": "string",
+          "x-example": "crm for small teams"
+        },
+        {
+          "description": "Restrict the search to a subreddit name, without r/",
+          "in": "query",
+          "name": "subreddit",
+          "type": "string"
+        },
+        {
+          "default": "relevance",
+          "description": "Sort: relevance, hot, new, top, or comments",
+          "enum": [
+            "relevance",
+            "hot",
+            "new",
+            "top",
+            "comments"
+          ],
+          "in": "query",
+          "name": "sort",
+          "type": "string"
+        },
+        {
+          "default": "month",
+          "description": "Time window: hour, day, week, month, year, or all",
+          "enum": [
+            "hour",
+            "day",
+            "week",
+            "month",
+            "year",
+            "all"
+          ],
+          "in": "query",
+          "name": "time",
+          "type": "string"
+        },
+        {
+          "description": "Maximum leads returned, defaults to 25 and clamps to 100",
+          "in": "query",
+          "name": "limit",
+          "type": "integer"
+        },
+        {
+          "description": "Minimum buying-intent score to return, 0-10, defaults to 4",
+          "in": "query",
+          "name": "min_score",
+          "type": "integer"
+        },
+        {
+          "default": "auto",
+          "description": "Classifier: auto uses the model when configured, heuristic skips it, llm requires it",
+          "enum": [
+            "auto",
+            "heuristic",
+            "llm"
+          ],
+          "in": "query",
+          "name": "classifier",
+          "type": "string"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "reddit-post": {
+      "id": "reddit-post",
+      "method": "GET",
+      "path": "/reddit/post/{id}",
+      "pathParams": [
+        "id"
+      ],
+      "queryParams": [
+        {
+          "name": "include_metrics",
+          "in": "query",
+          "type": "boolean"
+        }
+      ],
+      "params": [
+        {
+          "description": "Reddit post id or t3_ id",
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "type": "string",
+          "x-example": "1v8hy3q"
+        },
+        {
+          "default": false,
+          "description": "Include public engagement metrics; costs 3 credits instead of 1",
+          "in": "query",
+          "name": "include_metrics",
+          "type": "boolean"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "reddit-search": {
+      "id": "reddit-search",
+      "method": "GET",
+      "path": "/reddit/search",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "q",
+          "in": "query",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "subreddit",
+          "in": "query",
+          "type": "string"
+        },
+        {
+          "name": "sort",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "relevance",
+            "hot",
+            "new",
+            "top",
+            "comments"
+          ]
+        },
+        {
+          "name": "time",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "hour",
+            "day",
+            "week",
+            "month",
+            "year",
+            "all"
+          ]
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "type": "integer"
+        },
+        {
+          "name": "after",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "params": [
+        {
+          "description": "Search keywords",
+          "in": "query",
+          "name": "q",
+          "required": true,
+          "type": "string",
+          "x-example": "gpt"
+        },
+        {
+          "description": "Restrict search to a subreddit name, without r/",
+          "in": "query",
+          "name": "subreddit",
+          "type": "string"
+        },
+        {
+          "default": "relevance",
+          "description": "Sort: relevance, hot, new, top, or comments",
+          "enum": [
+            "relevance",
+            "hot",
+            "new",
+            "top",
+            "comments"
+          ],
+          "in": "query",
+          "name": "sort",
+          "type": "string"
+        },
+        {
+          "description": "Time window for top/comments sorts: hour, day, week, month, year, or all",
+          "enum": [
+            "hour",
+            "day",
+            "week",
+            "month",
+            "year",
+            "all"
+          ],
+          "in": "query",
+          "name": "time",
+          "type": "string"
+        },
+        {
+          "description": "Maximum posts, defaults to 25 and clamps to 100",
+          "in": "query",
+          "name": "limit",
+          "type": "integer"
+        },
+        {
+          "description": "Reddit pagination token",
+          "in": "query",
+          "name": "after",
+          "type": "string"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "reddit-subreddit-about": {
+      "id": "reddit-subreddit-about",
+      "method": "GET",
+      "path": "/reddit/subreddit/{subreddit}/about",
+      "pathParams": [
+        "subreddit"
+      ],
+      "queryParams": [
+        {
+          "name": "limit",
+          "in": "query",
+          "type": "integer"
+        }
+      ],
+      "params": [
+        {
+          "description": "Subreddit name, without r/",
+          "in": "path",
+          "name": "subreddit",
+          "required": true,
+          "type": "string",
+          "x-example": "OpenAI"
+        },
+        {
+          "description": "Maximum sample posts inspected, defaults to 25 and clamps to 100",
+          "in": "query",
+          "name": "limit",
+          "type": "integer"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "reddit-subreddit-comments": {
+      "id": "reddit-subreddit-comments",
+      "method": "GET",
+      "path": "/reddit/subreddit/{subreddit}/comments",
+      "pathParams": [
+        "subreddit"
+      ],
+      "queryParams": [
+        {
+          "name": "limit",
+          "in": "query",
+          "type": "integer"
+        },
+        {
+          "name": "after",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "params": [
+        {
+          "description": "Subreddit name, without r/",
+          "in": "path",
+          "name": "subreddit",
+          "required": true,
+          "type": "string",
+          "x-example": "OpenAI"
+        },
+        {
+          "description": "Maximum comments, defaults to 25 and clamps to 100",
+          "in": "query",
+          "name": "limit",
+          "type": "integer"
+        },
+        {
+          "description": "Reddit pagination token",
+          "in": "query",
+          "name": "after",
+          "type": "string"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "reddit-subreddit-posts": {
+      "id": "reddit-subreddit-posts",
+      "method": "GET",
+      "path": "/reddit/subreddit/{subreddit}/posts",
+      "pathParams": [
+        "subreddit"
+      ],
+      "queryParams": [
+        {
+          "name": "sort",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "hot",
+            "new",
+            "top",
+            "rising"
+          ]
+        },
+        {
+          "name": "time",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "hour",
+            "day",
+            "week",
+            "month",
+            "year",
+            "all"
+          ]
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "type": "integer"
+        },
+        {
+          "name": "after",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "params": [
+        {
+          "description": "Subreddit name, without r/",
+          "in": "path",
+          "name": "subreddit",
+          "required": true,
+          "type": "string",
+          "x-example": "OpenAI"
+        },
+        {
+          "default": "hot",
+          "description": "Sort: hot, new, top, or rising",
+          "enum": [
+            "hot",
+            "new",
+            "top",
+            "rising"
+          ],
+          "in": "query",
+          "name": "sort",
+          "type": "string"
+        },
+        {
+          "description": "Time window for top sort: hour, day, week, month, year, or all",
+          "enum": [
+            "hour",
+            "day",
+            "week",
+            "month",
+            "year",
+            "all"
+          ],
+          "in": "query",
+          "name": "time",
+          "type": "string"
+        },
+        {
+          "description": "Maximum posts, defaults to 25 and clamps to 100",
+          "in": "query",
+          "name": "limit",
+          "type": "integer"
+        },
+        {
+          "description": "Reddit pagination token",
+          "in": "query",
+          "name": "after",
+          "type": "string"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "reddit-subreddits-posts": {
+      "id": "reddit-subreddits-posts",
+      "method": "GET",
+      "path": "/reddit/subreddits/posts",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "subreddits",
+          "in": "query",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "sort",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "hot",
+            "new",
+            "top",
+            "rising"
+          ]
+        },
+        {
+          "name": "time",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "hour",
+            "day",
+            "week",
+            "month",
+            "year",
+            "all"
+          ]
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "type": "integer"
+        },
+        {
+          "name": "after",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "params": [
+        {
+          "description": "Comma-separated subreddit names, without r/, maximum 10",
+          "in": "query",
+          "name": "subreddits",
+          "required": true,
+          "type": "string",
+          "x-example": "OpenAI,MachineLearning"
+        },
+        {
+          "default": "hot",
+          "description": "Sort: hot, new, top, or rising",
+          "enum": [
+            "hot",
+            "new",
+            "top",
+            "rising"
+          ],
+          "in": "query",
+          "name": "sort",
+          "type": "string"
+        },
+        {
+          "description": "Time window for top sort: hour, day, week, month, year, or all",
+          "enum": [
+            "hour",
+            "day",
+            "week",
+            "month",
+            "year",
+            "all"
+          ],
+          "in": "query",
+          "name": "time",
+          "type": "string"
+        },
+        {
+          "description": "Maximum posts, defaults to 25 and clamps to 100",
+          "in": "query",
+          "name": "limit",
+          "type": "integer"
+        },
+        {
+          "description": "Reddit pagination token",
+          "in": "query",
+          "name": "after",
+          "type": "string"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "reddit-trends": {
+      "id": "reddit-trends",
+      "method": "GET",
+      "path": "/reddit/trends",
+      "pathParams": [],
+      "queryParams": [
+        {
+          "name": "sort",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "hot",
+            "new",
+            "rising",
+            "top"
+          ]
+        },
+        {
+          "name": "time",
+          "in": "query",
+          "type": "string",
+          "enum": [
+            "hour",
+            "day",
+            "week",
+            "month",
+            "year",
+            "all"
+          ]
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "type": "integer"
+        },
+        {
+          "name": "after",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "params": [
+        {
+          "default": "hot",
+          "description": "Sort: hot, new, rising, or top",
+          "enum": [
+            "hot",
+            "new",
+            "rising",
+            "top"
+          ],
+          "in": "query",
+          "name": "sort",
+          "type": "string"
+        },
+        {
+          "description": "Time window for top sort: hour, day, week, month, year, or all",
+          "enum": [
+            "hour",
+            "day",
+            "week",
+            "month",
+            "year",
+            "all"
+          ],
+          "in": "query",
+          "name": "time",
+          "type": "string"
+        },
+        {
+          "description": "Maximum posts, defaults to 25 and clamps to 100",
+          "in": "query",
+          "name": "limit",
+          "type": "integer"
+        },
+        {
+          "description": "Reddit pagination token",
+          "in": "query",
+          "name": "after",
+          "type": "string"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "reddit-user-comments": {
+      "id": "reddit-user-comments",
+      "method": "GET",
+      "path": "/reddit/user/{username}/comments",
+      "pathParams": [
+        "username"
+      ],
+      "queryParams": [
+        {
+          "name": "limit",
+          "in": "query",
+          "type": "integer"
+        },
+        {
+          "name": "after",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "params": [
+        {
+          "description": "Public Reddit username, without u/",
+          "in": "path",
+          "name": "username",
+          "required": true,
+          "type": "string",
+          "x-example": "reddit"
+        },
+        {
+          "description": "Maximum comments, defaults to 25 and clamps to 100",
+          "in": "query",
+          "name": "limit",
+          "type": "integer"
+        },
+        {
+          "description": "Reddit pagination token",
+          "in": "query",
+          "name": "after",
+          "type": "string"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    },
+    "reddit-user-posts": {
+      "id": "reddit-user-posts",
+      "method": "GET",
+      "path": "/reddit/user/{username}/posts",
+      "pathParams": [
+        "username"
+      ],
+      "queryParams": [
+        {
+          "name": "limit",
+          "in": "query",
+          "type": "integer"
+        },
+        {
+          "name": "after",
+          "in": "query",
+          "type": "string"
+        }
+      ],
+      "params": [
+        {
+          "description": "Public Reddit username, without u/",
+          "in": "path",
+          "name": "username",
+          "required": true,
+          "type": "string",
+          "x-example": "reddit"
+        },
+        {
+          "description": "Maximum posts, defaults to 25 and clamps to 100",
+          "in": "query",
+          "name": "limit",
+          "type": "integer"
+        },
+        {
+          "description": "Reddit pagination token",
+          "in": "query",
+          "name": "after",
+          "type": "string"
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [
+        "ApiKeyAuth"
+      ]
+    }
+  }
+}

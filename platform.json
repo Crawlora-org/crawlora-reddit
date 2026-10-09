@@ -1,0 +1,23 @@
+{
+  "async_class_name": "AsyncRedditClient",
+  "class_name": "RedditClient",
+  "contract_revision": "sha256:441a9c4645a94738c644f66d38610950951f585a268d92be35900149133ce821",
+  "display_name": "Reddit",
+  "general_sdk_version": "1.46.0-sdk.1",
+  "golang_module_name": "github.com/Crawlora-org/crawlora-reddit",
+  "golang_version": "0.1.0",
+  "group_name": "reddit",
+  "java_description": "Java client for Crawlora's hosted Reddit API, with search, post and comment details, subreddit feeds, user history, domain listings, trends, and leads. Requires a Crawlora API key.",
+  "maven_artifact_id": "crawlora-reddit",
+  "maven_group_id": "net.crawlora",
+  "module_name": "crawlora_reddit",
+  "npm_name": "@crawlora-org/reddit",
+  "php_package_name": "crawlora/reddit",
+  "php_repository": "https://github.com/Crawlora-org/crawlora-reddit-php",
+  "platform": "reddit",
+  "python_name": "crawlora-reddit",
+  "repository": "https://github.com/Crawlora-org/crawlora-reddit",
+  "ruby_gem_name": "crawlora-reddit",
+  "source_contract_sha256": "6ce716c52b7f17a1ab0960cdaefaeb1b40b71c25ad41be55e80b8b0910624f9d",
+  "version": "0.1.0"
+}

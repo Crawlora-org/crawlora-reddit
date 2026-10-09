@@ -1,0 +1,1945 @@
+{
+  "basePath": "/api/v1",
+  "definitions": {
+    "app.Response": {
+      "description": "The Response struct is used for wrapping the API response with a code, message, and data.",
+      "properties": {
+        "code": {
+          "description": "Code is the HTTP status code or a custom code used to indicate the result of the request\n@example 200",
+          "type": "integer"
+        },
+        "data": {
+          "description": "Data is the response data (can be any object or null)\n@example {\"id\": 1, \"name\": \"John Doe\"}"
+        },
+        "msg": {
+          "description": "Msg is the message that describes the result of the request\n@example \"Request successful\""
+        }
+      },
+      "type": "object"
+    },
+    "reddit.Author": {
+      "properties": {
+        "name": {
+          "example": "reddit_user",
+          "type": "string"
+        },
+        "profile_url": {
+          "example": "https://www.reddit.com/user/reddit_user/",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.Comment": {
+      "properties": {
+        "author": {
+          "$ref": "#/definitions/reddit.Author"
+        },
+        "award_count": {
+          "type": "integer"
+        },
+        "body": {
+          "example": "I agree with this post.",
+          "type": "string"
+        },
+        "created": {
+          "example": "2024-04-19T00:00:00Z",
+          "type": "string"
+        },
+        "created_utc": {
+          "example": 1713484800,
+          "type": "integer"
+        },
+        "depth": {
+          "example": 1,
+          "type": "integer"
+        },
+        "id": {
+          "example": "kabc123",
+          "type": "string"
+        },
+        "name": {
+          "example": "t1_kabc123",
+          "type": "string"
+        },
+        "parent_id": {
+          "example": "t3_1abcxyz",
+          "type": "string"
+        },
+        "permalink": {
+          "example": "https://www.reddit.com/r/OpenAI/comments/1abcxyz/openai_discussion_thread/kabc123/",
+          "type": "string"
+        },
+        "replies": {
+          "items": {
+            "$ref": "#/definitions/reddit.Comment"
+          },
+          "type": "array"
+        },
+        "score": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.CommentsResponse": {
+      "properties": {
+        "comments": {
+          "items": {
+            "$ref": "#/definitions/reddit.Comment"
+          },
+          "type": "array"
+        },
+        "metrics_source": {
+          "$ref": "#/definitions/reddit.SourceDetail"
+        },
+        "post": {
+          "$ref": "#/definitions/reddit.Post"
+        },
+        "source": {
+          "$ref": "#/definitions/reddit.SourceDetail"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.DomainPostsResponse": {
+      "properties": {
+        "domain": {
+          "example": "openai.com",
+          "type": "string"
+        },
+        "pagination": {
+          "$ref": "#/definitions/reddit.Pagination"
+        },
+        "posts": {
+          "items": {
+            "$ref": "#/definitions/reddit.Post"
+          },
+          "type": "array"
+        },
+        "sort": {
+          "example": "hot",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/definitions/reddit.SourceDetail"
+        },
+        "time": {
+          "example": "week",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.MultiSubredditPostsResponse": {
+      "properties": {
+        "pagination": {
+          "$ref": "#/definitions/reddit.Pagination"
+        },
+        "posts": {
+          "items": {
+            "$ref": "#/definitions/reddit.Post"
+          },
+          "type": "array"
+        },
+        "sort": {
+          "example": "hot",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/definitions/reddit.SourceDetail"
+        },
+        "subreddits": {
+          "example": [
+            "OpenAI",
+            "MachineLearning"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "time": {
+          "example": "week",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.Pagination": {
+      "properties": {
+        "after": {
+          "example": "t3_1abcxyz",
+          "type": "string"
+        },
+        "limit": {
+          "example": 25,
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.Post": {
+      "properties": {
+        "author": {
+          "$ref": "#/definitions/reddit.Author"
+        },
+        "award_count": {
+          "type": "integer"
+        },
+        "comment_count": {
+          "type": "integer"
+        },
+        "created": {
+          "example": "2024-04-19T00:00:00Z",
+          "type": "string"
+        },
+        "created_utc": {
+          "example": 1713484800,
+          "type": "integer"
+        },
+        "domain": {
+          "example": "self.OpenAI",
+          "type": "string"
+        },
+        "estimated_downvotes": {
+          "type": "integer"
+        },
+        "estimated_upvotes": {
+          "type": "integer"
+        },
+        "flair": {
+          "example": "Discussion",
+          "type": "string"
+        },
+        "id": {
+          "example": "1abcxyz",
+          "type": "string"
+        },
+        "is_self": {
+          "type": "boolean"
+        },
+        "is_video": {
+          "type": "boolean"
+        },
+        "locked": {
+          "type": "boolean"
+        },
+        "name": {
+          "example": "t3_1abcxyz",
+          "type": "string"
+        },
+        "over_18": {
+          "type": "boolean"
+        },
+        "permalink": {
+          "example": "https://www.reddit.com/r/OpenAI/comments/1abcxyz/openai_discussion_thread/",
+          "type": "string"
+        },
+        "score": {
+          "type": "integer"
+        },
+        "selftext": {
+          "example": "Discussion body",
+          "type": "string"
+        },
+        "source_feed_url": {
+          "example": "https://www.reddit.com/r/OpenAI/.rss",
+          "type": "string"
+        },
+        "stickied": {
+          "type": "boolean"
+        },
+        "subreddit": {
+          "example": "OpenAI",
+          "type": "string"
+        },
+        "thumbnail": {
+          "example": "https://b.thumbs.redditmedia.com/example.jpg",
+          "type": "string"
+        },
+        "title": {
+          "example": "OpenAI discussion thread",
+          "type": "string"
+        },
+        "upvote_ratio": {
+          "type": "number"
+        },
+        "url": {
+          "example": "https://www.reddit.com/r/OpenAI/comments/1abcxyz/openai_discussion_thread/",
+          "type": "string"
+        },
+        "vote_counts_estimated": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.PostResponse": {
+      "properties": {
+        "metrics_source": {
+          "$ref": "#/definitions/reddit.SourceDetail"
+        },
+        "post": {
+          "$ref": "#/definitions/reddit.Post"
+        },
+        "source": {
+          "$ref": "#/definitions/reddit.SourceDetail"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.SearchResponse": {
+      "properties": {
+        "pagination": {
+          "$ref": "#/definitions/reddit.Pagination"
+        },
+        "posts": {
+          "items": {
+            "$ref": "#/definitions/reddit.Post"
+          },
+          "type": "array"
+        },
+        "query": {
+          "example": "openai",
+          "type": "string"
+        },
+        "sort": {
+          "example": "relevance",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/definitions/reddit.SourceDetail"
+        },
+        "subreddit": {
+          "example": "OpenAI",
+          "type": "string"
+        },
+        "time": {
+          "example": "week",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.SourceDetail": {
+      "properties": {
+        "type": {
+          "example": "rss",
+          "type": "string"
+        },
+        "url": {
+          "example": "https://www.reddit.com/r/OpenAI/.rss",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.SubredditAboutResponse": {
+      "properties": {
+        "display_name": {
+          "example": "r/OpenAI",
+          "type": "string"
+        },
+        "feed_url": {
+          "example": "https://www.reddit.com/r/OpenAI.rss?limit=10",
+          "type": "string"
+        },
+        "latest_post_created": {
+          "example": "2024-04-19T00:00:00Z",
+          "type": "string"
+        },
+        "latest_post_created_utc": {
+          "example": 1713484800,
+          "type": "integer"
+        },
+        "public_url": {
+          "example": "https://www.reddit.com/r/OpenAI/",
+          "type": "string"
+        },
+        "recent_post_count": {
+          "example": 10,
+          "type": "integer"
+        },
+        "sample_posts": {
+          "items": {
+            "$ref": "#/definitions/reddit.Post"
+          },
+          "type": "array"
+        },
+        "source": {
+          "$ref": "#/definitions/reddit.SourceDetail"
+        },
+        "subreddit": {
+          "example": "OpenAI",
+          "type": "string"
+        },
+        "title": {
+          "example": "OpenAI",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.SubredditCommentsResponse": {
+      "properties": {
+        "comments": {
+          "items": {
+            "$ref": "#/definitions/reddit.Comment"
+          },
+          "type": "array"
+        },
+        "pagination": {
+          "$ref": "#/definitions/reddit.Pagination"
+        },
+        "source": {
+          "$ref": "#/definitions/reddit.SourceDetail"
+        },
+        "subreddit": {
+          "example": "OpenAI",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.SubredditPostsResponse": {
+      "properties": {
+        "pagination": {
+          "$ref": "#/definitions/reddit.Pagination"
+        },
+        "posts": {
+          "items": {
+            "$ref": "#/definitions/reddit.Post"
+          },
+          "type": "array"
+        },
+        "sort": {
+          "example": "hot",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/definitions/reddit.SourceDetail"
+        },
+        "subreddit": {
+          "example": "OpenAI",
+          "type": "string"
+        },
+        "time": {
+          "example": "week",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.TrendsResponse": {
+      "properties": {
+        "pagination": {
+          "$ref": "#/definitions/reddit.Pagination"
+        },
+        "posts": {
+          "items": {
+            "$ref": "#/definitions/reddit.Post"
+          },
+          "type": "array"
+        },
+        "sort": {
+          "example": "hot",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/definitions/reddit.SourceDetail"
+        },
+        "time": {
+          "example": "day",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.UserCommentsResponse": {
+      "properties": {
+        "comments": {
+          "items": {
+            "$ref": "#/definitions/reddit.Comment"
+          },
+          "type": "array"
+        },
+        "pagination": {
+          "$ref": "#/definitions/reddit.Pagination"
+        },
+        "source": {
+          "$ref": "#/definitions/reddit.SourceDetail"
+        },
+        "username": {
+          "example": "reddit",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.UserPostsResponse": {
+      "properties": {
+        "pagination": {
+          "$ref": "#/definitions/reddit.Pagination"
+        },
+        "posts": {
+          "items": {
+            "$ref": "#/definitions/reddit.Post"
+          },
+          "type": "array"
+        },
+        "source": {
+          "$ref": "#/definitions/reddit.SourceDetail"
+        },
+        "username": {
+          "example": "reddit",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.commentsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.CommentsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.domainPostsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.DomainPostsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.leadsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/redditleads.Response"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.multiSubredditPostsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.MultiSubredditPostsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.postResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.PostResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.searchResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.SearchResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.subredditAboutResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.SubredditAboutResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.subredditCommentsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.SubredditCommentsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.subredditPostsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.SubredditPostsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.trendsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.TrendsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.userCommentsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.UserCommentsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.userPostsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.UserPostsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "redditleads.Lead": {
+      "properties": {
+        "author": {
+          "example": "someuser",
+          "type": "string"
+        },
+        "comment_count": {
+          "example": 12,
+          "type": "integer"
+        },
+        "created": {
+          "example": "2026-08-01T00:00:00Z",
+          "type": "string"
+        },
+        "permalink": {
+          "example": "https://www.reddit.com/r/smallbusiness/comments/1abcxyz/",
+          "type": "string"
+        },
+        "post_score": {
+          "example": 20,
+          "type": "integer"
+        },
+        "reason": {
+          "example": "Asking for a CRM and states a monthly budget.",
+          "type": "string"
+        },
+        "score": {
+          "example": 9,
+          "type": "integer"
+        },
+        "signals": {
+          "items": {
+            "$ref": "#/definitions/redditleads.Signal"
+          },
+          "type": "array"
+        },
+        "subreddit": {
+          "example": "smallbusiness",
+          "type": "string"
+        },
+        "title": {
+          "example": "Looking for a CRM for a 3-person team, budget ~$50/mo",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "redditleads.Response": {
+      "properties": {
+        "classifier": {
+          "example": "llm",
+          "type": "string"
+        },
+        "degraded": {
+          "example": false,
+          "type": "boolean"
+        },
+        "leads": {
+          "items": {
+            "$ref": "#/definitions/redditleads.Lead"
+          },
+          "type": "array"
+        },
+        "min_score": {
+          "example": 4,
+          "type": "integer"
+        },
+        "model": {
+          "example": "gpt-5.4",
+          "type": "string"
+        },
+        "query": {
+          "example": "crm for small teams",
+          "type": "string"
+        },
+        "stats": {
+          "$ref": "#/definitions/redditleads.Stats"
+        },
+        "subreddit": {
+          "example": "smallbusiness",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "redditleads.Signal": {
+      "properties": {
+        "id": {
+          "example": "explicit-ask",
+          "type": "string"
+        },
+        "label": {
+          "example": "asking for a tool",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "redditleads.Stats": {
+      "properties": {
+        "classified": {
+          "example": 12,
+          "type": "integer"
+        },
+        "prefiltered": {
+          "example": 88,
+          "type": "integer"
+        },
+        "returned": {
+          "example": 9,
+          "type": "integer"
+        },
+        "scanned": {
+          "example": 100,
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "host": "api.crawlora.net",
+  "info": {
+    "contact": {
+      "email": "support@crawlora.net",
+      "name": "API Support",
+      "url": "https://crawlora.net"
+    },
+    "description": "Crawlora is a hosted web-data and SERP API: call documented REST endpoints and get normalized JSON instead of HTML to parse — across search/SERP, maps and local, e-commerce, app stores, social, media and finance. One API key; Crawlora runs the proxy rotation, headless browsers and parsing behind the scenes. Billed pay-on-success: charged only on a successful 2xx response, 1-10 credits per call, with a free tier of 2,000 credits per month and no card. A hosted MCP server (mcp.crawlora.net/mcp) exposes the same catalog as agent tools. Search endpoints accept `q` as a universal alias for whichever search-term parameter they document (`query`, `term`, `keyword`, or Amazon's `k`), so one parameter name works across the whole catalog; an explicitly supplied documented name always wins.",
+    "license": {
+      "name": "Crawlora Terms of Service",
+      "url": "https://crawlora.net/terms"
+    },
+    "termsOfService": "https://crawlora.net/terms",
+    "title": "Crawlora API",
+    "version": "1.2",
+    "x-logo": {
+      "altText": "Crawlora",
+      "backgroundColor": "#FFFFFF",
+      "url": "https://raw.githubusercontent.com/Crawlora-org/crawlora-mcp/main/assets/logo-400x400.png"
+    }
+  },
+  "paths": {
+    "/reddit/comments/{id}": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns a Reddit post with its public comments. The default 1-credit mode uses RSS. Set `include_metrics=true` to use the anonymous HTML post page as the sole content request and return the server-rendered comments with public net score and award count plus post engagement metrics for 3 credits. Large threads may expose only an initial comment subset in anonymous HTML. Reddit does not expose per-comment upvote ratios or exact upvote/downvote totals anonymously. A post that exists but has no comments yet returns a 200 response with an empty comments list; a post that does not exist returns 404, and a temporary block or upstream failure returns 503 (retryable) rather than 404. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "operationId": "reddit-comments",
+        "parameters": [
+          {
+            "description": "Reddit post id or t3_ id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "x-example": "1tka90t"
+          },
+          {
+            "default": "confidence",
+            "description": "Comment order: confidence, top, new, controversial, old, or qa. Applied to the anonymous HTML request when metrics are enabled.",
+            "enum": [
+              "confidence",
+              "top",
+              "new",
+              "controversial",
+              "old",
+              "qa"
+            ],
+            "in": "query",
+            "name": "sort",
+            "type": "string"
+          },
+          {
+            "description": "Maximum comments returned, defaults to 25 and clamps to 100",
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "default": 3,
+            "description": "Maximum flat comment depth returned in metrics mode.",
+            "in": "query",
+            "name": "depth",
+            "type": "integer"
+          },
+          {
+            "default": false,
+            "description": "Include public post and per-comment engagement metrics; costs 3 credits instead of 1",
+            "in": "query",
+            "name": "include_metrics",
+            "type": "boolean"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.commentsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get Reddit post comments",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/domain/{domain}/posts": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns normalized public posts submitted from a linked domain. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "operationId": "reddit-domain-posts",
+        "parameters": [
+          {
+            "description": "Domain hostname, without scheme or path",
+            "in": "path",
+            "name": "domain",
+            "required": true,
+            "type": "string",
+            "x-example": "openai.com"
+          },
+          {
+            "default": "hot",
+            "description": "Sort: hot, new, top, or rising",
+            "enum": [
+              "hot",
+              "new",
+              "top",
+              "rising"
+            ],
+            "in": "query",
+            "name": "sort",
+            "type": "string"
+          },
+          {
+            "description": "Time window for top sort: hour, day, week, month, year, or all",
+            "enum": [
+              "hour",
+              "day",
+              "week",
+              "month",
+              "year",
+              "all"
+            ],
+            "in": "query",
+            "name": "time",
+            "type": "string"
+          },
+          {
+            "description": "Maximum posts, defaults to 25 and clamps to 100",
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "description": "Reddit pagination token",
+            "in": "query",
+            "name": "after",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.domainPostsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List Reddit domain posts",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/leads": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Scans a Reddit search page for people actively asking for a product or service, scores each post 0-10 for buying intent, and returns them ranked highest-first with the signals that fired. Self-promotion, hiring posts, freelancer service adverts, revenue-milestone posts, duplicate reposts, and Title Case article headlines are filtered out before scoring. A deterministic prefilter always runs; when `classifier` resolves to `llm` the surviving candidates are additionally refined in one batched model call. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. Native Reddit search failures can use the internal Redlib provider while the existing lead-response fields and credit weights are preserved.",
+        "operationId": "reddit-leads",
+        "parameters": [
+          {
+            "description": "What you offer, in plain language",
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "type": "string",
+            "x-example": "crm for small teams"
+          },
+          {
+            "description": "Restrict the search to a subreddit name, without r/",
+            "in": "query",
+            "name": "subreddit",
+            "type": "string"
+          },
+          {
+            "default": "relevance",
+            "description": "Sort: relevance, hot, new, top, or comments",
+            "enum": [
+              "relevance",
+              "hot",
+              "new",
+              "top",
+              "comments"
+            ],
+            "in": "query",
+            "name": "sort",
+            "type": "string"
+          },
+          {
+            "default": "month",
+            "description": "Time window: hour, day, week, month, year, or all",
+            "enum": [
+              "hour",
+              "day",
+              "week",
+              "month",
+              "year",
+              "all"
+            ],
+            "in": "query",
+            "name": "time",
+            "type": "string"
+          },
+          {
+            "description": "Maximum leads returned, defaults to 25 and clamps to 100",
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "description": "Minimum buying-intent score to return, 0-10, defaults to 4",
+            "in": "query",
+            "name": "min_score",
+            "type": "integer"
+          },
+          {
+            "default": "auto",
+            "description": "Classifier: auto uses the model when configured, heuristic skips it, llm requires it",
+            "enum": [
+              "auto",
+              "heuristic",
+              "llm"
+            ],
+            "in": "query",
+            "name": "classifier",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.leadsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Find Reddit buying-intent leads",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/post/{id}": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns a normalized public Reddit post. The default 1-credit mode uses RSS. Set `include_metrics=true` to use the anonymous HTML post page as the sole content request and return public net score, upvote ratio, comment count, award count, and estimated upvote/downvote totals for 3 credits. Reddit fuzzes voting data, so estimates are approximate; share, repost/crosspost, and view counts are not exposed anonymously. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "operationId": "reddit-post",
+        "parameters": [
+          {
+            "description": "Reddit post id or t3_ id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "x-example": "1v8hy3q"
+          },
+          {
+            "default": false,
+            "description": "Include public engagement metrics; costs 3 credits instead of 1",
+            "in": "query",
+            "name": "include_metrics",
+            "type": "boolean"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.postResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get Reddit post",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/search": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Searches public Reddit content and returns normalized public post entries. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "operationId": "reddit-search",
+        "parameters": [
+          {
+            "description": "Search keywords",
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "type": "string",
+            "x-example": "gpt"
+          },
+          {
+            "description": "Restrict search to a subreddit name, without r/",
+            "in": "query",
+            "name": "subreddit",
+            "type": "string"
+          },
+          {
+            "default": "relevance",
+            "description": "Sort: relevance, hot, new, top, or comments",
+            "enum": [
+              "relevance",
+              "hot",
+              "new",
+              "top",
+              "comments"
+            ],
+            "in": "query",
+            "name": "sort",
+            "type": "string"
+          },
+          {
+            "description": "Time window for top/comments sorts: hour, day, week, month, year, or all",
+            "enum": [
+              "hour",
+              "day",
+              "week",
+              "month",
+              "year",
+              "all"
+            ],
+            "in": "query",
+            "name": "time",
+            "type": "string"
+          },
+          {
+            "description": "Maximum posts, defaults to 25 and clamps to 100",
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "description": "Reddit pagination token",
+            "in": "query",
+            "name": "after",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.searchResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Search Reddit posts",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/subreddit/{subreddit}/about": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns public metadata and sample posts for a subreddit. Subscriber counts, icons, and banners are omitted because they are not available on anonymous Reddit pages. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "operationId": "reddit-subreddit-about",
+        "parameters": [
+          {
+            "description": "Subreddit name, without r/",
+            "in": "path",
+            "name": "subreddit",
+            "required": true,
+            "type": "string",
+            "x-example": "OpenAI"
+          },
+          {
+            "description": "Maximum sample posts inspected, defaults to 25 and clamps to 100",
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.subredditAboutResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get Reddit subreddit metadata",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/subreddit/{subreddit}/comments": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns flat public comment entries from a subreddit latest-comments feed. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "operationId": "reddit-subreddit-comments",
+        "parameters": [
+          {
+            "description": "Subreddit name, without r/",
+            "in": "path",
+            "name": "subreddit",
+            "required": true,
+            "type": "string",
+            "x-example": "OpenAI"
+          },
+          {
+            "description": "Maximum comments, defaults to 25 and clamps to 100",
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "description": "Reddit pagination token",
+            "in": "query",
+            "name": "after",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.subredditCommentsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List Reddit subreddit comments",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/subreddit/{subreddit}/posts": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns normalized public posts from a subreddit. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "operationId": "reddit-subreddit-posts",
+        "parameters": [
+          {
+            "description": "Subreddit name, without r/",
+            "in": "path",
+            "name": "subreddit",
+            "required": true,
+            "type": "string",
+            "x-example": "OpenAI"
+          },
+          {
+            "default": "hot",
+            "description": "Sort: hot, new, top, or rising",
+            "enum": [
+              "hot",
+              "new",
+              "top",
+              "rising"
+            ],
+            "in": "query",
+            "name": "sort",
+            "type": "string"
+          },
+          {
+            "description": "Time window for top sort: hour, day, week, month, year, or all",
+            "enum": [
+              "hour",
+              "day",
+              "week",
+              "month",
+              "year",
+              "all"
+            ],
+            "in": "query",
+            "name": "time",
+            "type": "string"
+          },
+          {
+            "description": "Maximum posts, defaults to 25 and clamps to 100",
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "description": "Reddit pagination token",
+            "in": "query",
+            "name": "after",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.subredditPostsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List Reddit subreddit posts",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/subreddits/posts": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns normalized public posts from a combined multi-subreddit feed. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "operationId": "reddit-subreddits-posts",
+        "parameters": [
+          {
+            "description": "Comma-separated subreddit names, without r/, maximum 10",
+            "in": "query",
+            "name": "subreddits",
+            "required": true,
+            "type": "string",
+            "x-example": "OpenAI,MachineLearning"
+          },
+          {
+            "default": "hot",
+            "description": "Sort: hot, new, top, or rising",
+            "enum": [
+              "hot",
+              "new",
+              "top",
+              "rising"
+            ],
+            "in": "query",
+            "name": "sort",
+            "type": "string"
+          },
+          {
+            "description": "Time window for top sort: hour, day, week, month, year, or all",
+            "enum": [
+              "hour",
+              "day",
+              "week",
+              "month",
+              "year",
+              "all"
+            ],
+            "in": "query",
+            "name": "time",
+            "type": "string"
+          },
+          {
+            "description": "Maximum posts, defaults to 25 and clamps to 100",
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "description": "Reddit pagination token",
+            "in": "query",
+            "name": "after",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.multiSubredditPostsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List Reddit multi-subreddit posts",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/trends": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns normalized public posts from broad Reddit hot, new, rising, or top feeds. For subreddit-specific trends, use `/reddit/subreddit/{subreddit}/posts` with `sort=hot`, `sort=new`, `sort=rising`, or `sort=top`. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "operationId": "reddit-trends",
+        "parameters": [
+          {
+            "default": "hot",
+            "description": "Sort: hot, new, rising, or top",
+            "enum": [
+              "hot",
+              "new",
+              "rising",
+              "top"
+            ],
+            "in": "query",
+            "name": "sort",
+            "type": "string"
+          },
+          {
+            "description": "Time window for top sort: hour, day, week, month, year, or all",
+            "enum": [
+              "hour",
+              "day",
+              "week",
+              "month",
+              "year",
+              "all"
+            ],
+            "in": "query",
+            "name": "time",
+            "type": "string"
+          },
+          {
+            "description": "Maximum posts, defaults to 25 and clamps to 100",
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "description": "Reddit pagination token",
+            "in": "query",
+            "name": "after",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.trendsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List Reddit trends",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/user/{username}/comments": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns flat public comment entries from a public Reddit user's comments feed. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "operationId": "reddit-user-comments",
+        "parameters": [
+          {
+            "description": "Public Reddit username, without u/",
+            "in": "path",
+            "name": "username",
+            "required": true,
+            "type": "string",
+            "x-example": "reddit"
+          },
+          {
+            "description": "Maximum comments, defaults to 25 and clamps to 100",
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "description": "Reddit pagination token",
+            "in": "query",
+            "name": "after",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.userCommentsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List Reddit user comments",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/user/{username}/posts": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns normalized public posts from a public Reddit user's submitted feed. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "operationId": "reddit-user-posts",
+        "parameters": [
+          {
+            "description": "Public Reddit username, without u/",
+            "in": "path",
+            "name": "username",
+            "required": true,
+            "type": "string",
+            "x-example": "reddit"
+          },
+          {
+            "description": "Maximum posts, defaults to 25 and clamps to 100",
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "description": "Reddit pagination token",
+            "in": "query",
+            "name": "after",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.userPostsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List Reddit user posts",
+        "tags": [
+          "reddit"
+        ]
+      }
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "ApiKeyAuth": {
+      "in": "header",
+      "name": "x-api-key",
+      "type": "apiKey"
+    }
+  },
+  "swagger": "2.0",
+  "tags": [
+    {
+      "name": "reddit"
+    }
+  ]
+}
