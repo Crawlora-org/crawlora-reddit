@@ -67,6 +67,8 @@
           "type": "boolean"
         }
       ],
+      "bodyParam": null,
+      "bodyRequired": false,
       "params": [
         {
           "description": "Reddit post id or t3_ id",
@@ -162,6 +164,8 @@
           "type": "string"
         }
       ],
+      "bodyParam": null,
+      "bodyRequired": false,
       "params": [
         {
           "description": "Domain hostname, without scheme or path",
@@ -281,6 +285,8 @@
           ]
         }
       ],
+      "bodyParam": null,
+      "bodyRequired": false,
       "params": [
         {
           "description": "What you offer, in plain language",
@@ -371,6 +377,8 @@
           "type": "boolean"
         }
       ],
+      "bodyParam": null,
+      "bodyRequired": false,
       "params": [
         {
           "description": "Reddit post id or t3_ id",
@@ -448,6 +456,8 @@
           "type": "string"
         }
       ],
+      "bodyParam": null,
+      "bodyRequired": false,
       "params": [
         {
           "description": "Search keywords",
@@ -525,6 +535,8 @@
           "type": "integer"
         }
       ],
+      "bodyParam": null,
+      "bodyRequired": false,
       "params": [
         {
           "description": "Subreddit name, without r/",
@@ -567,6 +579,8 @@
           "type": "string"
         }
       ],
+      "bodyParam": null,
+      "bodyRequired": false,
       "params": [
         {
           "description": "Subreddit name, without r/",
@@ -639,6 +653,8 @@
           "type": "string"
         }
       ],
+      "bodyParam": null,
+      "bodyRequired": false,
       "params": [
         {
           "description": "Subreddit name, without r/",
@@ -742,6 +758,8 @@
           "type": "string"
         }
       ],
+      "bodyParam": null,
+      "bodyRequired": false,
       "params": [
         {
           "description": "Comma-separated subreddit names, without r/, maximum 10",
@@ -839,6 +857,8 @@
           "type": "string"
         }
       ],
+      "bodyParam": null,
+      "bodyRequired": false,
       "params": [
         {
           "default": "hot",
@@ -906,6 +926,8 @@
           "type": "string"
         }
       ],
+      "bodyParam": null,
+      "bodyRequired": false,
       "params": [
         {
           "description": "Public Reddit username, without u/",
@@ -954,6 +976,8 @@
           "type": "string"
         }
       ],
+      "bodyParam": null,
+      "bodyRequired": false,
       "params": [
         {
           "description": "Public Reddit username, without u/",

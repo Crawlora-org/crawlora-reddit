@@ -1,6 +1,24 @@
 {
   "name": "crawlora/reddit",
-  "description": "Reddit client for the Crawlora hosted API",
+  "description": "Crawlora Reddit API client with 12 endpoints for search, post and comment details, subreddit feeds, user history, domain listings, trends, and leads",
+  "keywords": [
+    "crawlora",
+    "api-client",
+    "sdk",
+    "web-scraping",
+    "scraping-api",
+    "reddit",
+    "reddit-api",
+    "reddit-scraper",
+    "reddit-data",
+    "reddit-search",
+    "reddit-post-comment-details",
+    "reddit-subreddit-feeds",
+    "reddit-user-history",
+    "reddit-domain-listings",
+    "reddit-trends",
+    "reddit-leads"
+  ],
   "type": "library",
   "license": "MIT",
   "require": {

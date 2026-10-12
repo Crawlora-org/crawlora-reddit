@@ -9,7 +9,7 @@ import {
 
 export class RedditClient extends CrawloraClient {
   constructor(options = {}) {
-    super({ ...options, userAgent: options.userAgent ?? "crawlora-reddit-js/0.1.1" });
+    super({ ...options, userAgent: options.userAgent ?? "crawlora-reddit-js/0.1.2" });
     this["comments"] = (...args) => this.request("reddit-comments", ...args);
     this["domainPosts"] = (...args) => this.request("reddit-domain-posts", ...args);
     this["leads"] = (...args) => this.request("reddit-leads", ...args);
@@ -34,5 +34,5 @@ export {
   CrawloraServerError
 };
 export { groups, operations, operationCount, OperationIds } from "./operations.js";
-export const VERSION = "0.1.1";
+export const VERSION = "0.1.2";
 export default RedditClient;
