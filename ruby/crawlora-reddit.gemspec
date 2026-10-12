@@ -3,8 +3,8 @@ require_relative "lib/crawlora/reddit/version"
 Gem::Specification.new do |spec|
   spec.name = "crawlora-reddit"
   spec.version = Crawlora::Reddit::VERSION
-  spec.summary = "Reddit client for the Crawlora hosted API"
-  spec.description = "Credential-free Reddit API access through Crawlora's hosted service."
+  spec.summary = "Reddit API client for Crawlora (12 endpoints)"
+  spec.description = "Ruby client for Crawlora's hosted Reddit API. Covers search, post and comment details, subreddit feeds, user history, domain listings, trends, and leads across 12 endpoints."
   spec.authors = ["Crawlora"]
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6"

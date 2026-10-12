@@ -5,7 +5,7 @@
   "display_name": "Reddit",
   "general_sdk_version": "1.46.0-sdk.1",
   "golang_module_name": "github.com/Crawlora-org/crawlora-reddit",
-  "golang_version": "0.1.1",
+  "golang_version": "0.1.2",
   "group_name": "reddit",
   "java_description": "Java client for Crawlora's hosted Reddit API, with search, post and comment details, subreddit feeds, user history, domain listings, trends, and leads. Requires a Crawlora API key.",
   "maven_artifact_id": "crawlora-reddit",
@@ -30,6 +30,14 @@
   "platform": "reddit",
   "python_name": "crawlora-reddit",
   "releases": [
+    {
+      "version": "0.1.2",
+      "date": "2026-10-12",
+      "changes": [
+        "List every supported endpoint in the repository and package READMEs.",
+        "Add platform-specific search keywords to the npm, PyPI, and Composer package metadata."
+      ]
+    },
     {
       "changes": [
         "Align all generated client packages with release version 0.1.1."
@@ -62,5 +70,5 @@
   },
   "ruby_gem_name": "crawlora-reddit",
   "source_contract_sha256": "6ce716c52b7f17a1ab0960cdaefaeb1b40b71c25ad41be55e80b8b0910624f9d",
-  "version": "0.1.1"
+  "version": "0.1.2"
 }

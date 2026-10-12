@@ -1,10 +1,10 @@
 {
   "name": "@crawlora-org/reddit",
-  "version": "0.1.1",
-  "description": "Typed JavaScript client for the Crawlora Reddit API",
+  "version": "0.1.2",
+  "description": "Crawlora Reddit API client with 12 endpoints for search, post and comment details, subreddit feeds, user history, domain listings, trends, and leads",
   "homepage": "https://crawlora.net/?utm_source=npm&utm_medium=referral&utm_campaign=platform-clients&utm_content=reddit-javascript-homepage",
   "bugs": { "url": "https://github.com/Crawlora-org/crawlora-reddit/issues" },
-  "keywords": ["crawlora", "api-client", "web-scraping", "reddit", "typescript"],
+  "keywords": ["crawlora", "api-client", "sdk", "web-scraping", "scraping-api", "reddit", "reddit-api", "reddit-scraper", "reddit-data", "reddit-search", "reddit-post-comment-details", "reddit-subreddit-feeds", "reddit-user-history", "reddit-domain-listings", "reddit-trends", "reddit-leads"],
   "type": "module",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",

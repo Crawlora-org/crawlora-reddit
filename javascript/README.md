@@ -1,7 +1,7 @@
-# @crawlora-org/reddit
+# @crawlora-org/reddit — Reddit API client for JavaScript and TypeScript
 
 JavaScript and TypeScript client for Crawlora's hosted Reddit API.
-It calls [Crawlora](https://crawlora.net/?utm_source=npm&utm_medium=referral&utm_campaign=platform-clients&utm_content=reddit-javascript-homepage); it does not run a browser or scrape Reddit locally. A Crawlora account and `CRAWLORA_API_KEY` are required, and API use is billed under your Crawlora account. Crawlora is independent from and not endorsed by Reddit or its owners.
+It exposes 12 API endpoints for search, post and comment details, subreddit feeds, user history, domain listings, trends, and leads through [Crawlora](https://crawlora.net/?utm_source=npm&utm_medium=referral&utm_campaign=platform-clients&utm_content=reddit-javascript-homepage). It does not run a browser or scrape Reddit locally. A Crawlora account and `CRAWLORA_API_KEY` are required, and API use is billed under your Crawlora account. Crawlora is independent from and not endorsed by Reddit or its owners.
 
 ## Install
 
@@ -40,6 +40,24 @@ group. See the full method and parameter list in the [online reference](https://
 
 Methods return promises and can be awaited. See the [runnable example](https://github.com/Crawlora-org/crawlora-reddit/blob/main/examples/javascript.mjs) for a complete usage example.
 
+## Supported Reddit API endpoints
+
+This package exposes each route below as a direct method and through the `reddit` group. See the [endpoint and parameter reference](https://github.com/Crawlora-org/crawlora-reddit/blob/main/docs/usage.md) for complete input details.
+
+| Method | Endpoint | API operation | Description |
+| --- | --- | --- | --- |
+| `GET` | `/reddit/comments/{id}` | `reddit-comments` | Get Reddit post comments |
+| `GET` | `/reddit/domain/{domain}/posts` | `reddit-domain-posts` | List Reddit domain posts |
+| `GET` | `/reddit/leads` | `reddit-leads` | Find Reddit buying-intent leads |
+| `GET` | `/reddit/post/{id}` | `reddit-post` | Get Reddit post |
+| `GET` | `/reddit/search` | `reddit-search` | Search Reddit posts |
+| `GET` | `/reddit/subreddit/{subreddit}/about` | `reddit-subreddit-about` | Get Reddit subreddit metadata |
+| `GET` | `/reddit/subreddit/{subreddit}/comments` | `reddit-subreddit-comments` | List Reddit subreddit comments |
+| `GET` | `/reddit/subreddit/{subreddit}/posts` | `reddit-subreddit-posts` | List Reddit subreddit posts |
+| `GET` | `/reddit/subreddits/posts` | `reddit-subreddits-posts` | List Reddit multi-subreddit posts |
+| `GET` | `/reddit/trends` | `reddit-trends` | List Reddit trends |
+| `GET` | `/reddit/user/{username}/comments` | `reddit-user-comments` | List Reddit user comments |
+| `GET` | `/reddit/user/{username}/posts` | `reddit-user-posts` | List Reddit user posts |
 
 ## Configuration
 
