@@ -1,6 +1,6 @@
 {
   "name": "@crawlora-org/reddit",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Crawlora Reddit API client with 12 endpoints for search, post and comment details, subreddit feeds, user history, domain listings, trends, and leads",
   "homepage": "https://crawlora.net/?utm_source=npm&utm_medium=referral&utm_campaign=platform-clients&utm_content=reddit-javascript-homepage",
   "bugs": { "url": "https://github.com/Crawlora-org/crawlora-reddit/issues" },

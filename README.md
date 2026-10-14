@@ -8,7 +8,7 @@ Official Crawlora client packages for the hosted Reddit API. Access 12 API endpo
 - Python: [`crawlora-reddit`](python/README.md)
 - Go: [`github.com/Crawlora-org/crawlora-reddit`](go.mod)
 - Ruby: [`crawlora-reddit`](ruby/README.md)
-- Java: [`net.crawlora:crawlora-reddit:0.1.2`](java/README.md)
+- Java: [`net.crawlora:crawlora-reddit:0.2.0`](java/README.md)
 - PHP: [`crawlora/reddit`](php/README.md)
 
 For installation and runnable examples, use the README for your language. See the [API endpoint and parameter reference](docs/usage.md) for shared operation details.

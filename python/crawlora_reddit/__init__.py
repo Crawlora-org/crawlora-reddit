@@ -6,10 +6,10 @@ from .operations import OPERATION_COUNT, OPERATION_IDS, PLATFORM
 
 Client = RedditClient
 AsyncClient = AsyncRedditClient
-__version__ = '0.1.2'
+__version__ = '0.2.0'
 DISPLAY_NAME = 'Reddit'
 PLATFORM = 'reddit'
-CONTRACT_REVISION = 'sha256:441a9c4645a94738c644f66d38610950951f585a268d92be35900149133ce821'
+CONTRACT_REVISION = 'sha256:11f2ddb0c3c61724bf46ac537a74910bf241c72ada328691f88369a8aac9e4e1'
 
 __all__ = [
     "RedditClient", "AsyncRedditClient", "Client", "AsyncClient",

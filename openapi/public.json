@@ -20,10 +20,12 @@
     "reddit.Author": {
       "properties": {
         "name": {
+          "description": "Reddit username of the author.",
           "example": "reddit_user",
           "type": "string"
         },
         "profile_url": {
+          "description": "URL of the author's Reddit profile page.",
           "example": "https://www.reddit.com/user/reddit_user/",
           "type": "string"
         }
@@ -33,50 +35,66 @@
     "reddit.Comment": {
       "properties": {
         "author": {
-          "$ref": "#/definitions/reddit.Author"
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.Author"
+            }
+          ],
+          "description": "Reddit user who wrote the comment."
         },
         "award_count": {
+          "description": "Number of awards the comment received. Set only when metrics are requested.",
           "type": "integer"
         },
         "body": {
+          "description": "Text of the comment as written by the author.",
           "example": "I agree with this post.",
           "type": "string"
         },
         "created": {
+          "description": "Time the comment was posted, in UTC (RFC 3339).",
           "example": "2024-04-19T00:00:00Z",
           "type": "string"
         },
         "created_utc": {
+          "description": "Time the comment was posted, in Unix seconds.",
           "example": 1713484800,
           "type": "integer"
         },
         "depth": {
+          "description": "Nesting level of the comment in the thread.",
           "example": 1,
           "type": "integer"
         },
         "id": {
+          "description": "Reddit comment id.",
           "example": "kabc123",
           "type": "string"
         },
         "name": {
+          "description": "Reddit full name of the comment, the id prefixed with `t1_`.",
           "example": "t1_kabc123",
           "type": "string"
         },
         "parent_id": {
+          "description": "Full name of the post or comment this comment replies to, for example `t3_1abcxyz`.",
           "example": "t3_1abcxyz",
           "type": "string"
         },
         "permalink": {
+          "description": "Reddit URL of the comment.",
           "example": "https://www.reddit.com/r/OpenAI/comments/1abcxyz/openai_discussion_thread/kabc123/",
           "type": "string"
         },
         "replies": {
+          "description": "Replies to this comment, in the same shape.",
           "items": {
             "$ref": "#/definitions/reddit.Comment"
           },
           "type": "array"
         },
         "score": {
+          "description": "Net score of the comment. Set only when metrics are requested.",
           "type": "integer"
         }
       },
@@ -85,19 +103,35 @@
     "reddit.CommentsResponse": {
       "properties": {
         "comments": {
+          "description": "Comments on the post.",
           "items": {
             "$ref": "#/definitions/reddit.Comment"
           },
           "type": "array"
         },
         "metrics_source": {
-          "$ref": "#/definitions/reddit.SourceDetail"
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Source the engagement metrics were read from, with its type and URL. Set only when metrics are requested."
         },
         "post": {
-          "$ref": "#/definitions/reddit.Post"
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.Post"
+            }
+          ],
+          "description": "Post the comments belong to."
         },
         "source": {
-          "$ref": "#/definitions/reddit.SourceDetail"
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the comments were read from."
         }
       },
       "type": "object"
@@ -134,22 +168,35 @@
     "reddit.MultiSubredditPostsResponse": {
       "properties": {
         "pagination": {
-          "$ref": "#/definitions/reddit.Pagination"
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.Pagination"
+            }
+          ],
+          "description": "Page size and cursor for the next page."
         },
         "posts": {
+          "description": "Posts from the requested subreddits.",
           "items": {
             "$ref": "#/definitions/reddit.Post"
           },
           "type": "array"
         },
         "sort": {
+          "description": "Sort order that was applied, for example `hot`.",
           "example": "hot",
           "type": "string"
         },
         "source": {
-          "$ref": "#/definitions/reddit.SourceDetail"
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the posts were read from."
         },
         "subreddits": {
+          "description": "Names of the subreddits that were queried.",
           "example": [
             "OpenAI",
             "MachineLearning"
@@ -160,6 +207,7 @@
           "type": "array"
         },
         "time": {
+          "description": "Time window that was applied, for example `week`.",
           "example": "week",
           "type": "string"
         }
@@ -169,10 +217,12 @@
     "reddit.Pagination": {
       "properties": {
         "after": {
+          "description": "Cursor to pass as the `after` parameter to fetch the next page.",
           "example": "t3_1abcxyz",
           "type": "string"
         },
         "limit": {
+          "description": "Maximum number of items requested for this page.",
           "example": 25,
           "type": "integer"
         }
@@ -182,94 +232,124 @@
     "reddit.Post": {
       "properties": {
         "author": {
-          "$ref": "#/definitions/reddit.Author"
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.Author"
+            }
+          ],
+          "description": "Reddit user who submitted the post."
         },
         "award_count": {
+          "description": "Number of awards the post received. Set only when metrics are requested.",
           "type": "integer"
         },
         "comment_count": {
+          "description": "Number of comments on the post. Set only when metrics are requested.",
           "type": "integer"
         },
         "created": {
+          "description": "Time the post was submitted, in UTC (RFC 3339).",
           "example": "2024-04-19T00:00:00Z",
           "type": "string"
         },
         "created_utc": {
+          "description": "Time the post was submitted, in Unix seconds.",
           "example": 1713484800,
           "type": "integer"
         },
         "domain": {
+          "description": "Domain of the linked content, or `self.<subreddit>` for text posts.",
           "example": "self.OpenAI",
           "type": "string"
         },
         "estimated_downvotes": {
+          "description": "Approximate downvote total worked out from the score and upvote ratio. Reddit does not publish exact counts.",
           "type": "integer"
         },
         "estimated_upvotes": {
+          "description": "Approximate upvote total worked out from the score and upvote ratio. Reddit does not publish exact counts.",
           "type": "integer"
         },
         "flair": {
+          "description": "Flair text attached to the post.",
           "example": "Discussion",
           "type": "string"
         },
         "id": {
+          "description": "Reddit post id.",
           "example": "1abcxyz",
           "type": "string"
         },
         "is_self": {
+          "description": "Whether the post is a text post rather than a link.",
           "type": "boolean"
         },
         "is_video": {
+          "description": "Whether the post is a video.",
           "type": "boolean"
         },
         "locked": {
+          "description": "Whether the post is locked against new comments.",
           "type": "boolean"
         },
         "name": {
+          "description": "Reddit full name of the post, the id prefixed with `t3_`.",
           "example": "t3_1abcxyz",
           "type": "string"
         },
         "over_18": {
+          "description": "Whether the post is marked as 18+ content.",
           "type": "boolean"
         },
         "permalink": {
+          "description": "Reddit URL of the post's comments page.",
           "example": "https://www.reddit.com/r/OpenAI/comments/1abcxyz/openai_discussion_thread/",
           "type": "string"
         },
         "score": {
+          "description": "Net score of the post, upvotes minus downvotes as Reddit shows it. Set only when metrics are requested.",
           "type": "integer"
         },
         "selftext": {
+          "description": "Body text of a text post.",
           "example": "Discussion body",
           "type": "string"
         },
         "source_feed_url": {
+          "description": "URL of the Reddit feed the post was read from.",
           "example": "https://www.reddit.com/r/OpenAI/.rss",
           "type": "string"
         },
         "stickied": {
+          "description": "Whether the post is pinned to the top of its subreddit.",
           "type": "boolean"
         },
         "subreddit": {
+          "description": "Name of the subreddit the post belongs to, without `r/`.",
           "example": "OpenAI",
           "type": "string"
         },
         "thumbnail": {
+          "description": "URL of the post thumbnail image.",
           "example": "https://b.thumbs.redditmedia.com/example.jpg",
           "type": "string"
         },
         "title": {
+          "description": "Title of the post as submitted.",
           "example": "OpenAI discussion thread",
           "type": "string"
         },
         "upvote_ratio": {
+          "description": "Share of votes that are upvotes, from 0 to 1. Set only when metrics are requested.",
           "type": "number"
         },
         "url": {
+          "description": "Reddit URL of the post.",
           "example": "https://www.reddit.com/r/OpenAI/comments/1abcxyz/openai_discussion_thread/",
           "type": "string"
         },
         "vote_counts_estimated": {
+          "description": "Whether `estimated_upvotes` and `estimated_downvotes` are estimates.",
           "type": "boolean"
         }
       },
@@ -278,13 +358,28 @@
     "reddit.PostResponse": {
       "properties": {
         "metrics_source": {
-          "$ref": "#/definitions/reddit.SourceDetail"
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Source the engagement metrics were read from, with its type and URL. Set only when metrics are requested."
         },
         "post": {
-          "$ref": "#/definitions/reddit.Post"
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.Post"
+            }
+          ],
+          "description": "The requested post."
         },
         "source": {
-          "$ref": "#/definitions/reddit.SourceDetail"
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the post was read from."
         }
       },
       "type": "object"
@@ -292,30 +387,45 @@
     "reddit.SearchResponse": {
       "properties": {
         "pagination": {
-          "$ref": "#/definitions/reddit.Pagination"
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.Pagination"
+            }
+          ],
+          "description": "Page size and cursor for the next page."
         },
         "posts": {
+          "description": "Posts matching the search.",
           "items": {
             "$ref": "#/definitions/reddit.Post"
           },
           "type": "array"
         },
         "query": {
+          "description": "Search query that was run.",
           "example": "openai",
           "type": "string"
         },
         "sort": {
+          "description": "Sort order that was applied, for example `relevance`.",
           "example": "relevance",
           "type": "string"
         },
         "source": {
-          "$ref": "#/definitions/reddit.SourceDetail"
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the results were read from."
         },
         "subreddit": {
+          "description": "Subreddit the search was limited to. Omitted when the search covered all of Reddit.",
           "example": "OpenAI",
           "type": "string"
         },
         "time": {
+          "description": "Time window that was applied, for example `week`.",
           "example": "week",
           "type": "string"
         }
@@ -325,10 +435,12 @@
     "reddit.SourceDetail": {
       "properties": {
         "type": {
+          "description": "Kind of Reddit source the data was read from.",
           "example": "rss",
           "type": "string"
         },
         "url": {
+          "description": "Reddit URL the data was read from.",
           "example": "https://www.reddit.com/r/OpenAI/.rss",
           "type": "string"
         }
@@ -338,43 +450,57 @@
     "reddit.SubredditAboutResponse": {
       "properties": {
         "display_name": {
+          "description": "Subreddit name in `r/name` form.",
           "example": "r/OpenAI",
           "type": "string"
         },
         "feed_url": {
+          "description": "URL of the subreddit's Reddit feed that the recent posts were read from.",
           "example": "https://www.reddit.com/r/OpenAI.rss?limit=10",
           "type": "string"
         },
         "latest_post_created": {
+          "description": "Time the newest recent post was submitted, in UTC (RFC 3339).",
           "example": "2024-04-19T00:00:00Z",
           "type": "string"
         },
         "latest_post_created_utc": {
+          "description": "Time the newest recent post was submitted, in Unix seconds.",
           "example": 1713484800,
           "type": "integer"
         },
         "public_url": {
+          "description": "Public Reddit URL of the subreddit.",
           "example": "https://www.reddit.com/r/OpenAI/",
           "type": "string"
         },
         "recent_post_count": {
+          "description": "Number of recent posts that were inspected.",
           "example": 10,
           "type": "integer"
         },
         "sample_posts": {
+          "description": "Recent posts from the subreddit.",
           "items": {
             "$ref": "#/definitions/reddit.Post"
           },
           "type": "array"
         },
         "source": {
-          "$ref": "#/definitions/reddit.SourceDetail"
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the data was read from."
         },
         "subreddit": {
+          "description": "Subreddit name, without `r/`.",
           "example": "OpenAI",
           "type": "string"
         },
         "title": {
+          "description": "Subreddit title as shown on Reddit.",
           "example": "OpenAI",
           "type": "string"
         }
@@ -384,18 +510,30 @@
     "reddit.SubredditCommentsResponse": {
       "properties": {
         "comments": {
+          "description": "Recent comments in the subreddit.",
           "items": {
             "$ref": "#/definitions/reddit.Comment"
           },
           "type": "array"
         },
         "pagination": {
-          "$ref": "#/definitions/reddit.Pagination"
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.Pagination"
+            }
+          ],
+          "description": "Page size and cursor for the next page."
         },
         "source": {
-          "$ref": "#/definitions/reddit.SourceDetail"
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the comments were read from."
         },
         "subreddit": {
+          "description": "Subreddit name, without `r/`.",
           "example": "OpenAI",
           "type": "string"
         }
@@ -405,26 +543,40 @@
     "reddit.SubredditPostsResponse": {
       "properties": {
         "pagination": {
-          "$ref": "#/definitions/reddit.Pagination"
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.Pagination"
+            }
+          ],
+          "description": "Page size and cursor for the next page."
         },
         "posts": {
+          "description": "Posts in the subreddit.",
           "items": {
             "$ref": "#/definitions/reddit.Post"
           },
           "type": "array"
         },
         "sort": {
+          "description": "Sort order that was applied, for example `hot`.",
           "example": "hot",
           "type": "string"
         },
         "source": {
-          "$ref": "#/definitions/reddit.SourceDetail"
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the posts were read from."
         },
         "subreddit": {
+          "description": "Subreddit name, without `r/`.",
           "example": "OpenAI",
           "type": "string"
         },
         "time": {
+          "description": "Time window that was applied, for example `week`.",
           "example": "week",
           "type": "string"
         }
@@ -459,18 +611,30 @@
     "reddit.UserCommentsResponse": {
       "properties": {
         "comments": {
+          "description": "Recent public comments by the user.",
           "items": {
             "$ref": "#/definitions/reddit.Comment"
           },
           "type": "array"
         },
         "pagination": {
-          "$ref": "#/definitions/reddit.Pagination"
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.Pagination"
+            }
+          ],
+          "description": "Page size and cursor for the next page."
         },
         "source": {
-          "$ref": "#/definitions/reddit.SourceDetail"
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the comments were read from."
         },
         "username": {
+          "description": "Reddit username that was queried.",
           "example": "reddit",
           "type": "string"
         }
@@ -480,18 +644,30 @@
     "reddit.UserPostsResponse": {
       "properties": {
         "pagination": {
-          "$ref": "#/definitions/reddit.Pagination"
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.Pagination"
+            }
+          ],
+          "description": "Page size and cursor for the next page."
         },
         "posts": {
+          "description": "Recent public posts by the user.",
           "items": {
             "$ref": "#/definitions/reddit.Post"
           },
           "type": "array"
         },
         "source": {
-          "$ref": "#/definitions/reddit.SourceDetail"
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the posts were read from."
         },
         "username": {
+          "description": "Reddit username that was queried.",
           "example": "reddit",
           "type": "string"
         }
@@ -837,7 +1013,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns a Reddit post with its public comments. The default 1-credit mode uses RSS. Set `include_metrics=true` to use the anonymous HTML post page as the sole content request and return the server-rendered comments with public net score and award count plus post engagement metrics for 3 credits. Large threads may expose only an initial comment subset in anonymous HTML. Reddit does not expose per-comment upvote ratios or exact upvote/downvote totals anonymously. A post that exists but has no comments yet returns a 200 response with an empty comments list; a post that does not exist returns 404, and a temporary block or upstream failure returns 503 (retryable) rather than 404. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "description": "Returns a Reddit post with its public comments. The default mode is 1 credit. Set `include_metrics=true` to return the comments with public net score and award count plus post engagement metrics for 3 credits. Large threads may expose only an initial comment subset. Reddit does not expose per-comment upvote ratios or exact upvote/downvote totals anonymously. A post that exists but has no comments yet returns a 200 response with an empty comments list; a post that does not exist returns 404, and a temporary block or upstream failure returns 503 (retryable) rather than 404. If source.type is redlib, public fields and credit weights are preserved.",
         "operationId": "reddit-comments",
         "parameters": [
           {
@@ -935,7 +1111,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns normalized public posts submitted from a linked domain. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "description": "Returns public posts submitted from a linked domain. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is redlib, public fields and credit weights are preserved.",
         "operationId": "reddit-domain-posts",
         "parameters": [
           {
@@ -1037,7 +1213,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Scans a Reddit search page for people actively asking for a product or service, scores each post 0-10 for buying intent, and returns them ranked highest-first with the signals that fired. Self-promotion, hiring posts, freelancer service adverts, revenue-milestone posts, duplicate reposts, and Title Case article headlines are filtered out before scoring. A deterministic prefilter always runs; when `classifier` resolves to `llm` the surviving candidates are additionally refined in one batched model call. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. Native Reddit search failures can use the internal Redlib provider while the existing lead-response fields and credit weights are preserved.",
+        "description": "Scans a Reddit search page for people actively asking for a product or service, scores each post 0-10 for buying intent, and returns them ranked highest-first with the signals that fired. Self-promotion, hiring posts, freelancer service adverts, revenue-milestone posts, duplicate reposts, and Title Case article headlines are filtered out before scoring. A deterministic prefilter always runs; when `classifier` resolves to `llm` the surviving candidates are additionally refined in one batched model call. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. The lead-response fields and credit weights are preserved regardless of the underlying Reddit data source.",
         "operationId": "reddit-leads",
         "parameters": [
           {
@@ -1159,7 +1335,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns a normalized public Reddit post. The default 1-credit mode uses RSS. Set `include_metrics=true` to use the anonymous HTML post page as the sole content request and return public net score, upvote ratio, comment count, award count, and estimated upvote/downvote totals for 3 credits. Reddit fuzzes voting data, so estimates are approximate; share, repost/crosspost, and view counts are not exposed anonymously. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "description": "Returns a public Reddit post. The default mode is 1 credit. Set `include_metrics=true` to return public net score, upvote ratio, comment count, award count, and estimated upvote/downvote totals for 3 credits. Reddit fuzzes voting data, so estimates are approximate; share, repost/crosspost, and view counts are not exposed anonymously. If source.type is redlib, public fields and credit weights are preserved.",
         "operationId": "reddit-post",
         "parameters": [
           {
@@ -1229,7 +1405,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Searches public Reddit content and returns normalized public post entries. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "description": "Searches public Reddit content and returns public post entries. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is redlib, public fields and credit weights are preserved.",
         "operationId": "reddit-search",
         "parameters": [
           {
@@ -1338,7 +1514,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns public metadata and sample posts for a subreddit. Subscriber counts, icons, and banners are omitted because they are not available on anonymous Reddit pages. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "description": "Returns public metadata and sample posts for a subreddit. Subscriber counts, icons, and banners are omitted because they are not available on anonymous Reddit pages. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is redlib, public fields and credit weights are preserved.",
         "operationId": "reddit-subreddit-about",
         "parameters": [
           {
@@ -1407,7 +1583,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns flat public comment entries from a subreddit latest-comments feed. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "description": "Returns flat public comment entries from a subreddit latest-comments feed. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is redlib, public fields and credit weights are preserved.",
         "operationId": "reddit-subreddit-comments",
         "parameters": [
           {
@@ -1482,7 +1658,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns normalized public posts from a subreddit. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "description": "Returns public posts from a subreddit. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is redlib, public fields and credit weights are preserved.",
         "operationId": "reddit-subreddit-posts",
         "parameters": [
           {
@@ -1584,7 +1760,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns normalized public posts from a combined multi-subreddit feed. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "description": "Returns public posts from a combined multi-subreddit feed. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is redlib, public fields and credit weights are preserved.",
         "operationId": "reddit-subreddits-posts",
         "parameters": [
           {
@@ -1686,7 +1862,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns normalized public posts from broad Reddit hot, new, rising, or top feeds. For subreddit-specific trends, use `/reddit/subreddit/{subreddit}/posts` with `sort=hot`, `sort=new`, `sort=rising`, or `sort=top`. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "description": "Returns public posts from broad Reddit hot, new, rising, or top feeds. For subreddit-specific trends, use `/reddit/subreddit/{subreddit}/posts` with `sort=hot`, `sort=new`, `sort=rising`, or `sort=top`. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is redlib, public fields and credit weights are preserved.",
         "operationId": "reddit-trends",
         "parameters": [
           {
@@ -1780,7 +1956,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns flat public comment entries from a public Reddit user's comments feed. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "description": "Returns flat public comment entries from a public Reddit user's comments feed. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is redlib, public fields and credit weights are preserved.",
         "operationId": "reddit-user-comments",
         "parameters": [
           {
@@ -1855,7 +2031,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns normalized public posts from a public Reddit user's submitted feed. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. Native-source failures can use the internal Redlib fallback; source.type is redlib and public fields/credit weights are preserved.",
+        "description": "Returns public posts from a public Reddit user's submitted feed. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is redlib, public fields and credit weights are preserved.",
         "operationId": "reddit-user-posts",
         "parameters": [
           {

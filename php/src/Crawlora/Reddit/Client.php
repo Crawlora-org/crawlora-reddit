@@ -26,7 +26,7 @@ final class Client
     private ?\Closure $transport;
 
     public const PLATFORM = 'reddit';
-    public const VERSION = '0.1.2';
+    public const VERSION = '0.2.0';
     public const OPERATION_COUNT = 12;
     public const OPERATION_IDS = ["reddit-comments", "reddit-domain-posts", "reddit-leads", "reddit-post", "reddit-search", "reddit-subreddit-about", "reddit-subreddit-comments", "reddit-subreddit-posts", "reddit-subreddits-posts", "reddit-trends", "reddit-user-comments", "reddit-user-posts"];
 
@@ -57,7 +57,7 @@ JSON, true, 512, JSON_THROW_ON_ERROR);
         $url = $this->buildUrl($operation, $params);
         $headers = [
             'x-api-key: ' . $this->apiKey,
-            'User-Agent: crawlora-reddit-php/0.1.2',
+            'User-Agent: crawlora-reddit-php/0.2.0',
             'Accept: ' . (in_array('text/plain', $operation['produces'], true) ? 'application/json, text/plain' : 'application/json'),
         ];
         if ($payload !== null) {

@@ -1,11 +1,11 @@
 {
   "async_class_name": "AsyncRedditClient",
   "class_name": "RedditClient",
-  "contract_revision": "sha256:441a9c4645a94738c644f66d38610950951f585a268d92be35900149133ce821",
+  "contract_revision": "sha256:11f2ddb0c3c61724bf46ac537a74910bf241c72ada328691f88369a8aac9e4e1",
   "display_name": "Reddit",
   "general_sdk_version": "1.46.0-sdk.1",
   "golang_module_name": "github.com/Crawlora-org/crawlora-reddit",
-  "golang_version": "0.1.2",
+  "golang_version": "0.2.0",
   "group_name": "reddit",
   "java_description": "Java client for Crawlora's hosted Reddit API, with search, post and comment details, subreddit feeds, user history, domain listings, trends, and leads. Requires a Crawlora API key.",
   "maven_artifact_id": "crawlora-reddit",
@@ -31,12 +31,19 @@
   "python_name": "crawlora-reddit",
   "releases": [
     {
-      "version": "0.1.2",
-      "date": "2026-10-12",
+      "changes": [
+        "Updated operation contracts: reddit-comments, reddit-domain-posts, reddit-leads, reddit-post, reddit-search, reddit-subreddit-about, reddit-subreddit-comments, reddit-subreddit-posts, reddit-subreddits-posts, reddit-trends, reddit-user-comments, reddit-user-posts."
+      ],
+      "date": "2026-10-14",
+      "version": "0.2.0"
+    },
+    {
       "changes": [
         "List every supported endpoint in the repository and package READMEs.",
         "Add platform-specific search keywords to the npm, PyPI, and Composer package metadata."
-      ]
+      ],
+      "date": "2026-10-12",
+      "version": "0.1.2"
     },
     {
       "changes": [
@@ -69,6 +76,6 @@
     ]
   },
   "ruby_gem_name": "crawlora-reddit",
-  "source_contract_sha256": "6ce716c52b7f17a1ab0960cdaefaeb1b40b71c25ad41be55e80b8b0910624f9d",
-  "version": "0.1.2"
+  "source_contract_sha256": "58a42b604ca03b9d6cf27355e0e56f34719985b905a61df2f9f2a8c55f651f74",
+  "version": "0.2.0"
 }

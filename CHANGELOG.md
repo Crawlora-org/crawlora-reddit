@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0 — 2026-10-14
+
+- Updated operation contracts: reddit-comments, reddit-domain-posts, reddit-leads, reddit-post, reddit-search, reddit-subreddit-about, reddit-subreddit-comments, reddit-subreddit-posts, reddit-subreddits-posts, reddit-trends, reddit-user-comments, reddit-user-posts.
+
 ## 0.1.2 — 2026-10-12
 
 - List every supported endpoint in the repository and package READMEs.

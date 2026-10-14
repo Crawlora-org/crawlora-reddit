@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "crawlora-reddit"
-version = "0.1.2"
+version = "0.2.0"
 description = "Crawlora Reddit API client with 12 endpoints for search, post and comment details, subreddit feeds, user history, domain listings, trends, and leads"
 readme = "README.md"
 keywords = ["crawlora", "api-client", "sdk", "web-scraping", "scraping-api", "reddit", "reddit-api", "reddit-scraper", "reddit-data", "reddit-search", "reddit-post-comment-details", "reddit-subreddit-feeds", "reddit-user-history", "reddit-domain-listings", "reddit-trends", "reddit-leads"]

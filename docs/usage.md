@@ -2,7 +2,7 @@
 
 This reference lists all 12 public Reddit API endpoints exposed by the `@crawlora-org/reddit` and `crawlora-reddit` packages, covering search, post and comment details, subreddit feeds, user history, domain listings, trends, and leads. The clients call Crawlora's hosted API. Set `CRAWLORA_API_KEY` to a key for your Crawlora account before making requests. Service usage is billed under that account. These clients do not run a browser or scrape Reddit locally; Crawlora is independent from and not endorsed by Reddit or its owners.
 
-The package tracks the public API contract revision `sha256:441a9c4645a94738c644f66d38610950951f585a268d92be35900149133ce821` bundled with release `0.1.2`. Maintainers can preview daily contract updates with the repository's `Sync live API contract` workflow; unchanged contracts do not produce package releases.
+The package tracks the public API contract revision `sha256:11f2ddb0c3c61724bf46ac537a74910bf241c72ada328691f88369a8aac9e4e1` bundled with release `0.2.0`. Maintainers can preview daily contract updates with the repository's `Sync live API contract` workflow; unchanged contracts do not produce package releases.
 
 Both packages expose all 12 operations in the bundled API contract. JavaScript uses camelCase methods and Python uses snake_case methods. Methods also remain available through the `reddit` group and the generated `Client` alias.
 
