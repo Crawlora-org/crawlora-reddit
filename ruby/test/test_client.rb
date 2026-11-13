@@ -20,7 +20,7 @@ class PlatformClientTest < Minitest::Test
     assert_equal 1, calls.length
     assert_includes calls.first[0], "/reddit/"
     assert_equal ["test-key"], calls.first[1]["x-api-key"]
-    assert_equal 12, Crawlora::Reddit::Client.operation_count
+    assert_equal 39, Crawlora::Reddit::Client.operation_count
     default_client = Crawlora::Reddit::Client.new(api_key: "test-key", transport: transport)
     assert_equal "https://api.crawlora.net/api/v1", default_client.base_url
     assert_raises(Crawlora::Reddit::Errors::ClientError) do

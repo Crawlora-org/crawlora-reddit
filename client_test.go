@@ -19,19 +19,24 @@ func TestGeneratedClientRequestAndAllowlist(t *testing.T) {
 		if r.Header.Get("x-api-key") != "test-key" {
 			t.Errorf("x-api-key = %q", r.Header.Get("x-api-key"))
 		}
-		if r.URL.EscapedPath() != "/api/v1/reddit/comments/folder%2Fitem" {
+		if r.URL.EscapedPath() != "/api/v1/reddit/archive/comments/folder%2Fitem/tree" {
 			t.Errorf("escaped path = %q", r.URL.EscapedPath())
 		}
-		if "sort" != "" {
-			if got := r.URL.Query().Get("sort"); got != "confidence" {
+		if "parent_id" != "" {
+			if got := r.URL.Query().Get("parent_id"); got != "space & value" {
 				t.Errorf("query value = %q", got)
 			}
-			if false && len(r.URL.Query()["sort"]) != 2 {
-				t.Errorf("array query values = %#v", r.URL.Query()["sort"])
+			if false {
+				if got := r.URL.Query().Get("parent_id"); got != "" {
+					t.Errorf("array query value = %q, want %q", got, "")
+				}
+				if false && len(r.URL.Query()["parent_id"]) != 2 {
+					t.Errorf("array query values = %#v", r.URL.Query()["parent_id"])
+				}
 			}
 		}
-		if "sort" != "" && !strings.Contains(r.URL.RawQuery, "sort=confidence") {
-			t.Errorf("raw query = %q, missing encoded parameter %s", r.URL.RawQuery, "sort=confidence")
+		if "parent_id" != "" && !strings.Contains(r.URL.RawQuery, "parent_id=space+%26+value") {
+			t.Errorf("raw query = %q, missing encoded parameter %s", r.URL.RawQuery, "parent_id=space+%26+value")
 		}
 		w.Header().Set("Content-Type", "application/json")
 		_ = json.NewEncoder(w).Encode(map[string]any{"ok": true})
@@ -40,21 +45,21 @@ func TestGeneratedClientRequestAndAllowlist(t *testing.T) {
 	client := NewClient("test-key")
 	client.BaseURL = server.URL + "/api/v1"
 	client.HTTPClient = server.Client()
-	got, err := client.Call(context.Background(), "reddit-comments", Params{"id": "folder/item", "sort": "confidence", "limit": 1, "depth": 1, "include_metrics": true})
+	got, err := client.Call(context.Background(), "reddit-archive-comments-tree", Params{"id": "folder/item", "parent_id": "space & value", "limit": 1, "start_breadth": 1, "start_depth": 1})
 	if err != nil {
 		t.Fatal(err)
 	}
 	if got.(map[string]any)["ok"] != true {
 		t.Fatalf("JSON result = %#v", got)
 	}
-	if OperationCount != 12 || len(OperationIDs()) != OperationCount {
+	if OperationCount != 39 || len(OperationIDs()) != OperationCount {
 		t.Fatalf("operation count = %d IDs=%d", OperationCount, len(OperationIDs()))
 	}
 	if _, err := client.Call(context.Background(), "unselected-operation", nil); err == nil || !strings.Contains(err.Error(), "unknown") {
 		t.Fatalf("unselected operation error = %v", err)
 	}
-	if "sort" != "" {
-		if _, err := client.Call(context.Background(), "reddit-comments", Params{"id": "folder/item", "sort": "__invalid_enum__", "limit": 1, "depth": 1, "include_metrics": true}); err == nil || !strings.Contains(err.Error(), "invalid value") {
+	if "" != "" {
+		if _, err := client.Call(context.Background(), "reddit-archive-comments-tree", Params{"id": "folder/item", "parent_id": "space & value", "limit": 1, "start_breadth": 1, "start_depth": 1}); err == nil || !strings.Contains(err.Error(), "invalid value") {
 			t.Fatalf("invalid enum error = %v", err)
 		}
 	}
@@ -72,7 +77,7 @@ func TestGeneratedClientTextResponse(t *testing.T) {
 	client := NewClient("key")
 	client.BaseURL = server.URL + "/api/v1"
 	client.HTTPClient = server.Client()
-	got, err := client.Call(context.Background(), "reddit-comments", Params{"id": "folder/item", "sort": "confidence", "limit": 1, "depth": 1, "include_metrics": true, "responseType": "text"})
+	got, err := client.Call(context.Background(), "reddit-archive-comments-tree", Params{"id": "folder/item", "parent_id": "space & value", "limit": 1, "start_breadth": 1, "start_depth": 1, "responseType": "text"})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -90,7 +95,7 @@ func TestGeneratedClientErrorsAndTimeout(t *testing.T) {
 		client := NewClient("key")
 		client.BaseURL = server.URL + "/api/v1"
 		client.HTTPClient = server.Client()
-		_, err := client.Call(context.Background(), "reddit-comments", Params{"id": "folder/item", "sort": "confidence", "limit": 1, "depth": 1, "include_metrics": true})
+		_, err := client.Call(context.Background(), "reddit-archive-comments-tree", Params{"id": "folder/item", "parent_id": "space & value", "limit": 1, "start_breadth": 1, "start_depth": 1})
 		if err == nil || !strings.Contains(err.Error(), "502") {
 			t.Fatalf("HTTP error = %v", err)
 		}
@@ -105,7 +110,7 @@ func TestGeneratedClientErrorsAndTimeout(t *testing.T) {
 		client.BaseURL = server.URL + "/api/v1"
 		client.HTTPClient = server.Client()
 		client.Timeout = 10 * time.Millisecond
-		_, err := client.Call(context.Background(), "reddit-comments", Params{"id": "folder/item", "sort": "confidence", "limit": 1, "depth": 1, "include_metrics": true})
+		_, err := client.Call(context.Background(), "reddit-archive-comments-tree", Params{"id": "folder/item", "parent_id": "space & value", "limit": 1, "start_breadth": 1, "start_depth": 1})
 		if err == nil {
 			t.Fatal("expected request timeout")
 		}
@@ -122,7 +127,7 @@ func ExampleClient_Call() {
 	client := NewClient("your-crawlora-api-key")
 	client.BaseURL = server.URL + "/api/v1"
 	client.HTTPClient = server.Client()
-	result, err := client.Call(context.Background(), "reddit-comments", Params{"id": "sample-id"})
+	result, err := client.Call(context.Background(), "reddit-archive-comments-ids", Params{"ids": "sample"})
 	if err != nil {
 		panic(err)
 	}

@@ -1,11 +1,12 @@
 {
+  "api_path_prefix": "/reddit/",
   "async_class_name": "AsyncRedditClient",
   "class_name": "RedditClient",
-  "contract_revision": "sha256:11f2ddb0c3c61724bf46ac537a74910bf241c72ada328691f88369a8aac9e4e1",
+  "contract_revision": "sha256:34005a8045ab32c913cc47a26b3bc48fb73f290882bf61a0abd2afa55d96d8d0",
   "display_name": "Reddit",
   "general_sdk_version": "1.46.0-sdk.1",
   "golang_module_name": "github.com/Crawlora-org/crawlora-reddit",
-  "golang_version": "0.2.0",
+  "golang_version": "0.3.0",
   "group_name": "reddit",
   "java_description": "Java client for Crawlora's hosted Reddit API, with search, post and comment details, subreddit feeds, user history, domain listings, trends, and leads. Requires a Crawlora API key.",
   "maven_artifact_id": "crawlora-reddit",
@@ -30,6 +31,14 @@
   "platform": "reddit",
   "python_name": "crawlora-reddit",
   "releases": [
+    {
+      "changes": [
+        "Added operations: reddit-archive-comments-ids, reddit-archive-comments-search, reddit-archive-comments-tree, reddit-archive-posts-ids, reddit-archive-posts-search, reddit-archive-subreddits-search, reddit-archive-time-series, reddit-comment, reddit-comment-awards, reddit-popular, reddit-post-awards, reddit-posts-by-ids, reddit-search-comments, reddit-search-people, reddit-subreddit-flairs, reddit-subreddit-highlights, reddit-subreddit-leaderboard-categories, reddit-subreddit-rules, reddit-subreddit-user-flairs, reddit-subreddit-wiki, reddit-subreddits-discover, reddit-subreddits-search, reddit-subreddits-suggest, reddit-topics, reddit-topics-broad, reddit-topics-search, reddit-user-profile.",
+        "Updated operation contracts: reddit-comments, reddit-domain-posts, reddit-post, reddit-search, reddit-subreddit-about, reddit-subreddit-comments, reddit-subreddit-posts, reddit-subreddits-posts, reddit-trends, reddit-user-comments, reddit-user-posts."
+      ],
+      "date": "2026-11-13",
+      "version": "0.3.0"
+    },
     {
       "changes": [
         "Updated operation contracts: reddit-comments, reddit-domain-posts, reddit-leads, reddit-post, reddit-search, reddit-subreddit-about, reddit-subreddit-comments, reddit-subreddit-posts, reddit-subreddits-posts, reddit-trends, reddit-user-comments, reddit-user-posts."
@@ -78,6 +87,6 @@
   "ruby_gem_name": "crawlora-reddit",
   "rust_crate_name": "crawlora-reddit",
   "rust_module_name": "crawlora_reddit",
-  "source_contract_sha256": "58a42b604ca03b9d6cf27355e0e56f34719985b905a61df2f9f2a8c55f651f74",
-  "version": "0.2.0"
+  "source_contract_sha256": "123c5406ee3b92b07d2ef3dbe21a6ded54b79b25d26c13cbb905a34e3ecc7118",
+  "version": "0.3.0"
 }

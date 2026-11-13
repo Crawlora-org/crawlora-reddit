@@ -29,22 +29,49 @@ type operationDefinition struct {
 }
 
 var operations = map[string]operationDefinition{
-	"reddit-comments":           operationDefinition{Method: "GET", Path: "/reddit/comments/{id}", PathParams: []string{"id"}, QueryParams: []parameterDefinition{parameterDefinition{Name: "sort", In: "query", Type: "string", Enum: []string{"confidence", "top", "new", "controversial", "old", "qa"}}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "depth", In: "query", Type: "integer"}, parameterDefinition{Name: "include_metrics", In: "query", Type: "boolean"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
-	"reddit-domain-posts":       operationDefinition{Method: "GET", Path: "/reddit/domain/{domain}/posts", PathParams: []string{"domain"}, QueryParams: []parameterDefinition{parameterDefinition{Name: "sort", In: "query", Type: "string", Enum: []string{"hot", "new", "top", "rising"}}, parameterDefinition{Name: "time", In: "query", Type: "string", Enum: []string{"hour", "day", "week", "month", "year", "all"}}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
-	"reddit-leads":              operationDefinition{Method: "GET", Path: "/reddit/leads", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "q", In: "query", Type: "string", Required: true}, parameterDefinition{Name: "subreddit", In: "query", Type: "string"}, parameterDefinition{Name: "sort", In: "query", Type: "string", Enum: []string{"relevance", "hot", "new", "top", "comments"}}, parameterDefinition{Name: "time", In: "query", Type: "string", Enum: []string{"hour", "day", "week", "month", "year", "all"}}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "min_score", In: "query", Type: "integer"}, parameterDefinition{Name: "classifier", In: "query", Type: "string", Enum: []string{"auto", "heuristic", "llm"}}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
-	"reddit-post":               operationDefinition{Method: "GET", Path: "/reddit/post/{id}", PathParams: []string{"id"}, QueryParams: []parameterDefinition{parameterDefinition{Name: "include_metrics", In: "query", Type: "boolean"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
-	"reddit-search":             operationDefinition{Method: "GET", Path: "/reddit/search", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "q", In: "query", Type: "string", Required: true}, parameterDefinition{Name: "subreddit", In: "query", Type: "string"}, parameterDefinition{Name: "sort", In: "query", Type: "string", Enum: []string{"relevance", "hot", "new", "top", "comments"}}, parameterDefinition{Name: "time", In: "query", Type: "string", Enum: []string{"hour", "day", "week", "month", "year", "all"}}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
-	"reddit-subreddit-about":    operationDefinition{Method: "GET", Path: "/reddit/subreddit/{subreddit}/about", PathParams: []string{"subreddit"}, QueryParams: []parameterDefinition{parameterDefinition{Name: "limit", In: "query", Type: "integer"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
-	"reddit-subreddit-comments": operationDefinition{Method: "GET", Path: "/reddit/subreddit/{subreddit}/comments", PathParams: []string{"subreddit"}, QueryParams: []parameterDefinition{parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
-	"reddit-subreddit-posts":    operationDefinition{Method: "GET", Path: "/reddit/subreddit/{subreddit}/posts", PathParams: []string{"subreddit"}, QueryParams: []parameterDefinition{parameterDefinition{Name: "sort", In: "query", Type: "string", Enum: []string{"hot", "new", "top", "rising"}}, parameterDefinition{Name: "time", In: "query", Type: "string", Enum: []string{"hour", "day", "week", "month", "year", "all"}}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
-	"reddit-subreddits-posts":   operationDefinition{Method: "GET", Path: "/reddit/subreddits/posts", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "subreddits", In: "query", Type: "string", Required: true}, parameterDefinition{Name: "sort", In: "query", Type: "string", Enum: []string{"hot", "new", "top", "rising"}}, parameterDefinition{Name: "time", In: "query", Type: "string", Enum: []string{"hour", "day", "week", "month", "year", "all"}}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
-	"reddit-trends":             operationDefinition{Method: "GET", Path: "/reddit/trends", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "sort", In: "query", Type: "string", Enum: []string{"hot", "new", "rising", "top"}}, parameterDefinition{Name: "time", In: "query", Type: "string", Enum: []string{"hour", "day", "week", "month", "year", "all"}}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
-	"reddit-user-comments":      operationDefinition{Method: "GET", Path: "/reddit/user/{username}/comments", PathParams: []string{"username"}, QueryParams: []parameterDefinition{parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
-	"reddit-user-posts":         operationDefinition{Method: "GET", Path: "/reddit/user/{username}/posts", PathParams: []string{"username"}, QueryParams: []parameterDefinition{parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-archive-comments-ids":             operationDefinition{Method: "GET", Path: "/reddit/archive/comments/ids", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "ids", In: "query", Type: "string", Required: true}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-archive-comments-search":          operationDefinition{Method: "GET", Path: "/reddit/archive/comments/search", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "author", In: "query", Type: "string"}, parameterDefinition{Name: "subreddit", In: "query", Type: "string"}, parameterDefinition{Name: "query", In: "query", Type: "string"}, parameterDefinition{Name: "link_id", In: "query", Type: "string"}, parameterDefinition{Name: "parent_id", In: "query", Type: "string"}, parameterDefinition{Name: "created_after", In: "query", Type: "string"}, parameterDefinition{Name: "created_before", In: "query", Type: "string"}, parameterDefinition{Name: "sort", In: "query", Type: "string", Enum: []string{"asc", "desc"}}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-archive-comments-tree":            operationDefinition{Method: "GET", Path: "/reddit/archive/comments/{id}/tree", PathParams: []string{"id"}, QueryParams: []parameterDefinition{parameterDefinition{Name: "parent_id", In: "query", Type: "string"}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "start_breadth", In: "query", Type: "integer"}, parameterDefinition{Name: "start_depth", In: "query", Type: "integer"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-archive-posts-ids":                operationDefinition{Method: "GET", Path: "/reddit/archive/posts/ids", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "ids", In: "query", Type: "string", Required: true}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-archive-posts-search":             operationDefinition{Method: "GET", Path: "/reddit/archive/posts/search", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "query", In: "query", Type: "string"}, parameterDefinition{Name: "author", In: "query", Type: "string"}, parameterDefinition{Name: "subreddit", In: "query", Type: "string"}, parameterDefinition{Name: "url", In: "query", Type: "string"}, parameterDefinition{Name: "url_exact", In: "query", Type: "boolean"}, parameterDefinition{Name: "created_after", In: "query", Type: "string"}, parameterDefinition{Name: "created_before", In: "query", Type: "string"}, parameterDefinition{Name: "sort", In: "query", Type: "string", Enum: []string{"asc", "desc"}}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-archive-subreddits-search":        operationDefinition{Method: "GET", Path: "/reddit/archive/subreddits/search", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "query", In: "query", Type: "string", Required: true}, parameterDefinition{Name: "min_subscribers", In: "query", Type: "integer"}, parameterDefinition{Name: "max_subscribers", In: "query", Type: "integer"}, parameterDefinition{Name: "over_18", In: "query", Type: "boolean"}, parameterDefinition{Name: "sort_by", In: "query", Type: "string", Enum: []string{"created_utc", "subscribers", "subreddit"}}, parameterDefinition{Name: "sort", In: "query", Type: "string", Enum: []string{"asc", "desc"}}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-archive-time-series":              operationDefinition{Method: "GET", Path: "/reddit/archive/time-series", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "metric", In: "query", Type: "string", Required: true, Enum: []string{"posts_count", "comments_count", "posts_score_sum", "comments_score_sum", "posts_retrieval_delay_seconds_sum", "comments_retrieval_delay_seconds_sum", "subreddit_subscribers"}}, parameterDefinition{Name: "subreddit", In: "query", Type: "string"}, parameterDefinition{Name: "precision", In: "query", Type: "string", Required: true, Enum: []string{"year", "quarter", "month", "week", "day", "hour", "minute"}}, parameterDefinition{Name: "created_after", In: "query", Type: "string", Required: true}, parameterDefinition{Name: "created_before", In: "query", Type: "string", Required: true}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-comment":                          operationDefinition{Method: "GET", Path: "/reddit/comment/{id}", PathParams: []string{"id"}, QueryParams: nil, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-comment-awards":                   operationDefinition{Method: "GET", Path: "/reddit/comment/{id}/awards", PathParams: []string{"id"}, QueryParams: nil, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-comments":                         operationDefinition{Method: "GET", Path: "/reddit/comments/{id}", PathParams: []string{"id"}, QueryParams: []parameterDefinition{parameterDefinition{Name: "sort", In: "query", Type: "string", Enum: []string{"confidence", "top", "new", "controversial", "old", "qa"}}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "depth", In: "query", Type: "integer"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-domain-posts":                     operationDefinition{Method: "GET", Path: "/reddit/domain/{domain}/posts", PathParams: []string{"domain"}, QueryParams: []parameterDefinition{parameterDefinition{Name: "sort", In: "query", Type: "string", Enum: []string{"hot", "new", "top", "rising"}}, parameterDefinition{Name: "time", In: "query", Type: "string", Enum: []string{"hour", "day", "week", "month", "year", "all"}}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-leads":                            operationDefinition{Method: "GET", Path: "/reddit/leads", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "q", In: "query", Type: "string", Required: true}, parameterDefinition{Name: "subreddit", In: "query", Type: "string"}, parameterDefinition{Name: "sort", In: "query", Type: "string", Enum: []string{"relevance", "hot", "new", "top", "comments"}}, parameterDefinition{Name: "time", In: "query", Type: "string", Enum: []string{"hour", "day", "week", "month", "year", "all"}}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "min_score", In: "query", Type: "integer"}, parameterDefinition{Name: "classifier", In: "query", Type: "string", Enum: []string{"auto", "heuristic", "llm"}}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-popular":                          operationDefinition{Method: "GET", Path: "/reddit/popular", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "sort", In: "query", Type: "string", Enum: []string{"hot", "top"}}, parameterDefinition{Name: "time", In: "query", Type: "string", Enum: []string{"hour", "day", "week", "month", "year", "all"}}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-post":                             operationDefinition{Method: "GET", Path: "/reddit/post/{id}", PathParams: []string{"id"}, QueryParams: nil, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-post-awards":                      operationDefinition{Method: "GET", Path: "/reddit/post/{id}/awards", PathParams: []string{"id"}, QueryParams: nil, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-posts-by-ids":                     operationDefinition{Method: "GET", Path: "/reddit/posts/ids", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "ids", In: "query", Type: "string", Required: true}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-search":                           operationDefinition{Method: "GET", Path: "/reddit/search", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "q", In: "query", Type: "string", Required: true}, parameterDefinition{Name: "subreddit", In: "query", Type: "string"}, parameterDefinition{Name: "sort", In: "query", Type: "string", Enum: []string{"relevance", "hot", "new", "top", "comments"}}, parameterDefinition{Name: "time", In: "query", Type: "string", Enum: []string{"hour", "day", "week", "month", "year", "all"}}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-search-comments":                  operationDefinition{Method: "GET", Path: "/reddit/search/comments", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "q", In: "query", Type: "string", Required: true}, parameterDefinition{Name: "subreddit", In: "query", Type: "string"}, parameterDefinition{Name: "sort", In: "query", Type: "string", Enum: []string{"relevance", "hot", "new", "top", "comments"}}, parameterDefinition{Name: "time", In: "query", Type: "string", Enum: []string{"hour", "day", "week", "month", "year", "all"}}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-search-people":                    operationDefinition{Method: "GET", Path: "/reddit/search/people", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "q", In: "query", Type: "string", Required: true}, parameterDefinition{Name: "sort", In: "query", Type: "string", Enum: []string{"relevance", "hot", "new", "top", "comments"}}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-subreddit-about":                  operationDefinition{Method: "GET", Path: "/reddit/subreddit/{subreddit}/about", PathParams: []string{"subreddit"}, QueryParams: []parameterDefinition{parameterDefinition{Name: "limit", In: "query", Type: "integer"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-subreddit-comments":               operationDefinition{Method: "GET", Path: "/reddit/subreddit/{subreddit}/comments", PathParams: []string{"subreddit"}, QueryParams: []parameterDefinition{parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-subreddit-flairs":                 operationDefinition{Method: "GET", Path: "/reddit/subreddit/{subreddit}/flairs", PathParams: []string{"subreddit"}, QueryParams: nil, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-subreddit-highlights":             operationDefinition{Method: "GET", Path: "/reddit/subreddit/{subreddit}/highlights", PathParams: []string{"subreddit"}, QueryParams: nil, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-subreddit-leaderboard-categories": operationDefinition{Method: "GET", Path: "/reddit/subreddit/{subreddit}/leaderboard/categories", PathParams: []string{"subreddit"}, QueryParams: nil, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-subreddit-posts":                  operationDefinition{Method: "GET", Path: "/reddit/subreddit/{subreddit}/posts", PathParams: []string{"subreddit"}, QueryParams: []parameterDefinition{parameterDefinition{Name: "sort", In: "query", Type: "string", Enum: []string{"hot", "new", "top", "rising", "controversial"}}, parameterDefinition{Name: "time", In: "query", Type: "string", Enum: []string{"hour", "day", "week", "month", "year", "all"}}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-subreddit-rules":                  operationDefinition{Method: "GET", Path: "/reddit/subreddit/{subreddit}/rules", PathParams: []string{"subreddit"}, QueryParams: nil, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-subreddit-user-flairs":            operationDefinition{Method: "GET", Path: "/reddit/subreddit/{subreddit}/user-flairs", PathParams: []string{"subreddit"}, QueryParams: nil, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-subreddit-wiki":                   operationDefinition{Method: "GET", Path: "/reddit/subreddit/{subreddit}/wiki", PathParams: []string{"subreddit"}, QueryParams: []parameterDefinition{parameterDefinition{Name: "page", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-subreddits-discover":              operationDefinition{Method: "GET", Path: "/reddit/subreddits/discover", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "feed", In: "query", Type: "string", Enum: []string{"popular", "new", "default"}}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-subreddits-posts":                 operationDefinition{Method: "GET", Path: "/reddit/subreddits/posts", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "subreddits", In: "query", Type: "string", Required: true}, parameterDefinition{Name: "sort", In: "query", Type: "string", Enum: []string{"hot", "new", "top", "rising"}}, parameterDefinition{Name: "time", In: "query", Type: "string", Enum: []string{"hour", "day", "week", "month", "year", "all"}}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-subreddits-search":                operationDefinition{Method: "GET", Path: "/reddit/subreddits/search", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "q", In: "query", Type: "string", Required: true}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-subreddits-suggest":               operationDefinition{Method: "GET", Path: "/reddit/subreddits/suggest", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "q", In: "query", Type: "string", Required: true}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-topics":                           operationDefinition{Method: "GET", Path: "/reddit/topics", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-topics-broad":                     operationDefinition{Method: "GET", Path: "/reddit/topics/broad", PathParams: nil, QueryParams: nil, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-topics-search":                    operationDefinition{Method: "GET", Path: "/reddit/topics/search", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "q", In: "query", Type: "string", Required: true}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-trends":                           operationDefinition{Method: "GET", Path: "/reddit/trends", PathParams: nil, QueryParams: []parameterDefinition{parameterDefinition{Name: "sort", In: "query", Type: "string", Enum: []string{"hot", "new", "rising", "top"}}, parameterDefinition{Name: "time", In: "query", Type: "string", Enum: []string{"hour", "day", "week", "month", "year", "all"}}, parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-user-comments":                    operationDefinition{Method: "GET", Path: "/reddit/user/{username}/comments", PathParams: []string{"username"}, QueryParams: []parameterDefinition{parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-user-posts":                       operationDefinition{Method: "GET", Path: "/reddit/user/{username}/posts", PathParams: []string{"username"}, QueryParams: []parameterDefinition{parameterDefinition{Name: "limit", In: "query", Type: "integer"}, parameterDefinition{Name: "after", In: "query", Type: "string"}}, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
+	"reddit-user-profile":                     operationDefinition{Method: "GET", Path: "/reddit/user/{username}/profile", PathParams: []string{"username"}, QueryParams: nil, Produces: []string{"application/json"}, Security: []string{"ApiKeyAuth"}},
 }
 
 // OperationCount reports how many selected-platform operations this module exposes.
-const OperationCount = 12
+const OperationCount = 39
 
 // OperationIDs returns the selected operation IDs in stable sorted order.
 func OperationIDs() []string {
@@ -54,6 +81,51 @@ func OperationIDs() []string {
 	}
 	sort.Strings(ids)
 	return ids
+}
+
+// ArchiveCommentsIds calls the reddit-archive-comments-ids operation.
+func (c *Client) ArchiveCommentsIds(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-archive-comments-ids", params)
+}
+
+// ArchiveCommentsSearch calls the reddit-archive-comments-search operation.
+func (c *Client) ArchiveCommentsSearch(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-archive-comments-search", params)
+}
+
+// ArchiveCommentsTree calls the reddit-archive-comments-tree operation.
+func (c *Client) ArchiveCommentsTree(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-archive-comments-tree", params)
+}
+
+// ArchivePostsIds calls the reddit-archive-posts-ids operation.
+func (c *Client) ArchivePostsIds(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-archive-posts-ids", params)
+}
+
+// ArchivePostsSearch calls the reddit-archive-posts-search operation.
+func (c *Client) ArchivePostsSearch(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-archive-posts-search", params)
+}
+
+// ArchiveSubredditsSearch calls the reddit-archive-subreddits-search operation.
+func (c *Client) ArchiveSubredditsSearch(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-archive-subreddits-search", params)
+}
+
+// ArchiveTimeSeries calls the reddit-archive-time-series operation.
+func (c *Client) ArchiveTimeSeries(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-archive-time-series", params)
+}
+
+// Comment calls the reddit-comment operation.
+func (c *Client) Comment(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-comment", params)
+}
+
+// CommentAwards calls the reddit-comment-awards operation.
+func (c *Client) CommentAwards(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-comment-awards", params)
 }
 
 // Comments calls the reddit-comments operation.
@@ -71,14 +143,39 @@ func (c *Client) Leads(ctx context.Context, params Params) (any, error) {
 	return c.Call(ctx, "reddit-leads", params)
 }
 
+// Popular calls the reddit-popular operation.
+func (c *Client) Popular(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-popular", params)
+}
+
 // Post calls the reddit-post operation.
 func (c *Client) Post(ctx context.Context, params Params) (any, error) {
 	return c.Call(ctx, "reddit-post", params)
 }
 
+// PostAwards calls the reddit-post-awards operation.
+func (c *Client) PostAwards(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-post-awards", params)
+}
+
+// PostsByIds calls the reddit-posts-by-ids operation.
+func (c *Client) PostsByIds(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-posts-by-ids", params)
+}
+
 // Search calls the reddit-search operation.
 func (c *Client) Search(ctx context.Context, params Params) (any, error) {
 	return c.Call(ctx, "reddit-search", params)
+}
+
+// SearchComments calls the reddit-search-comments operation.
+func (c *Client) SearchComments(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-search-comments", params)
+}
+
+// SearchPeople calls the reddit-search-people operation.
+func (c *Client) SearchPeople(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-search-people", params)
 }
 
 // SubredditAbout calls the reddit-subreddit-about operation.
@@ -91,14 +188,74 @@ func (c *Client) SubredditComments(ctx context.Context, params Params) (any, err
 	return c.Call(ctx, "reddit-subreddit-comments", params)
 }
 
+// SubredditFlairs calls the reddit-subreddit-flairs operation.
+func (c *Client) SubredditFlairs(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-subreddit-flairs", params)
+}
+
+// SubredditHighlights calls the reddit-subreddit-highlights operation.
+func (c *Client) SubredditHighlights(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-subreddit-highlights", params)
+}
+
+// SubredditLeaderboardCategories calls the reddit-subreddit-leaderboard-categories operation.
+func (c *Client) SubredditLeaderboardCategories(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-subreddit-leaderboard-categories", params)
+}
+
 // SubredditPosts calls the reddit-subreddit-posts operation.
 func (c *Client) SubredditPosts(ctx context.Context, params Params) (any, error) {
 	return c.Call(ctx, "reddit-subreddit-posts", params)
 }
 
+// SubredditRules calls the reddit-subreddit-rules operation.
+func (c *Client) SubredditRules(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-subreddit-rules", params)
+}
+
+// SubredditUserFlairs calls the reddit-subreddit-user-flairs operation.
+func (c *Client) SubredditUserFlairs(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-subreddit-user-flairs", params)
+}
+
+// SubredditWiki calls the reddit-subreddit-wiki operation.
+func (c *Client) SubredditWiki(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-subreddit-wiki", params)
+}
+
+// SubredditsDiscover calls the reddit-subreddits-discover operation.
+func (c *Client) SubredditsDiscover(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-subreddits-discover", params)
+}
+
 // SubredditsPosts calls the reddit-subreddits-posts operation.
 func (c *Client) SubredditsPosts(ctx context.Context, params Params) (any, error) {
 	return c.Call(ctx, "reddit-subreddits-posts", params)
+}
+
+// SubredditsSearch calls the reddit-subreddits-search operation.
+func (c *Client) SubredditsSearch(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-subreddits-search", params)
+}
+
+// SubredditsSuggest calls the reddit-subreddits-suggest operation.
+func (c *Client) SubredditsSuggest(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-subreddits-suggest", params)
+}
+
+// Topics calls the reddit-topics operation.
+func (c *Client) Topics(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-topics", params)
+}
+
+// TopicsBroad calls the reddit-topics-broad operation.
+func (c *Client) TopicsBroad(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-topics-broad", params)
+}
+
+// TopicsSearch calls the reddit-topics-search operation.
+func (c *Client) TopicsSearch(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-topics-search", params)
 }
 
 // Trends calls the reddit-trends operation.
@@ -114,4 +271,9 @@ func (c *Client) UserComments(ctx context.Context, params Params) (any, error) {
 // UserPosts calls the reddit-user-posts operation.
 func (c *Client) UserPosts(ctx context.Context, params Params) (any, error) {
 	return c.Call(ctx, "reddit-user-posts", params)
+}
+
+// UserProfile calls the reddit-user-profile operation.
+func (c *Client) UserProfile(ctx context.Context, params Params) (any, error) {
+	return c.Call(ctx, "reddit-user-profile", params)
 }
