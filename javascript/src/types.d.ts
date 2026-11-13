@@ -9,6 +9,40 @@ export interface ModelAppResponse {
   "msg"?: unknown;
 }
 
+export interface ModelRedditUserProfileResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditUserProfileResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditUserProfileResponse {
+  "accepts_chats"?: boolean;
+  "accepts_followers"?: boolean;
+  "banner_url"?: string;
+  "comment_count"?: number;
+  "created"?: string;
+  "created_utc"?: number;
+  "display_name"?: string;
+  "icon_url"?: string;
+  "is_employee"?: boolean;
+  "is_gilded"?: boolean;
+  "karma"?: number;
+  "name"?: string;
+  "over_18"?: boolean;
+  "post_count"?: number;
+  "public_description"?: string;
+  "public_url"?: string;
+  "source"?: ModelRedditSourceDetail;
+  "title"?: string;
+  "trophy_count"?: number;
+  "username"?: string;
+}
+
+export interface ModelRedditSourceDetail {
+  "type"?: string;
+  "url"?: string;
+}
+
 export interface ModelRedditUserPostsResponseDoc {
   "code"?: number;
   "data"?: ModelRedditUserPostsResponse;
@@ -22,24 +56,30 @@ export interface ModelRedditUserPostsResponse {
   "username"?: string;
 }
 
-export interface ModelRedditSourceDetail {
-  "type"?: string;
-  "url"?: string;
-}
-
 export interface ModelRedditPost {
   "author"?: ModelRedditAuthor;
   "award_count"?: number;
   "comment_count"?: number;
   "created"?: string;
   "created_utc"?: number;
+  "crosspost_count"?: number;
+  "distinguished"?: string;
   "domain"?: string;
+  "edited"?: string;
+  "edited_utc"?: number;
   "estimated_downvotes"?: number;
   "estimated_upvotes"?: number;
   "flair"?: string;
   "id"?: string;
+  "is_archived"?: boolean;
+  "is_contest_mode"?: boolean;
+  "is_crosspostable"?: boolean;
+  "is_original_content"?: boolean;
+  "is_score_hidden"?: boolean;
   "is_self"?: boolean;
+  "is_spoiler"?: boolean;
   "is_video"?: boolean;
+  "language_code"?: string;
   "locked"?: boolean;
   "name"?: string;
   "over_18"?: boolean;
@@ -49,6 +89,7 @@ export interface ModelRedditPost {
   "source_feed_url"?: string;
   "stickied"?: boolean;
   "subreddit"?: string;
+  "suggested_comment_sort"?: string;
   "thumbnail"?: string;
   "title"?: string;
   "upvote_ratio"?: number;
@@ -86,12 +127,23 @@ export interface ModelRedditComment {
   "created"?: string;
   "created_utc"?: number;
   "depth"?: number;
+  "distinguished"?: string;
+  "edited"?: string;
+  "edited_utc"?: number;
   "id"?: string;
+  "is_archived"?: boolean;
+  "is_locked"?: boolean;
+  "is_op"?: boolean;
+  "is_score_hidden"?: boolean;
+  "is_stickied"?: boolean;
   "name"?: string;
   "parent_id"?: string;
   "permalink"?: string;
+  "post_id"?: string;
+  "post_title"?: string;
   "replies"?: Array<ModelRedditComment>;
   "score"?: number;
+  "subreddit"?: string;
 }
 
 export interface ModelRedditTrendsResponseDoc {
@@ -108,6 +160,97 @@ export interface ModelRedditTrendsResponse {
   "time"?: string;
 }
 
+export interface ModelRedditTopicSearchResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditTopicSearchResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditTopicSearchResponse {
+  "query"?: string;
+  "source"?: ModelRedditSourceDetail;
+  "topics"?: Array<ModelRedditTopic>;
+}
+
+export interface ModelRedditTopic {
+  "id"?: string;
+  "name"?: string;
+  "parents"?: Array<string>;
+  "title"?: string;
+  "topic_type"?: string;
+}
+
+export interface ModelRedditBroadTopicsResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditBroadTopicsResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditBroadTopicsResponse {
+  "source"?: ModelRedditSourceDetail;
+  "topics"?: Array<ModelRedditBroadTopic>;
+}
+
+export interface ModelRedditBroadTopic {
+  "id"?: string;
+  "image_url"?: string;
+  "is_preselected"?: boolean;
+}
+
+export interface ModelRedditTopicsResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditTopicsResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditTopicsResponse {
+  "pagination"?: ModelRedditPagination;
+  "source"?: ModelRedditSourceDetail;
+  "topics"?: Array<ModelRedditTopic>;
+}
+
+export interface ModelRedditSubredditSuggestResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditSubredditSuggestResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditSubredditSuggestResponse {
+  "query"?: string;
+  "source"?: ModelRedditSourceDetail;
+  "subreddits"?: Array<ModelRedditCommunity>;
+}
+
+export interface ModelRedditCommunity {
+  "banner_url"?: string;
+  "created"?: string;
+  "created_utc"?: number;
+  "display_name"?: string;
+  "icon_url"?: string;
+  "is_quarantined"?: boolean;
+  "name"?: string;
+  "over_18"?: boolean;
+  "public_description"?: string;
+  "public_url"?: string;
+  "subreddit"?: string;
+  "subreddit_type"?: string;
+  "subscribers"?: number;
+  "title"?: string;
+}
+
+export interface ModelRedditSubredditSearchResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditSubredditSearchResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditSubredditSearchResponse {
+  "pagination"?: ModelRedditPagination;
+  "query"?: string;
+  "source"?: ModelRedditSourceDetail;
+  "subreddits"?: Array<ModelRedditCommunity>;
+}
+
 export interface ModelRedditMultiSubredditPostsResponseDoc {
   "code"?: number;
   "data"?: ModelRedditMultiSubredditPostsResponse;
@@ -121,6 +264,101 @@ export interface ModelRedditMultiSubredditPostsResponse {
   "source"?: ModelRedditSourceDetail;
   "subreddits"?: Array<string>;
   "time"?: string;
+  "warnings"?: Array<string>;
+}
+
+export interface ModelRedditSubredditsDiscoverResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditSubredditsDiscoverResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditSubredditsDiscoverResponse {
+  "feed"?: string;
+  "pagination"?: ModelRedditPagination;
+  "source"?: ModelRedditSourceDetail;
+  "subreddits"?: Array<ModelRedditCommunity>;
+}
+
+export interface ModelRedditSubredditWikiResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditSubredditWikiResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditSubredditWikiResponse {
+  "page"?: string;
+  "page_content"?: ModelRedditWikiPageContent;
+  "page_tree"?: Array<ModelRedditWikiPageNode>;
+  "source"?: ModelRedditSourceDetail;
+  "subreddit"?: string;
+}
+
+export interface ModelRedditWikiPageNode {
+  "depth"?: number;
+  "name"?: string;
+  "page_present"?: boolean;
+  "parent"?: string;
+  "path"?: string;
+}
+
+export interface ModelRedditWikiPageContent {
+  "content_html"?: string;
+  "content_markdown"?: string;
+  "content_richtext"?: string;
+  "is_revisable"?: boolean;
+  "name"?: string;
+  "revision_count"?: number;
+  "status"?: string;
+  "title"?: string;
+}
+
+export interface ModelRedditUserFlairsResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditUserFlairsResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditUserFlairsResponse {
+  "flairs"?: Array<ModelRedditFlairTemplate>;
+  "source"?: ModelRedditSourceDetail;
+  "subreddit"?: string;
+}
+
+export interface ModelRedditFlairTemplate {
+  "allowable_content"?: string;
+  "background_color"?: string;
+  "id"?: string;
+  "is_editable"?: boolean;
+  "is_mod_only"?: boolean;
+  "max_emojis"?: number;
+  "richtext"?: string;
+  "text"?: string;
+  "text_color"?: string;
+  "type"?: string;
+}
+
+export interface ModelRedditSubredditRulesResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditSubredditRulesResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditSubredditRulesResponse {
+  "rules"?: Array<ModelRedditSubredditRule>;
+  "site_rules"?: Array<ModelRedditSiteRule>;
+  "source"?: ModelRedditSourceDetail;
+  "subreddit"?: string;
+}
+
+export interface ModelRedditSiteRule {
+  "text"?: string;
+}
+
+export interface ModelRedditSubredditRule {
+  "content_html"?: string;
+  "description"?: string;
+  "name"?: string;
 }
 
 export interface ModelRedditSubredditPostsResponseDoc {
@@ -136,6 +374,66 @@ export interface ModelRedditSubredditPostsResponse {
   "source"?: ModelRedditSourceDetail;
   "subreddit"?: string;
   "time"?: string;
+}
+
+export interface ModelRedditLeaderboardCategoriesResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditLeaderboardCategoriesResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditLeaderboardCategoriesResponse {
+  "categories"?: Array<ModelRedditLeaderboardCategory>;
+  "source"?: ModelRedditSourceDetail;
+  "subreddit"?: string;
+}
+
+export interface ModelRedditLeaderboardCategory {
+  "deeplink_url"?: string;
+  "description"?: string;
+  "footer_text"?: string;
+  "id"?: string;
+  "is_active"?: boolean;
+  "last_updated_label"?: string;
+  "name"?: string;
+  "periods"?: Array<ModelRedditLeaderboardPeriod>;
+  "update_interval_label"?: string;
+}
+
+export interface ModelRedditLeaderboardPeriod {
+  "id"?: string;
+  "is_active"?: boolean;
+  "name"?: string;
+}
+
+export interface ModelRedditSubredditHighlightsResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditSubredditHighlightsResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditSubredditHighlightsResponse {
+  "highlights"?: Array<ModelRedditHighlight>;
+  "source"?: ModelRedditSourceDetail;
+  "subreddit"?: string;
+}
+
+export interface ModelRedditHighlight {
+  "expires_at"?: string;
+  "label"?: string;
+  "post"?: ModelRedditPost;
+}
+
+export interface ModelRedditSubredditFlairsResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditSubredditFlairsResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditSubredditFlairsResponse {
+  "flairs"?: Array<ModelRedditFlairTemplate>;
+  "source"?: ModelRedditSourceDetail;
+  "subreddit"?: string;
 }
 
 export interface ModelRedditSubredditCommentsResponseDoc {
@@ -158,16 +456,73 @@ export interface ModelRedditSubredditAboutResponseDoc {
 }
 
 export interface ModelRedditSubredditAboutResponse {
+  "allowed_post_types"?: Array<string>;
+  "banner_url"?: string;
+  "community_leaderboard_enabled"?: boolean;
+  "created"?: string;
+  "created_utc"?: number;
   "display_name"?: string;
   "feed_url"?: string;
+  "icon_url"?: string;
+  "is_crossposting_allowed"?: boolean;
+  "is_quarantined"?: boolean;
+  "is_spoiler_available"?: boolean;
   "latest_post_created"?: string;
   "latest_post_created_utc"?: number;
+  "over_18"?: boolean;
+  "primary_color"?: string;
+  "public_description"?: string;
   "public_url"?: string;
   "recent_post_count"?: number;
   "sample_posts"?: Array<ModelRedditPost>;
   "source"?: ModelRedditSourceDetail;
   "subreddit"?: string;
+  "subscribers"?: number;
   "title"?: string;
+  "type"?: string;
+  "weekly_active_users"?: number;
+  "weekly_contributions"?: number;
+}
+
+export interface ModelRedditSearchPeopleResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditSearchPeopleResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditSearchPeopleResponse {
+  "pagination"?: ModelRedditPagination;
+  "people"?: Array<ModelRedditPerson>;
+  "query"?: string;
+  "sort"?: string;
+  "source"?: ModelRedditSourceDetail;
+}
+
+export interface ModelRedditPerson {
+  "accepts_followers"?: boolean;
+  "display_name"?: string;
+  "icon_url"?: string;
+  "karma"?: number;
+  "name"?: string;
+  "over_18"?: boolean;
+  "public_url"?: string;
+  "username"?: string;
+}
+
+export interface ModelRedditSearchCommentsResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditSearchCommentsResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditSearchCommentsResponse {
+  "comments"?: Array<ModelRedditComment>;
+  "pagination"?: ModelRedditPagination;
+  "query"?: string;
+  "sort"?: string;
+  "source"?: ModelRedditSourceDetail;
+  "subreddit"?: string;
+  "time"?: string;
 }
 
 export interface ModelRedditSearchResponseDoc {
@@ -186,6 +541,44 @@ export interface ModelRedditSearchResponse {
   "time"?: string;
 }
 
+export interface ModelRedditPostsByIdsResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditPostsByIdsResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditPostsByIdsResponse {
+  "missing_ids"?: Array<string>;
+  "posts"?: Array<ModelRedditPost>;
+  "source"?: ModelRedditSourceDetail;
+}
+
+export interface ModelRedditPostAwardsResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditPostAwardsResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditPostAwardsResponse {
+  "awards"?: Array<ModelRedditPostAwarding>;
+  "post_id"?: string;
+  "source"?: ModelRedditSourceDetail;
+}
+
+export interface ModelRedditPostAwarding {
+  "award"?: ModelRedditAward;
+  "gold_count"?: number;
+  "total"?: number;
+}
+
+export interface ModelRedditAward {
+  "description"?: string;
+  "icon_url"?: string;
+  "id"?: string;
+  "name"?: string;
+  "tags"?: Array<string>;
+}
+
 export interface ModelRedditPostResponseDoc {
   "code"?: number;
   "data"?: ModelRedditPostResponse;
@@ -196,6 +589,20 @@ export interface ModelRedditPostResponse {
   "metrics_source"?: ModelRedditSourceDetail;
   "post"?: ModelRedditPost;
   "source"?: ModelRedditSourceDetail;
+}
+
+export interface ModelRedditPopularResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditPopularResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditPopularResponse {
+  "pagination"?: ModelRedditPagination;
+  "posts"?: Array<ModelRedditPost>;
+  "sort"?: string;
+  "source"?: ModelRedditSourceDetail;
+  "time"?: string;
 }
 
 export interface ModelRedditLeadsResponseDoc {
@@ -268,13 +675,311 @@ export interface ModelRedditCommentsResponse {
   "source"?: ModelRedditSourceDetail;
 }
 
+export interface ModelRedditCommentAwardsResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditCommentAwardsResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditCommentAwardsResponse {
+  "awards"?: Array<ModelRedditPostAwarding>;
+  "comment_id"?: string;
+  "source"?: ModelRedditSourceDetail;
+}
+
+export interface ModelRedditCommentDetailResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditCommentDetailResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditCommentDetailResponse {
+  "comment"?: ModelRedditComment;
+  "source"?: ModelRedditSourceDetail;
+}
+
+export interface ModelRedditArchiveTimeSeriesResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditArchiveTimeSeriesResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditArchiveTimeSeriesResponse {
+  "created_after"?: string;
+  "created_before"?: string;
+  "metric"?: string;
+  "points"?: Array<ModelRedditArchiveTimeSeriesPoint>;
+  "precision"?: string;
+  "source"?: ModelRedditSourceDetail;
+  "subreddit"?: string;
+}
+
+export interface ModelRedditArchiveTimeSeriesPoint {
+  "date"?: number;
+  "value"?: number;
+}
+
+export interface ModelRedditArchiveSubredditsSearchResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditArchiveSubredditsSearchResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditArchiveSubredditsSearchResponse {
+  "limit"?: number;
+  "max_subscribers"?: number;
+  "min_subscribers"?: number;
+  "over_18"?: boolean;
+  "query"?: string;
+  "sort"?: string;
+  "sort_by"?: string;
+  "source"?: ModelRedditSourceDetail;
+  "subreddits"?: Array<ModelRedditArchiveSubreddit>;
+}
+
+export interface ModelRedditArchiveSubreddit {
+  "created_utc"?: number;
+  "display_name"?: string;
+  "id"?: string;
+  "over_18"?: boolean;
+  "retrieved_on"?: number;
+  "subscribers"?: number;
+}
+
+export interface ModelRedditArchivePostsSearchResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditArchivePostsSearchResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditArchivePostsSearchResponse {
+  "author"?: string;
+  "created_after"?: string;
+  "created_before"?: string;
+  "limit"?: number;
+  "posts"?: Array<ModelRedditArchivePost>;
+  "query"?: string;
+  "sort"?: string;
+  "source"?: ModelRedditSourceDetail;
+  "subreddit"?: string;
+  "url"?: string;
+  "url_exact"?: boolean;
+}
+
+export interface ModelRedditArchivePost {
+  "author"?: string;
+  "author_flair_text"?: string;
+  "author_fullname"?: string;
+  "created_utc"?: number;
+  "crosspost_parent"?: string;
+  "distinguished"?: string;
+  "id"?: string;
+  "link_flair_text"?: string;
+  "num_comments"?: number;
+  "over_18"?: boolean;
+  "post_hint"?: string;
+  "removed_by_category"?: string;
+  "retrieved_on"?: number;
+  "score"?: number;
+  "selftext"?: string;
+  "spoiler"?: boolean;
+  "subreddit"?: string;
+  "subreddit_id"?: string;
+  "title"?: string;
+  "url"?: string;
+}
+
+export interface ModelRedditArchivePostsIdsResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditArchivePostsIdsResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditArchivePostsIdsResponse {
+  "missing_ids"?: Array<string>;
+  "posts"?: Array<ModelRedditArchivePost>;
+  "requested_count"?: number;
+  "returned_count"?: number;
+  "source"?: ModelRedditArchiveBatchSource;
+}
+
+export interface ModelRedditArchiveBatchSource {
+  "requests"?: number;
+  "type"?: string;
+  "url"?: string;
+}
+
+export interface ModelRedditArchiveCommentsTreeResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditArchiveCommentsTreeResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditArchiveCommentsTreeResponse {
+  "comments"?: Array<ModelRedditArchiveCommentTreeEntry>;
+  "limit"?: number;
+  "parent_id"?: string;
+  "post_id"?: string;
+  "source"?: ModelRedditSourceDetail;
+  "start_breadth"?: number;
+  "start_depth"?: number;
+}
+
+export interface ModelRedditArchiveCommentTreeEntry {
+  "comment"?: ModelRedditArchiveCommentTreeNode;
+  "kind"?: "t1" | "more";
+  "more"?: ModelRedditArchiveMoreComments;
+}
+
+export interface ModelRedditArchiveMoreComments {
+  "children"?: Array<string>;
+  "count"?: number;
+  "depth"?: number;
+  "id"?: string;
+  "name"?: string;
+  "parent_id"?: string;
+}
+
+export interface ModelRedditArchiveCommentTreeNode {
+  "comment"?: ModelRedditArchiveComment;
+  "replies"?: Array<ModelRedditArchiveCommentTreeEntry>;
+}
+
+export interface ModelRedditArchiveComment {
+  "author"?: string;
+  "author_flair_text"?: string;
+  "author_fullname"?: string;
+  "body"?: string;
+  "created_utc"?: number;
+  "depth"?: number;
+  "distinguished"?: string;
+  "id"?: string;
+  "link_id"?: string;
+  "name"?: string;
+  "parent_id"?: string;
+  "permalink"?: string;
+  "removed_by_category"?: string;
+  "retrieved_on"?: number;
+  "score"?: number;
+  "subreddit"?: string;
+  "subreddit_id"?: string;
+}
+
+export interface ModelRedditArchiveCommentsSearchResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditArchiveCommentsSearchResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditArchiveCommentsSearchResponse {
+  "author"?: string;
+  "comments"?: Array<ModelRedditArchiveComment>;
+  "created_after"?: string;
+  "created_before"?: string;
+  "limit"?: number;
+  "link_id"?: string;
+  "parent_id"?: string;
+  "query"?: string;
+  "sort"?: string;
+  "source"?: ModelRedditSourceDetail;
+  "subreddit"?: string;
+}
+
+export interface ModelRedditArchiveCommentsIdsResponseDoc {
+  "code"?: number;
+  "data"?: ModelRedditArchiveCommentsIdsResponse;
+  "msg"?: string;
+}
+
+export interface ModelRedditArchiveCommentsIdsResponse {
+  "comments"?: Array<ModelRedditArchiveComment>;
+  "missing_ids"?: Array<string>;
+  "requested_count"?: number;
+  "returned_count"?: number;
+  "source"?: ModelRedditArchiveBatchSource;
+}
+
+export type RedditArchiveCommentsIdsResponse = CrawloraResponse<ModelRedditArchiveCommentsIdsResponseDoc>;
+export interface RedditArchiveCommentsIdsParams {
+  "ids": string;
+}
+
+export type RedditArchiveCommentsSearchResponse = CrawloraResponse<ModelRedditArchiveCommentsSearchResponseDoc>;
+export interface RedditArchiveCommentsSearchParams {
+  "author"?: string;
+  "subreddit"?: string;
+  "query"?: string;
+  "link_id"?: string;
+  "parent_id"?: string;
+  "created_after"?: string;
+  "created_before"?: string;
+  "sort"?: "asc" | "desc";
+  "limit"?: number;
+}
+
+export type RedditArchiveCommentsTreeResponse = CrawloraResponse<ModelRedditArchiveCommentsTreeResponseDoc>;
+export interface RedditArchiveCommentsTreeParams {
+  "id": string;
+  "parent_id"?: string;
+  "limit"?: number;
+  "start_breadth"?: number;
+  "start_depth"?: number;
+}
+
+export type RedditArchivePostsIdsResponse = CrawloraResponse<ModelRedditArchivePostsIdsResponseDoc>;
+export interface RedditArchivePostsIdsParams {
+  "ids": string;
+}
+
+export type RedditArchivePostsSearchResponse = CrawloraResponse<ModelRedditArchivePostsSearchResponseDoc>;
+export interface RedditArchivePostsSearchParams {
+  "query"?: string;
+  "author"?: string;
+  "subreddit"?: string;
+  "url"?: string;
+  "url_exact"?: boolean;
+  "created_after"?: string;
+  "created_before"?: string;
+  "sort"?: "asc" | "desc";
+  "limit"?: number;
+}
+
+export type RedditArchiveSubredditsSearchResponse = CrawloraResponse<ModelRedditArchiveSubredditsSearchResponseDoc>;
+export interface RedditArchiveSubredditsSearchParams {
+  "query": string;
+  "min_subscribers"?: number;
+  "max_subscribers"?: number;
+  "over_18"?: boolean;
+  "sort_by"?: "created_utc" | "subscribers" | "subreddit";
+  "sort"?: "asc" | "desc";
+  "limit"?: number;
+}
+
+export type RedditArchiveTimeSeriesResponse = CrawloraResponse<ModelRedditArchiveTimeSeriesResponseDoc>;
+export interface RedditArchiveTimeSeriesParams {
+  "metric": "posts_count" | "comments_count" | "posts_score_sum" | "comments_score_sum" | "posts_retrieval_delay_seconds_sum" | "comments_retrieval_delay_seconds_sum" | "subreddit_subscribers";
+  "subreddit"?: string;
+  "precision": "year" | "quarter" | "month" | "week" | "day" | "hour" | "minute";
+  "created_after": string;
+  "created_before": string;
+}
+
+export type RedditCommentResponse = CrawloraResponse<ModelRedditCommentDetailResponseDoc>;
+export interface RedditCommentParams {
+  "id": string;
+}
+
+export type RedditCommentAwardsResponse = CrawloraResponse<ModelRedditCommentAwardsResponseDoc>;
+export interface RedditCommentAwardsParams {
+  "id": string;
+}
+
 export type RedditCommentsResponse = CrawloraResponse<ModelRedditCommentsResponseDoc>;
 export interface RedditCommentsParams {
   "id": string;
   "sort"?: "confidence" | "top" | "new" | "controversial" | "old" | "qa";
   "limit"?: number;
   "depth"?: number;
-  "include_metrics"?: boolean;
 }
 
 export type RedditDomainPostsResponse = CrawloraResponse<ModelRedditDomainPostsResponseDoc>;
@@ -297,10 +1002,27 @@ export interface RedditLeadsParams {
   "classifier"?: "auto" | "heuristic" | "llm";
 }
 
+export type RedditPopularResponse = CrawloraResponse<ModelRedditPopularResponseDoc>;
+export interface RedditPopularParams {
+  "sort"?: "hot" | "top";
+  "time"?: "hour" | "day" | "week" | "month" | "year" | "all";
+  "limit"?: number;
+  "after"?: string;
+}
+
 export type RedditPostResponse = CrawloraResponse<ModelRedditPostResponseDoc>;
 export interface RedditPostParams {
   "id": string;
-  "include_metrics"?: boolean;
+}
+
+export type RedditPostAwardsResponse = CrawloraResponse<ModelRedditPostAwardsResponseDoc>;
+export interface RedditPostAwardsParams {
+  "id": string;
+}
+
+export type RedditPostsByIdsResponse = CrawloraResponse<ModelRedditPostsByIdsResponseDoc>;
+export interface RedditPostsByIdsParams {
+  "ids": string;
 }
 
 export type RedditSearchResponse = CrawloraResponse<ModelRedditSearchResponseDoc>;
@@ -309,6 +1031,24 @@ export interface RedditSearchParams {
   "subreddit"?: string;
   "sort"?: "relevance" | "hot" | "new" | "top" | "comments";
   "time"?: "hour" | "day" | "week" | "month" | "year" | "all";
+  "limit"?: number;
+  "after"?: string;
+}
+
+export type RedditSearchCommentsResponse = CrawloraResponse<ModelRedditSearchCommentsResponseDoc>;
+export interface RedditSearchCommentsParams {
+  "q": string;
+  "subreddit"?: string;
+  "sort"?: "relevance" | "hot" | "new" | "top" | "comments";
+  "time"?: "hour" | "day" | "week" | "month" | "year" | "all";
+  "limit"?: number;
+  "after"?: string;
+}
+
+export type RedditSearchPeopleResponse = CrawloraResponse<ModelRedditSearchPeopleResponseDoc>;
+export interface RedditSearchPeopleParams {
+  "q": string;
+  "sort"?: "relevance" | "hot" | "new" | "top" | "comments";
   "limit"?: number;
   "after"?: string;
 }
@@ -326,11 +1066,49 @@ export interface RedditSubredditCommentsParams {
   "after"?: string;
 }
 
+export type RedditSubredditFlairsResponse = CrawloraResponse<ModelRedditSubredditFlairsResponseDoc>;
+export interface RedditSubredditFlairsParams {
+  "subreddit": string;
+}
+
+export type RedditSubredditHighlightsResponse = CrawloraResponse<ModelRedditSubredditHighlightsResponseDoc>;
+export interface RedditSubredditHighlightsParams {
+  "subreddit": string;
+}
+
+export type RedditSubredditLeaderboardCategoriesResponse = CrawloraResponse<ModelRedditLeaderboardCategoriesResponseDoc>;
+export interface RedditSubredditLeaderboardCategoriesParams {
+  "subreddit": string;
+}
+
 export type RedditSubredditPostsResponse = CrawloraResponse<ModelRedditSubredditPostsResponseDoc>;
 export interface RedditSubredditPostsParams {
   "subreddit": string;
-  "sort"?: "hot" | "new" | "top" | "rising";
+  "sort"?: "hot" | "new" | "top" | "rising" | "controversial";
   "time"?: "hour" | "day" | "week" | "month" | "year" | "all";
+  "limit"?: number;
+  "after"?: string;
+}
+
+export type RedditSubredditRulesResponse = CrawloraResponse<ModelRedditSubredditRulesResponseDoc>;
+export interface RedditSubredditRulesParams {
+  "subreddit": string;
+}
+
+export type RedditSubredditUserFlairsResponse = CrawloraResponse<ModelRedditUserFlairsResponseDoc>;
+export interface RedditSubredditUserFlairsParams {
+  "subreddit": string;
+}
+
+export type RedditSubredditWikiResponse = CrawloraResponse<ModelRedditSubredditWikiResponseDoc>;
+export interface RedditSubredditWikiParams {
+  "subreddit": string;
+  "page"?: string;
+}
+
+export type RedditSubredditsDiscoverResponse = CrawloraResponse<ModelRedditSubredditsDiscoverResponseDoc>;
+export interface RedditSubredditsDiscoverParams {
+  "feed"?: "popular" | "new" | "default";
   "limit"?: number;
   "after"?: string;
 }
@@ -342,6 +1120,33 @@ export interface RedditSubredditsPostsParams {
   "time"?: "hour" | "day" | "week" | "month" | "year" | "all";
   "limit"?: number;
   "after"?: string;
+}
+
+export type RedditSubredditsSearchResponse = CrawloraResponse<ModelRedditSubredditSearchResponseDoc>;
+export interface RedditSubredditsSearchParams {
+  "q": string;
+  "limit"?: number;
+  "after"?: string;
+}
+
+export type RedditSubredditsSuggestResponse = CrawloraResponse<ModelRedditSubredditSuggestResponseDoc>;
+export interface RedditSubredditsSuggestParams {
+  "q": string;
+}
+
+export type RedditTopicsResponse = CrawloraResponse<ModelRedditTopicsResponseDoc>;
+export interface RedditTopicsParams {
+  "limit"?: number;
+  "after"?: string;
+}
+
+export type RedditTopicsBroadResponse = CrawloraResponse<ModelRedditBroadTopicsResponseDoc>;
+export interface RedditTopicsBroadParams {
+}
+
+export type RedditTopicsSearchResponse = CrawloraResponse<ModelRedditTopicSearchResponseDoc>;
+export interface RedditTopicsSearchParams {
+  "q": string;
 }
 
 export type RedditTrendsResponse = CrawloraResponse<ModelRedditTrendsResponseDoc>;
@@ -366,19 +1171,51 @@ export interface RedditUserPostsParams {
   "after"?: string;
 }
 
+export type RedditUserProfileResponse = CrawloraResponse<ModelRedditUserProfileResponseDoc>;
+export interface RedditUserProfileParams {
+  "username": string;
+}
+
 export interface RedditService {
+  archiveCommentsIds<T = RedditArchiveCommentsIdsResponse>(params: RedditArchiveCommentsIdsParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  archiveCommentsSearch<T = RedditArchiveCommentsSearchResponse>(params?: RedditArchiveCommentsSearchParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  archiveCommentsTree<T = RedditArchiveCommentsTreeResponse>(params: RedditArchiveCommentsTreeParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  archivePostsIds<T = RedditArchivePostsIdsResponse>(params: RedditArchivePostsIdsParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  archivePostsSearch<T = RedditArchivePostsSearchResponse>(params?: RedditArchivePostsSearchParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  archiveSubredditsSearch<T = RedditArchiveSubredditsSearchResponse>(params: RedditArchiveSubredditsSearchParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  archiveTimeSeries<T = RedditArchiveTimeSeriesResponse>(params: RedditArchiveTimeSeriesParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  comment<T = RedditCommentResponse>(params: RedditCommentParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  commentAwards<T = RedditCommentAwardsResponse>(params: RedditCommentAwardsParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
   comments<T = RedditCommentsResponse>(params: RedditCommentsParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
   domainPosts<T = RedditDomainPostsResponse>(params: RedditDomainPostsParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
   leads<T = RedditLeadsResponse>(params: RedditLeadsParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  popular<T = RedditPopularResponse>(params?: RedditPopularParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
   post<T = RedditPostResponse>(params: RedditPostParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  postAwards<T = RedditPostAwardsResponse>(params: RedditPostAwardsParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  postsByIds<T = RedditPostsByIdsResponse>(params: RedditPostsByIdsParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
   search<T = RedditSearchResponse>(params: RedditSearchParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  searchComments<T = RedditSearchCommentsResponse>(params: RedditSearchCommentsParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  searchPeople<T = RedditSearchPeopleResponse>(params: RedditSearchPeopleParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
   subredditAbout<T = RedditSubredditAboutResponse>(params: RedditSubredditAboutParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
   subredditComments<T = RedditSubredditCommentsResponse>(params: RedditSubredditCommentsParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  subredditFlairs<T = RedditSubredditFlairsResponse>(params: RedditSubredditFlairsParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  subredditHighlights<T = RedditSubredditHighlightsResponse>(params: RedditSubredditHighlightsParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  subredditLeaderboardCategories<T = RedditSubredditLeaderboardCategoriesResponse>(params: RedditSubredditLeaderboardCategoriesParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
   subredditPosts<T = RedditSubredditPostsResponse>(params: RedditSubredditPostsParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  subredditRules<T = RedditSubredditRulesResponse>(params: RedditSubredditRulesParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  subredditUserFlairs<T = RedditSubredditUserFlairsResponse>(params: RedditSubredditUserFlairsParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  subredditWiki<T = RedditSubredditWikiResponse>(params: RedditSubredditWikiParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  subredditsDiscover<T = RedditSubredditsDiscoverResponse>(params?: RedditSubredditsDiscoverParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
   subredditsPosts<T = RedditSubredditsPostsResponse>(params: RedditSubredditsPostsParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  subredditsSearch<T = RedditSubredditsSearchResponse>(params: RedditSubredditsSearchParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  subredditsSuggest<T = RedditSubredditsSuggestResponse>(params: RedditSubredditsSuggestParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  topics<T = RedditTopicsResponse>(params?: RedditTopicsParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  topicsBroad<T = RedditTopicsBroadResponse>(params?: RedditTopicsBroadParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  topicsSearch<T = RedditTopicsSearchResponse>(params: RedditTopicsSearchParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
   trends<T = RedditTrendsResponse>(params?: RedditTrendsParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
   userComments<T = RedditUserCommentsResponse>(params: RedditUserCommentsParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
   userPosts<T = RedditUserPostsResponse>(params: RedditUserPostsParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
+  userProfile<T = RedditUserProfileResponse>(params: RedditUserProfileParams, options?: import('./index.js').CrawloraRequestOptions): Promise<T>;
 }
 
 export interface CrawloraGeneratedGroups {
@@ -386,48 +1223,129 @@ export interface CrawloraGeneratedGroups {
 }
 
 export interface OperationParamsMap {
+  "reddit-archive-comments-ids": RedditArchiveCommentsIdsParams;
+  "reddit-archive-comments-search": RedditArchiveCommentsSearchParams;
+  "reddit-archive-comments-tree": RedditArchiveCommentsTreeParams;
+  "reddit-archive-posts-ids": RedditArchivePostsIdsParams;
+  "reddit-archive-posts-search": RedditArchivePostsSearchParams;
+  "reddit-archive-subreddits-search": RedditArchiveSubredditsSearchParams;
+  "reddit-archive-time-series": RedditArchiveTimeSeriesParams;
+  "reddit-comment": RedditCommentParams;
+  "reddit-comment-awards": RedditCommentAwardsParams;
   "reddit-comments": RedditCommentsParams;
   "reddit-domain-posts": RedditDomainPostsParams;
   "reddit-leads": RedditLeadsParams;
+  "reddit-popular": RedditPopularParams;
   "reddit-post": RedditPostParams;
+  "reddit-post-awards": RedditPostAwardsParams;
+  "reddit-posts-by-ids": RedditPostsByIdsParams;
   "reddit-search": RedditSearchParams;
+  "reddit-search-comments": RedditSearchCommentsParams;
+  "reddit-search-people": RedditSearchPeopleParams;
   "reddit-subreddit-about": RedditSubredditAboutParams;
   "reddit-subreddit-comments": RedditSubredditCommentsParams;
+  "reddit-subreddit-flairs": RedditSubredditFlairsParams;
+  "reddit-subreddit-highlights": RedditSubredditHighlightsParams;
+  "reddit-subreddit-leaderboard-categories": RedditSubredditLeaderboardCategoriesParams;
   "reddit-subreddit-posts": RedditSubredditPostsParams;
+  "reddit-subreddit-rules": RedditSubredditRulesParams;
+  "reddit-subreddit-user-flairs": RedditSubredditUserFlairsParams;
+  "reddit-subreddit-wiki": RedditSubredditWikiParams;
+  "reddit-subreddits-discover": RedditSubredditsDiscoverParams;
   "reddit-subreddits-posts": RedditSubredditsPostsParams;
+  "reddit-subreddits-search": RedditSubredditsSearchParams;
+  "reddit-subreddits-suggest": RedditSubredditsSuggestParams;
+  "reddit-topics": RedditTopicsParams;
+  "reddit-topics-broad": RedditTopicsBroadParams;
+  "reddit-topics-search": RedditTopicsSearchParams;
   "reddit-trends": RedditTrendsParams;
   "reddit-user-comments": RedditUserCommentsParams;
   "reddit-user-posts": RedditUserPostsParams;
+  "reddit-user-profile": RedditUserProfileParams;
 }
 
 export interface OperationResponseMap {
+  "reddit-archive-comments-ids": RedditArchiveCommentsIdsResponse;
+  "reddit-archive-comments-search": RedditArchiveCommentsSearchResponse;
+  "reddit-archive-comments-tree": RedditArchiveCommentsTreeResponse;
+  "reddit-archive-posts-ids": RedditArchivePostsIdsResponse;
+  "reddit-archive-posts-search": RedditArchivePostsSearchResponse;
+  "reddit-archive-subreddits-search": RedditArchiveSubredditsSearchResponse;
+  "reddit-archive-time-series": RedditArchiveTimeSeriesResponse;
+  "reddit-comment": RedditCommentResponse;
+  "reddit-comment-awards": RedditCommentAwardsResponse;
   "reddit-comments": RedditCommentsResponse;
   "reddit-domain-posts": RedditDomainPostsResponse;
   "reddit-leads": RedditLeadsResponse;
+  "reddit-popular": RedditPopularResponse;
   "reddit-post": RedditPostResponse;
+  "reddit-post-awards": RedditPostAwardsResponse;
+  "reddit-posts-by-ids": RedditPostsByIdsResponse;
   "reddit-search": RedditSearchResponse;
+  "reddit-search-comments": RedditSearchCommentsResponse;
+  "reddit-search-people": RedditSearchPeopleResponse;
   "reddit-subreddit-about": RedditSubredditAboutResponse;
   "reddit-subreddit-comments": RedditSubredditCommentsResponse;
+  "reddit-subreddit-flairs": RedditSubredditFlairsResponse;
+  "reddit-subreddit-highlights": RedditSubredditHighlightsResponse;
+  "reddit-subreddit-leaderboard-categories": RedditSubredditLeaderboardCategoriesResponse;
   "reddit-subreddit-posts": RedditSubredditPostsResponse;
+  "reddit-subreddit-rules": RedditSubredditRulesResponse;
+  "reddit-subreddit-user-flairs": RedditSubredditUserFlairsResponse;
+  "reddit-subreddit-wiki": RedditSubredditWikiResponse;
+  "reddit-subreddits-discover": RedditSubredditsDiscoverResponse;
   "reddit-subreddits-posts": RedditSubredditsPostsResponse;
+  "reddit-subreddits-search": RedditSubredditsSearchResponse;
+  "reddit-subreddits-suggest": RedditSubredditsSuggestResponse;
+  "reddit-topics": RedditTopicsResponse;
+  "reddit-topics-broad": RedditTopicsBroadResponse;
+  "reddit-topics-search": RedditTopicsSearchResponse;
   "reddit-trends": RedditTrendsResponse;
   "reddit-user-comments": RedditUserCommentsResponse;
   "reddit-user-posts": RedditUserPostsResponse;
+  "reddit-user-profile": RedditUserProfileResponse;
 }
 
 export interface OperationRequiredParamsMap {
+  "reddit-archive-comments-ids": true;
+  "reddit-archive-comments-search": false;
+  "reddit-archive-comments-tree": true;
+  "reddit-archive-posts-ids": true;
+  "reddit-archive-posts-search": false;
+  "reddit-archive-subreddits-search": true;
+  "reddit-archive-time-series": true;
+  "reddit-comment": true;
+  "reddit-comment-awards": true;
   "reddit-comments": true;
   "reddit-domain-posts": true;
   "reddit-leads": true;
+  "reddit-popular": false;
   "reddit-post": true;
+  "reddit-post-awards": true;
+  "reddit-posts-by-ids": true;
   "reddit-search": true;
+  "reddit-search-comments": true;
+  "reddit-search-people": true;
   "reddit-subreddit-about": true;
   "reddit-subreddit-comments": true;
+  "reddit-subreddit-flairs": true;
+  "reddit-subreddit-highlights": true;
+  "reddit-subreddit-leaderboard-categories": true;
   "reddit-subreddit-posts": true;
+  "reddit-subreddit-rules": true;
+  "reddit-subreddit-user-flairs": true;
+  "reddit-subreddit-wiki": true;
+  "reddit-subreddits-discover": false;
   "reddit-subreddits-posts": true;
+  "reddit-subreddits-search": true;
+  "reddit-subreddits-suggest": true;
+  "reddit-topics": false;
+  "reddit-topics-broad": false;
+  "reddit-topics-search": true;
   "reddit-trends": false;
   "reddit-user-comments": true;
   "reddit-user-posts": true;
+  "reddit-user-profile": true;
 }
 
 export type OperationId = keyof OperationParamsMap;
@@ -438,30 +1356,84 @@ export type OperationRequestArgs<I extends OperationId> =
     : [params?: OperationParamsMap[I], options?: import('./index.js').CrawloraRequestOptions];
 
 export type OperationIdLiteral =
+  | "reddit-archive-comments-ids"
+  | "reddit-archive-comments-search"
+  | "reddit-archive-comments-tree"
+  | "reddit-archive-posts-ids"
+  | "reddit-archive-posts-search"
+  | "reddit-archive-subreddits-search"
+  | "reddit-archive-time-series"
+  | "reddit-comment"
+  | "reddit-comment-awards"
   | "reddit-comments"
   | "reddit-domain-posts"
   | "reddit-leads"
+  | "reddit-popular"
   | "reddit-post"
+  | "reddit-post-awards"
+  | "reddit-posts-by-ids"
   | "reddit-search"
+  | "reddit-search-comments"
+  | "reddit-search-people"
   | "reddit-subreddit-about"
   | "reddit-subreddit-comments"
+  | "reddit-subreddit-flairs"
+  | "reddit-subreddit-highlights"
+  | "reddit-subreddit-leaderboard-categories"
   | "reddit-subreddit-posts"
+  | "reddit-subreddit-rules"
+  | "reddit-subreddit-user-flairs"
+  | "reddit-subreddit-wiki"
+  | "reddit-subreddits-discover"
   | "reddit-subreddits-posts"
+  | "reddit-subreddits-search"
+  | "reddit-subreddits-suggest"
+  | "reddit-topics"
+  | "reddit-topics-broad"
+  | "reddit-topics-search"
   | "reddit-trends"
   | "reddit-user-comments"
-  | "reddit-user-posts";
+  | "reddit-user-posts"
+  | "reddit-user-profile";
 
 export declare const OperationIds: Readonly<{
+  RedditArchiveCommentsIds: "reddit-archive-comments-ids";
+  RedditArchiveCommentsSearch: "reddit-archive-comments-search";
+  RedditArchiveCommentsTree: "reddit-archive-comments-tree";
+  RedditArchivePostsIds: "reddit-archive-posts-ids";
+  RedditArchivePostsSearch: "reddit-archive-posts-search";
+  RedditArchiveSubredditsSearch: "reddit-archive-subreddits-search";
+  RedditArchiveTimeSeries: "reddit-archive-time-series";
+  RedditComment: "reddit-comment";
+  RedditCommentAwards: "reddit-comment-awards";
   RedditComments: "reddit-comments";
   RedditDomainPosts: "reddit-domain-posts";
   RedditLeads: "reddit-leads";
+  RedditPopular: "reddit-popular";
   RedditPost: "reddit-post";
+  RedditPostAwards: "reddit-post-awards";
+  RedditPostsByIds: "reddit-posts-by-ids";
   RedditSearch: "reddit-search";
+  RedditSearchComments: "reddit-search-comments";
+  RedditSearchPeople: "reddit-search-people";
   RedditSubredditAbout: "reddit-subreddit-about";
   RedditSubredditComments: "reddit-subreddit-comments";
+  RedditSubredditFlairs: "reddit-subreddit-flairs";
+  RedditSubredditHighlights: "reddit-subreddit-highlights";
+  RedditSubredditLeaderboardCategories: "reddit-subreddit-leaderboard-categories";
   RedditSubredditPosts: "reddit-subreddit-posts";
+  RedditSubredditRules: "reddit-subreddit-rules";
+  RedditSubredditUserFlairs: "reddit-subreddit-user-flairs";
+  RedditSubredditWiki: "reddit-subreddit-wiki";
+  RedditSubredditsDiscover: "reddit-subreddits-discover";
   RedditSubredditsPosts: "reddit-subreddits-posts";
+  RedditSubredditsSearch: "reddit-subreddits-search";
+  RedditSubredditsSuggest: "reddit-subreddits-suggest";
+  RedditTopics: "reddit-topics";
+  RedditTopicsBroad: "reddit-topics-broad";
+  RedditTopicsSearch: "reddit-topics-search";
   RedditTrends: "reddit-trends";
   RedditUserComments: "reddit-user-comments";
   RedditUserPosts: "reddit-user-posts";
+  RedditUserProfile: "reddit-user-profile";
 }>;

@@ -17,6 +17,505 @@
       },
       "type": "object"
     },
+    "reddit.ArchiveBatchSource": {
+      "properties": {
+        "requests": {
+          "example": 2,
+          "type": "integer"
+        },
+        "type": {
+          "example": "arctic_shift",
+          "type": "string"
+        },
+        "url": {
+          "example": "https://arctic-shift.photon-reddit.com/api/posts/ids",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.ArchiveComment": {
+      "properties": {
+        "author": {
+          "example": "reddit_user",
+          "type": "string"
+        },
+        "author_flair_text": {
+          "type": "string"
+        },
+        "author_fullname": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "created_utc": {
+          "example": 1713484800,
+          "type": "integer"
+        },
+        "depth": {
+          "type": "integer"
+        },
+        "distinguished": {
+          "type": "string"
+        },
+        "id": {
+          "example": "kabc123",
+          "type": "string"
+        },
+        "link_id": {
+          "example": "t3_1abcxyz",
+          "type": "string"
+        },
+        "name": {
+          "example": "t1_kabc123",
+          "type": "string"
+        },
+        "parent_id": {
+          "example": "t3_1abcxyz",
+          "type": "string"
+        },
+        "permalink": {
+          "type": "string"
+        },
+        "removed_by_category": {
+          "type": "string"
+        },
+        "retrieved_on": {
+          "example": 1713484820,
+          "type": "integer"
+        },
+        "score": {
+          "example": 3,
+          "type": "integer"
+        },
+        "subreddit": {
+          "example": "OpenAI",
+          "type": "string"
+        },
+        "subreddit_id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.ArchiveCommentTreeEntry": {
+      "properties": {
+        "comment": {
+          "$ref": "#/definitions/reddit.ArchiveCommentTreeNode"
+        },
+        "kind": {
+          "enum": [
+            "t1",
+            "more"
+          ],
+          "example": "t1",
+          "type": "string"
+        },
+        "more": {
+          "$ref": "#/definitions/reddit.ArchiveMoreComments"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.ArchiveCommentTreeNode": {
+      "properties": {
+        "comment": {
+          "$ref": "#/definitions/reddit.ArchiveComment"
+        },
+        "replies": {
+          "items": {
+            "$ref": "#/definitions/reddit.ArchiveCommentTreeEntry"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.ArchiveCommentsIDsResponse": {
+      "properties": {
+        "comments": {
+          "items": {
+            "$ref": "#/definitions/reddit.ArchiveComment"
+          },
+          "type": "array"
+        },
+        "missing_ids": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "requested_count": {
+          "type": "integer"
+        },
+        "returned_count": {
+          "type": "integer"
+        },
+        "source": {
+          "$ref": "#/definitions/reddit.ArchiveBatchSource"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.ArchiveCommentsSearchResponse": {
+      "properties": {
+        "author": {
+          "type": "string"
+        },
+        "comments": {
+          "items": {
+            "$ref": "#/definitions/reddit.ArchiveComment"
+          },
+          "type": "array"
+        },
+        "created_after": {
+          "type": "string"
+        },
+        "created_before": {
+          "type": "string"
+        },
+        "limit": {
+          "example": 25,
+          "type": "integer"
+        },
+        "link_id": {
+          "type": "string"
+        },
+        "parent_id": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        },
+        "sort": {
+          "example": "desc",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/definitions/reddit.SourceDetail"
+        },
+        "subreddit": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.ArchiveCommentsTreeResponse": {
+      "properties": {
+        "comments": {
+          "items": {
+            "$ref": "#/definitions/reddit.ArchiveCommentTreeEntry"
+          },
+          "type": "array"
+        },
+        "limit": {
+          "example": 50,
+          "type": "integer"
+        },
+        "parent_id": {
+          "type": "string"
+        },
+        "post_id": {
+          "example": "7cff0b",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/definitions/reddit.SourceDetail"
+        },
+        "start_breadth": {
+          "example": 2,
+          "type": "integer"
+        },
+        "start_depth": {
+          "example": 3,
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.ArchiveMoreComments": {
+      "properties": {
+        "children": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "count": {
+          "example": 12,
+          "type": "integer"
+        },
+        "depth": {
+          "example": 3,
+          "type": "integer"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "parent_id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.ArchivePost": {
+      "properties": {
+        "author": {
+          "example": "reddit_user",
+          "type": "string"
+        },
+        "author_flair_text": {
+          "type": "string"
+        },
+        "author_fullname": {
+          "type": "string"
+        },
+        "created_utc": {
+          "example": 1713484800,
+          "type": "integer"
+        },
+        "crosspost_parent": {
+          "type": "string"
+        },
+        "distinguished": {
+          "type": "string"
+        },
+        "id": {
+          "example": "1abcxyz",
+          "type": "string"
+        },
+        "link_flair_text": {
+          "type": "string"
+        },
+        "num_comments": {
+          "example": 12,
+          "type": "integer"
+        },
+        "over_18": {
+          "type": "boolean"
+        },
+        "post_hint": {
+          "type": "string"
+        },
+        "removed_by_category": {
+          "type": "string"
+        },
+        "retrieved_on": {
+          "example": 1713484820,
+          "type": "integer"
+        },
+        "score": {
+          "example": 42,
+          "type": "integer"
+        },
+        "selftext": {
+          "type": "string"
+        },
+        "spoiler": {
+          "type": "boolean"
+        },
+        "subreddit": {
+          "example": "OpenAI",
+          "type": "string"
+        },
+        "subreddit_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.ArchivePostsIDsResponse": {
+      "properties": {
+        "missing_ids": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "posts": {
+          "items": {
+            "$ref": "#/definitions/reddit.ArchivePost"
+          },
+          "type": "array"
+        },
+        "requested_count": {
+          "type": "integer"
+        },
+        "returned_count": {
+          "type": "integer"
+        },
+        "source": {
+          "$ref": "#/definitions/reddit.ArchiveBatchSource"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.ArchivePostsSearchResponse": {
+      "properties": {
+        "author": {
+          "type": "string"
+        },
+        "created_after": {
+          "type": "string"
+        },
+        "created_before": {
+          "type": "string"
+        },
+        "limit": {
+          "example": 25,
+          "type": "integer"
+        },
+        "posts": {
+          "items": {
+            "$ref": "#/definitions/reddit.ArchivePost"
+          },
+          "type": "array"
+        },
+        "query": {
+          "type": "string"
+        },
+        "sort": {
+          "example": "desc",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/definitions/reddit.SourceDetail"
+        },
+        "subreddit": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "url_exact": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.ArchiveSubreddit": {
+      "properties": {
+        "created_utc": {
+          "example": 1449870564,
+          "type": "integer"
+        },
+        "display_name": {
+          "example": "OpenAI",
+          "type": "string"
+        },
+        "id": {
+          "example": "3b9u5",
+          "type": "string"
+        },
+        "over_18": {
+          "type": "boolean"
+        },
+        "retrieved_on": {
+          "example": 1739566084,
+          "type": "integer"
+        },
+        "subscribers": {
+          "example": 2239919,
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.ArchiveSubredditsSearchResponse": {
+      "properties": {
+        "limit": {
+          "example": 25,
+          "type": "integer"
+        },
+        "max_subscribers": {
+          "type": "integer"
+        },
+        "min_subscribers": {
+          "type": "integer"
+        },
+        "over_18": {
+          "type": "boolean"
+        },
+        "query": {
+          "type": "string"
+        },
+        "sort": {
+          "example": "desc",
+          "type": "string"
+        },
+        "sort_by": {
+          "example": "subscribers",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/definitions/reddit.SourceDetail"
+        },
+        "subreddits": {
+          "items": {
+            "$ref": "#/definitions/reddit.ArchiveSubreddit"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.ArchiveTimeSeriesPoint": {
+      "properties": {
+        "date": {
+          "example": 1704067200,
+          "type": "integer"
+        },
+        "value": {
+          "example": 24979,
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.ArchiveTimeSeriesResponse": {
+      "properties": {
+        "created_after": {
+          "example": "2024-01-01",
+          "type": "string"
+        },
+        "created_before": {
+          "example": "2025-01-01",
+          "type": "string"
+        },
+        "metric": {
+          "example": "posts_count",
+          "type": "string"
+        },
+        "points": {
+          "items": {
+            "$ref": "#/definitions/reddit.ArchiveTimeSeriesPoint"
+          },
+          "type": "array"
+        },
+        "precision": {
+          "example": "year",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/definitions/reddit.SourceDetail"
+        },
+        "subreddit": {
+          "example": "OpenAI",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "reddit.Author": {
       "properties": {
         "name": {
@@ -28,6 +527,72 @@
           "description": "URL of the author's Reddit profile page.",
           "example": "https://www.reddit.com/user/reddit_user/",
           "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.Award": {
+      "properties": {
+        "description": {
+          "description": "Award description.",
+          "type": "string"
+        },
+        "icon_url": {
+          "description": "Icon URL, when the award carries an image.",
+          "type": "string"
+        },
+        "id": {
+          "description": "Award id, for example `award_free_bravo`.",
+          "type": "string"
+        },
+        "name": {
+          "description": "Award name.",
+          "type": "string"
+        },
+        "tags": {
+          "description": "Award type tags, when supplied.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.BroadTopic": {
+      "properties": {
+        "id": {
+          "description": "Broad topic id, for example `art`.",
+          "example": "art",
+          "type": "string"
+        },
+        "image_url": {
+          "description": "Topic image URL.",
+          "type": "string"
+        },
+        "is_preselected": {
+          "description": "Whether Reddit preselects the topic during onboarding.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.BroadTopicsResponse": {
+      "properties": {
+        "source": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the topics were read from."
+        },
+        "topics": {
+          "description": "Broad topics in Reddit's order.",
+          "items": {
+            "$ref": "#/definitions/reddit.BroadTopic"
+          },
+          "type": "array"
         }
       },
       "type": "object"
@@ -66,10 +631,42 @@
           "example": 1,
           "type": "integer"
         },
+        "distinguished": {
+          "description": "Moderator or admin distinction, for example `moderator` or `admin`.",
+          "type": "string"
+        },
+        "edited": {
+          "description": "Time the comment was last edited, in UTC (RFC 3339).",
+          "type": "string"
+        },
+        "edited_utc": {
+          "description": "Time the comment was last edited, in Unix seconds.",
+          "type": "integer"
+        },
         "id": {
           "description": "Reddit comment id.",
           "example": "kabc123",
           "type": "string"
+        },
+        "is_archived": {
+          "description": "Whether the comment is archived and read-only.",
+          "type": "boolean"
+        },
+        "is_locked": {
+          "description": "Whether the comment is locked against new replies.",
+          "type": "boolean"
+        },
+        "is_op": {
+          "description": "Whether the comment author is the post author.",
+          "type": "boolean"
+        },
+        "is_score_hidden": {
+          "description": "Whether the comment's score is hidden.",
+          "type": "boolean"
+        },
+        "is_stickied": {
+          "description": "Whether the comment is pinned.",
+          "type": "boolean"
         },
         "name": {
           "description": "Reddit full name of the comment, the id prefixed with `t1_`.",
@@ -86,6 +683,15 @@
           "example": "https://www.reddit.com/r/OpenAI/comments/1abcxyz/openai_discussion_thread/kabc123/",
           "type": "string"
         },
+        "post_id": {
+          "description": "Reddit full name of the post this comment belongs to, when the source exposes it.",
+          "example": "t3_1abcxyz",
+          "type": "string"
+        },
+        "post_title": {
+          "description": "Title of the post this comment belongs to, when the source exposes it.",
+          "type": "string"
+        },
         "replies": {
           "description": "Replies to this comment, in the same shape.",
           "items": {
@@ -96,6 +702,57 @@
         "score": {
           "description": "Net score of the comment. Set only when metrics are requested.",
           "type": "integer"
+        },
+        "subreddit": {
+          "description": "Subreddit the comment was posted in, when the source exposes it.",
+          "example": "OpenAI",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.CommentAwardsResponse": {
+      "properties": {
+        "awards": {
+          "description": "Awards received by the comment.",
+          "items": {
+            "$ref": "#/definitions/reddit.PostAwarding"
+          },
+          "type": "array"
+        },
+        "comment_id": {
+          "description": "Comment id without the `t1_` prefix.",
+          "example": "p8402di",
+          "type": "string"
+        },
+        "source": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the awards were read from."
+        }
+      },
+      "type": "object"
+    },
+    "reddit.CommentDetailResponse": {
+      "properties": {
+        "comment": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.Comment"
+            }
+          ],
+          "description": "The requested comment, with its post context."
+        },
+        "source": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the comment was read from."
         }
       },
       "type": "object"
@@ -136,6 +793,74 @@
       },
       "type": "object"
     },
+    "reddit.Community": {
+      "properties": {
+        "banner_url": {
+          "description": "URL of the community banner.",
+          "type": "string"
+        },
+        "created": {
+          "description": "Time the community was created, in UTC (RFC 3339).",
+          "type": "string"
+        },
+        "created_utc": {
+          "description": "Time the community was created, in Unix seconds.",
+          "type": "integer"
+        },
+        "display_name": {
+          "description": "Community name in `r/name` form.",
+          "example": "r/golang",
+          "type": "string"
+        },
+        "icon_url": {
+          "description": "URL of the community icon.",
+          "type": "string"
+        },
+        "is_quarantined": {
+          "description": "Whether the community is quarantined.",
+          "type": "boolean"
+        },
+        "name": {
+          "description": "Reddit full name of the community, the id prefixed with `t5_`.",
+          "example": "t5_2rc7j",
+          "type": "string"
+        },
+        "over_18": {
+          "description": "Whether the community is marked 18+.",
+          "type": "boolean"
+        },
+        "public_description": {
+          "description": "Public community description.",
+          "type": "string"
+        },
+        "public_url": {
+          "description": "Public Reddit URL of the community.",
+          "example": "https://www.reddit.com/r/golang/",
+          "type": "string"
+        },
+        "subreddit": {
+          "description": "Community name, without `r/`.",
+          "example": "golang",
+          "type": "string"
+        },
+        "subreddit_type": {
+          "description": "Community type, for example `public` or `restricted`.",
+          "example": "public",
+          "type": "string"
+        },
+        "subscribers": {
+          "description": "Number of subscribers.",
+          "example": 383101,
+          "type": "integer"
+        },
+        "title": {
+          "description": "Community title as shown on Reddit.",
+          "example": "The Go Programming Language",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "reddit.DomainPostsResponse": {
       "properties": {
         "domain": {
@@ -160,6 +885,162 @@
         },
         "time": {
           "example": "week",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.FlairTemplate": {
+      "properties": {
+        "allowable_content": {
+          "description": "Content the flair may be applied to: `ALL`, `TEXT`, or `LINK` (Reddit's value set; observed values in docs).",
+          "type": "string"
+        },
+        "background_color": {
+          "description": "Background color as a hex string.",
+          "type": "string"
+        },
+        "id": {
+          "description": "Stable flair template id.",
+          "type": "string"
+        },
+        "is_editable": {
+          "description": "Whether the flair text can be edited when applied.",
+          "type": "boolean"
+        },
+        "is_mod_only": {
+          "description": "Whether the flair is restricted to moderators.",
+          "type": "boolean"
+        },
+        "max_emojis": {
+          "description": "Maximum emoji count for richtext flairs.",
+          "type": "integer"
+        },
+        "richtext": {
+          "description": "Reddit richtext document for richtext flairs, as a JSON string.",
+          "type": "string"
+        },
+        "text": {
+          "description": "Flair text.",
+          "type": "string"
+        },
+        "text_color": {
+          "description": "Text color: `DARK` or `LIGHT` (Reddit's value set; observed values in docs).",
+          "type": "string"
+        },
+        "type": {
+          "description": "Flair type: `text` or `richtext`.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.Highlight": {
+      "properties": {
+        "expires_at": {
+          "description": "Optional expiry time for the highlight, in UTC (RFC 3339).",
+          "type": "string"
+        },
+        "label": {
+          "description": "Optional label Reddit attaches to the highlight.",
+          "type": "string"
+        },
+        "post": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.Post"
+            }
+          ],
+          "description": "The highlighted post."
+        }
+      },
+      "type": "object"
+    },
+    "reddit.LeaderboardCategoriesResponse": {
+      "properties": {
+        "categories": {
+          "description": "Leaderboard categories exposed by the community.",
+          "items": {
+            "$ref": "#/definitions/reddit.LeaderboardCategory"
+          },
+          "type": "array"
+        },
+        "source": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the categories were read from."
+        },
+        "subreddit": {
+          "description": "Subreddit the categories were read for, without `r/`.",
+          "example": "golang",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.LeaderboardCategory": {
+      "properties": {
+        "deeplink_url": {
+          "description": "Help/deeplink URL for the category.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description of what the category ranks.",
+          "type": "string"
+        },
+        "footer_text": {
+          "description": "Footer text Reddit shows under the category.",
+          "type": "string"
+        },
+        "id": {
+          "description": "Category id, for example `top_posters`.",
+          "example": "top_posters",
+          "type": "string"
+        },
+        "is_active": {
+          "description": "Whether the category is currently active for the community.",
+          "type": "boolean"
+        },
+        "last_updated_label": {
+          "description": "Human-readable last-updated label from Reddit.",
+          "type": "string"
+        },
+        "name": {
+          "description": "Display name of the category.",
+          "example": "Top Posters",
+          "type": "string"
+        },
+        "periods": {
+          "description": "Selectable periods for the category.",
+          "items": {
+            "$ref": "#/definitions/reddit.LeaderboardPeriod"
+          },
+          "type": "array"
+        },
+        "update_interval_label": {
+          "description": "Human-readable cadence label from Reddit.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.LeaderboardPeriod": {
+      "properties": {
+        "id": {
+          "description": "Period id, for example `2026-11`.",
+          "example": "2026-11",
+          "type": "string"
+        },
+        "is_active": {
+          "description": "Whether the period is currently selectable.",
+          "type": "boolean"
+        },
+        "name": {
+          "description": "Display name of the period.",
+          "example": "November 2026",
           "type": "string"
         }
       },
@@ -210,6 +1091,13 @@
           "description": "Time window that was applied, for example `week`.",
           "example": "week",
           "type": "string"
+        },
+        "warnings": {
+          "description": "Communities that could not be read when the app source aggregates the\nfeed, for example when one community is unavailable.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
         }
       },
       "type": "object"
@@ -225,6 +1113,85 @@
           "description": "Maximum number of items requested for this page.",
           "example": 25,
           "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.Person": {
+      "properties": {
+        "accepts_followers": {
+          "description": "Whether the user accepts new followers.",
+          "type": "boolean"
+        },
+        "display_name": {
+          "description": "Username in `u/name` form.",
+          "example": "u/spez",
+          "type": "string"
+        },
+        "icon_url": {
+          "description": "Avatar URL.",
+          "type": "string"
+        },
+        "karma": {
+          "description": "Total karma across posts and comments.",
+          "type": "integer"
+        },
+        "name": {
+          "description": "Reddit full name of the user, the id prefixed with `t2_`.",
+          "example": "t2_1w72",
+          "type": "string"
+        },
+        "over_18": {
+          "description": "Whether the profile is marked 18+.",
+          "type": "boolean"
+        },
+        "public_url": {
+          "description": "Public Reddit URL of the profile.",
+          "example": "https://www.reddit.com/user/spez/",
+          "type": "string"
+        },
+        "username": {
+          "description": "Username, without `u/`.",
+          "example": "spez",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.PopularResponse": {
+      "properties": {
+        "pagination": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.Pagination"
+            }
+          ],
+          "description": "Page size and cursor for the next page."
+        },
+        "posts": {
+          "description": "Posts from Reddit's popular feed.",
+          "items": {
+            "$ref": "#/definitions/reddit.Post"
+          },
+          "type": "array"
+        },
+        "sort": {
+          "description": "Sort order that was applied, for example `hot`.",
+          "example": "hot",
+          "type": "string"
+        },
+        "source": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the posts were read from."
+        },
+        "time": {
+          "description": "Time window that was applied, for example `week`.",
+          "example": "week",
+          "type": "string"
         }
       },
       "type": "object"
@@ -257,10 +1224,26 @@
           "example": 1713484800,
           "type": "integer"
         },
+        "crosspost_count": {
+          "description": "Number of crossposts of this post.",
+          "type": "integer"
+        },
+        "distinguished": {
+          "description": "Moderator or admin distinction, for example `moderator` or `admin`.",
+          "type": "string"
+        },
         "domain": {
           "description": "Domain of the linked content, or `self.<subreddit>` for text posts.",
           "example": "self.OpenAI",
           "type": "string"
+        },
+        "edited": {
+          "description": "Time the post was last edited, in UTC (RFC 3339).",
+          "type": "string"
+        },
+        "edited_utc": {
+          "description": "Time the post was last edited, in Unix seconds.",
+          "type": "integer"
         },
         "estimated_downvotes": {
           "description": "Approximate downvote total worked out from the score and upvote ratio. Reddit does not publish exact counts.",
@@ -280,13 +1263,41 @@
           "example": "1abcxyz",
           "type": "string"
         },
+        "is_archived": {
+          "description": "Whether the post is archived and read-only.",
+          "type": "boolean"
+        },
+        "is_contest_mode": {
+          "description": "Whether the post is in contest mode.",
+          "type": "boolean"
+        },
+        "is_crosspostable": {
+          "description": "Whether the post may be crossposted.",
+          "type": "boolean"
+        },
+        "is_original_content": {
+          "description": "Whether the post is marked as original content.",
+          "type": "boolean"
+        },
+        "is_score_hidden": {
+          "description": "Whether the post's score is hidden.",
+          "type": "boolean"
+        },
         "is_self": {
           "description": "Whether the post is a text post rather than a link.",
+          "type": "boolean"
+        },
+        "is_spoiler": {
+          "description": "Whether the post is marked as a spoiler.",
           "type": "boolean"
         },
         "is_video": {
           "description": "Whether the post is a video.",
           "type": "boolean"
+        },
+        "language_code": {
+          "description": "Language code Reddit reports for the post.",
+          "type": "string"
         },
         "locked": {
           "description": "Whether the post is locked against new comments.",
@@ -329,6 +1340,10 @@
           "example": "OpenAI",
           "type": "string"
         },
+        "suggested_comment_sort": {
+          "description": "Comment sort Reddit suggests for the post.",
+          "type": "string"
+        },
         "thumbnail": {
           "description": "URL of the post thumbnail image.",
           "example": "https://b.thumbs.redditmedia.com/example.jpg",
@@ -351,6 +1366,52 @@
         "vote_counts_estimated": {
           "description": "Whether `estimated_upvotes` and `estimated_downvotes` are estimates.",
           "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.PostAwarding": {
+      "properties": {
+        "award": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.Award"
+            }
+          ],
+          "description": "The award type."
+        },
+        "gold_count": {
+          "description": "Number of times this award was purchased with Reddit gold.",
+          "type": "integer"
+        },
+        "total": {
+          "description": "Number of times this award was given.",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.PostAwardsResponse": {
+      "properties": {
+        "awards": {
+          "description": "Awards received by the post.",
+          "items": {
+            "$ref": "#/definitions/reddit.PostAwarding"
+          },
+          "type": "array"
+        },
+        "post_id": {
+          "description": "Post id without the `t3_` prefix.",
+          "example": "1abcxyz",
+          "type": "string"
+        },
+        "source": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the awards were read from."
         }
       },
       "type": "object"
@@ -380,6 +1441,119 @@
             }
           ],
           "description": "Reddit page the post was read from."
+        }
+      },
+      "type": "object"
+    },
+    "reddit.PostsByIDsResponse": {
+      "properties": {
+        "missing_ids": {
+          "description": "Requested ids that did not resolve, in input order.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "posts": {
+          "description": "Requested profile ids that resolved to a post, in input order.",
+          "items": {
+            "$ref": "#/definitions/reddit.Post"
+          },
+          "type": "array"
+        },
+        "source": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the posts were read from."
+        }
+      },
+      "type": "object"
+    },
+    "reddit.SearchCommentsResponse": {
+      "properties": {
+        "comments": {
+          "description": "Comments matching the search.",
+          "items": {
+            "$ref": "#/definitions/reddit.Comment"
+          },
+          "type": "array"
+        },
+        "pagination": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.Pagination"
+            }
+          ],
+          "description": "Page size and cursor for the next page."
+        },
+        "query": {
+          "description": "Search query that was run.",
+          "example": "golang generics",
+          "type": "string"
+        },
+        "sort": {
+          "description": "Sort order that was applied, for example `relevance`.",
+          "example": "relevance",
+          "type": "string"
+        },
+        "source": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the comments were read from."
+        },
+        "subreddit": {
+          "description": "Subreddit the search was limited to. Omitted when the search covered all of Reddit.",
+          "example": "golang",
+          "type": "string"
+        },
+        "time": {
+          "description": "Time window that was applied, for example `week`.",
+          "example": "week",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.SearchPeopleResponse": {
+      "properties": {
+        "pagination": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.Pagination"
+            }
+          ],
+          "description": "Page size and cursor for the next page."
+        },
+        "people": {
+          "description": "Matching public accounts.",
+          "items": {
+            "$ref": "#/definitions/reddit.Person"
+          },
+          "type": "array"
+        },
+        "query": {
+          "description": "Search query that was run.",
+          "example": "spez",
+          "type": "string"
+        },
+        "sort": {
+          "description": "Sort order that was applied, for example `relevance`.",
+          "example": "relevance",
+          "type": "string"
+        },
+        "source": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the accounts were read from."
         }
       },
       "type": "object"
@@ -432,6 +1606,15 @@
       },
       "type": "object"
     },
+    "reddit.SiteRule": {
+      "properties": {
+        "text": {
+          "description": "Site rule text.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "reddit.SourceDetail": {
       "properties": {
         "type": {
@@ -449,6 +1632,29 @@
     },
     "reddit.SubredditAboutResponse": {
       "properties": {
+        "allowed_post_types": {
+          "description": "Post types the community allows.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "banner_url": {
+          "description": "URL of the community banner, when the source exposes it.",
+          "type": "string"
+        },
+        "community_leaderboard_enabled": {
+          "description": "Whether the community leaderboard is enabled.",
+          "type": "boolean"
+        },
+        "created": {
+          "description": "Time the community was created, in UTC (RFC 3339).",
+          "type": "string"
+        },
+        "created_utc": {
+          "description": "Time the community was created, in Unix seconds.",
+          "type": "integer"
+        },
         "display_name": {
           "description": "Subreddit name in `r/name` form.",
           "example": "r/OpenAI",
@@ -459,6 +1665,22 @@
           "example": "https://www.reddit.com/r/OpenAI.rss?limit=10",
           "type": "string"
         },
+        "icon_url": {
+          "description": "URL of the community icon, when the source exposes it.",
+          "type": "string"
+        },
+        "is_crossposting_allowed": {
+          "description": "Whether crossposts into the community are allowed.",
+          "type": "boolean"
+        },
+        "is_quarantined": {
+          "description": "Whether the community is quarantined.",
+          "type": "boolean"
+        },
+        "is_spoiler_available": {
+          "description": "Whether posts can be marked as spoilers.",
+          "type": "boolean"
+        },
         "latest_post_created": {
           "description": "Time the newest recent post was submitted, in UTC (RFC 3339).",
           "example": "2024-04-19T00:00:00Z",
@@ -468,6 +1690,18 @@
           "description": "Time the newest recent post was submitted, in Unix seconds.",
           "example": 1713484800,
           "type": "integer"
+        },
+        "over_18": {
+          "description": "Whether the community is marked 18+.",
+          "type": "boolean"
+        },
+        "primary_color": {
+          "description": "Community primary color as a hex string.",
+          "type": "string"
+        },
+        "public_description": {
+          "description": "Public community description, when the source exposes it.",
+          "type": "string"
         },
         "public_url": {
           "description": "Public Reddit URL of the subreddit.",
@@ -499,10 +1733,30 @@
           "example": "OpenAI",
           "type": "string"
         },
+        "subscribers": {
+          "description": "Number of subscribers, when the source exposes it.",
+          "example": 383101,
+          "type": "integer"
+        },
         "title": {
           "description": "Subreddit title as shown on Reddit.",
           "example": "OpenAI",
           "type": "string"
+        },
+        "type": {
+          "description": "Community type, for example `PUBLIC` or `RESTRICTED`.",
+          "example": "PUBLIC",
+          "type": "string"
+        },
+        "weekly_active_users": {
+          "description": "Weekly active users, when the source exposes it.",
+          "example": 76677,
+          "type": "integer"
+        },
+        "weekly_contributions": {
+          "description": "Weekly contributions (posts plus comments), when the source exposes it.",
+          "example": 1037,
+          "type": "integer"
         }
       },
       "type": "object"
@@ -535,6 +1789,56 @@
         "subreddit": {
           "description": "Subreddit name, without `r/`.",
           "example": "OpenAI",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.SubredditFlairsResponse": {
+      "properties": {
+        "flairs": {
+          "description": "Public post flair templates.",
+          "items": {
+            "$ref": "#/definitions/reddit.FlairTemplate"
+          },
+          "type": "array"
+        },
+        "source": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the flair templates were read from."
+        },
+        "subreddit": {
+          "description": "Subreddit the flair templates were read for, without `r/`.",
+          "example": "golang",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.SubredditHighlightsResponse": {
+      "properties": {
+        "highlights": {
+          "description": "Highlighted posts.",
+          "items": {
+            "$ref": "#/definitions/reddit.Highlight"
+          },
+          "type": "array"
+        },
+        "source": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the highlights were read from."
+        },
+        "subreddit": {
+          "description": "Subreddit the highlights were read for, without `r/`.",
+          "example": "golang",
           "type": "string"
         }
       },
@@ -579,6 +1883,272 @@
           "description": "Time window that was applied, for example `week`.",
           "example": "week",
           "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.SubredditRule": {
+      "properties": {
+        "content_html": {
+          "description": "Original HTML of the rule body.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Rule description text, from the rule's HTML body.",
+          "type": "string"
+        },
+        "name": {
+          "description": "Rule name as the moderators wrote it.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.SubredditRulesResponse": {
+      "properties": {
+        "rules": {
+          "description": "Community-authored rules.",
+          "items": {
+            "$ref": "#/definitions/reddit.SubredditRule"
+          },
+          "type": "array"
+        },
+        "site_rules": {
+          "description": "Reddit-wide site rules shown with the community rules.",
+          "items": {
+            "$ref": "#/definitions/reddit.SiteRule"
+          },
+          "type": "array"
+        },
+        "source": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the rules were read from."
+        },
+        "subreddit": {
+          "description": "Subreddit the rules were read for, without `r/`.",
+          "example": "golang",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.SubredditSearchResponse": {
+      "properties": {
+        "pagination": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.Pagination"
+            }
+          ],
+          "description": "Page size and cursor for the next page."
+        },
+        "query": {
+          "description": "Search query that was run.",
+          "example": "golang",
+          "type": "string"
+        },
+        "source": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the communities were read from."
+        },
+        "subreddits": {
+          "description": "Communities matching the search.",
+          "items": {
+            "$ref": "#/definitions/reddit.Community"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.SubredditSuggestResponse": {
+      "properties": {
+        "query": {
+          "description": "Query that was typed.",
+          "example": "golang",
+          "type": "string"
+        },
+        "source": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the suggestions were read from."
+        },
+        "subreddits": {
+          "description": "Matching communities for the query.",
+          "items": {
+            "$ref": "#/definitions/reddit.Community"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.SubredditWikiResponse": {
+      "properties": {
+        "page": {
+          "description": "Page that was requested.",
+          "example": "index",
+          "type": "string"
+        },
+        "page_content": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.WikiPageContent"
+            }
+          ],
+          "description": "Requested page content."
+        },
+        "page_tree": {
+          "description": "Complete page tree of the wiki.",
+          "items": {
+            "$ref": "#/definitions/reddit.WikiPageNode"
+          },
+          "type": "array"
+        },
+        "source": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the wiki was read from."
+        },
+        "subreddit": {
+          "description": "Subreddit the wiki was read for, without `r/`.",
+          "example": "golang",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.SubredditsDiscoverResponse": {
+      "properties": {
+        "feed": {
+          "description": "Feed that was read, for example `popular`.",
+          "example": "popular",
+          "type": "string"
+        },
+        "pagination": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.Pagination"
+            }
+          ],
+          "description": "Page size and cursor for the next page."
+        },
+        "source": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the communities were read from."
+        },
+        "subreddits": {
+          "description": "Communities returned by the feed.",
+          "items": {
+            "$ref": "#/definitions/reddit.Community"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.Topic": {
+      "properties": {
+        "id": {
+          "description": "Stable topic id.",
+          "example": "0d434ef2-06ea-5758-828e-86dee85f7067",
+          "type": "string"
+        },
+        "name": {
+          "description": "Topic name.",
+          "example": "Internet Memes",
+          "type": "string"
+        },
+        "parents": {
+          "description": "Parent topic node ids, root-most first when supplied.",
+          "example": [
+            "special_all"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "title": {
+          "description": "Display title of the topic.",
+          "example": "Internet Memes",
+          "type": "string"
+        },
+        "topic_type": {
+          "description": "Topic type reported by the taxonomy, for example `taxonomy_topic_v2`.",
+          "example": "taxonomy_topic_v2",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.TopicSearchResponse": {
+      "properties": {
+        "query": {
+          "description": "Query that was run.",
+          "example": "golang",
+          "type": "string"
+        },
+        "source": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the topics were read from."
+        },
+        "topics": {
+          "description": "Matching taxonomy topics.",
+          "items": {
+            "$ref": "#/definitions/reddit.Topic"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.TopicsResponse": {
+      "properties": {
+        "pagination": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.Pagination"
+            }
+          ],
+          "description": "Page size and cursor for the next page."
+        },
+        "source": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the topics were read from."
+        },
+        "topics": {
+          "description": "Topics returned on this page.",
+          "items": {
+            "$ref": "#/definitions/reddit.Topic"
+          },
+          "type": "array"
         }
       },
       "type": "object"
@@ -641,6 +2211,31 @@
       },
       "type": "object"
     },
+    "reddit.UserFlairsResponse": {
+      "properties": {
+        "flairs": {
+          "description": "Public user-flair templates.",
+          "items": {
+            "$ref": "#/definitions/reddit.FlairTemplate"
+          },
+          "type": "array"
+        },
+        "source": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the templates were read from."
+        },
+        "subreddit": {
+          "description": "Subreddit the user-flair templates were read for, without `r/`.",
+          "example": "nba",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "reddit.UserPostsResponse": {
       "properties": {
         "pagination": {
@@ -674,6 +2269,321 @@
       },
       "type": "object"
     },
+    "reddit.UserProfileResponse": {
+      "properties": {
+        "accepts_chats": {
+          "description": "Whether the user accepts chat requests.",
+          "type": "boolean"
+        },
+        "accepts_followers": {
+          "description": "Whether the user accepts new followers.",
+          "type": "boolean"
+        },
+        "banner_url": {
+          "description": "Profile banner URL.",
+          "type": "string"
+        },
+        "comment_count": {
+          "description": "Number of public comments.",
+          "type": "integer"
+        },
+        "created": {
+          "description": "Time the account was created, in UTC (RFC 3339).",
+          "type": "string"
+        },
+        "created_utc": {
+          "description": "Time the account was created, in Unix seconds.",
+          "type": "integer"
+        },
+        "display_name": {
+          "description": "Username in `u/name` form.",
+          "example": "u/spez",
+          "type": "string"
+        },
+        "icon_url": {
+          "description": "Avatar URL.",
+          "type": "string"
+        },
+        "is_employee": {
+          "description": "Whether the account is a Reddit employee.",
+          "type": "boolean"
+        },
+        "is_gilded": {
+          "description": "Whether the account is gilded.",
+          "type": "boolean"
+        },
+        "karma": {
+          "description": "Total karma across posts and comments.",
+          "type": "integer"
+        },
+        "name": {
+          "description": "Reddit full name of the user, the id prefixed with `t2_`.",
+          "example": "t2_1w72",
+          "type": "string"
+        },
+        "over_18": {
+          "description": "Whether the profile is marked 18+.",
+          "type": "boolean"
+        },
+        "post_count": {
+          "description": "Number of public posts.",
+          "type": "integer"
+        },
+        "public_description": {
+          "description": "Public profile description.",
+          "type": "string"
+        },
+        "public_url": {
+          "description": "Public subreddit-style profile URL.",
+          "example": "https://www.reddit.com/user/spez/",
+          "type": "string"
+        },
+        "source": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/reddit.SourceDetail"
+            }
+          ],
+          "description": "Reddit page the profile was read from."
+        },
+        "title": {
+          "description": "Profile page title.",
+          "type": "string"
+        },
+        "trophy_count": {
+          "description": "Number of unlocked trophies.",
+          "type": "integer"
+        },
+        "username": {
+          "description": "Reddit username that was queried.",
+          "example": "spez",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.WikiPageContent": {
+      "properties": {
+        "content_html": {
+          "description": "Rendered HTML body, when supplied.",
+          "type": "string"
+        },
+        "content_markdown": {
+          "description": "Markdown body, when supplied.",
+          "type": "string"
+        },
+        "content_richtext": {
+          "description": "Reddit richtext document as a JSON string.",
+          "type": "string"
+        },
+        "is_revisable": {
+          "description": "Whether the page is editable by non-moderators.",
+          "type": "boolean"
+        },
+        "name": {
+          "description": "Page name.",
+          "type": "string"
+        },
+        "revision_count": {
+          "description": "Number of revisions, when supplied.",
+          "type": "integer"
+        },
+        "status": {
+          "description": "Page status reported by Reddit.",
+          "type": "string"
+        },
+        "title": {
+          "description": "Page title, when set.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.WikiPageNode": {
+      "properties": {
+        "depth": {
+          "description": "Nesting depth.",
+          "type": "integer"
+        },
+        "name": {
+          "description": "Page name.",
+          "type": "string"
+        },
+        "page_present": {
+          "description": "Whether the page exists (config-only directories are listed without a page).",
+          "type": "boolean"
+        },
+        "parent": {
+          "description": "Parent page path, when the node is nested.",
+          "type": "string"
+        },
+        "path": {
+          "description": "Full page path, for example `config/description`.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.archiveCommentsIDsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.ArchiveCommentsIDsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.archiveCommentsSearchResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.ArchiveCommentsSearchResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.archiveCommentsTreeResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.ArchiveCommentsTreeResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.archivePostsIDsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.ArchivePostsIDsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.archivePostsSearchResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.ArchivePostsSearchResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.archiveSubredditsSearchResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.ArchiveSubredditsSearchResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.archiveTimeSeriesResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.ArchiveTimeSeriesResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.broadTopicsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.BroadTopicsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.commentAwardsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.CommentAwardsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.commentDetailResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.CommentDetailResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "reddit.commentsResponseDoc": {
       "properties": {
         "code": {
@@ -698,6 +2608,22 @@
         },
         "data": {
           "$ref": "#/definitions/reddit.DomainPostsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.leaderboardCategoriesResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.LeaderboardCategoriesResponse"
         },
         "msg": {
           "example": "OK",
@@ -738,6 +2664,38 @@
       },
       "type": "object"
     },
+    "reddit.popularResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.PopularResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.postAwardsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.PostAwardsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "reddit.postResponseDoc": {
       "properties": {
         "code": {
@@ -746,6 +2704,54 @@
         },
         "data": {
           "$ref": "#/definitions/reddit.PostResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.postsByIDsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.PostsByIDsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.searchCommentsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.SearchCommentsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.searchPeopleResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.SearchPeopleResponse"
         },
         "msg": {
           "example": "OK",
@@ -802,6 +2808,38 @@
       },
       "type": "object"
     },
+    "reddit.subredditFlairsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.SubredditFlairsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.subredditHighlightsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.SubredditHighlightsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "reddit.subredditPostsResponseDoc": {
       "properties": {
         "code": {
@@ -810,6 +2848,118 @@
         },
         "data": {
           "$ref": "#/definitions/reddit.SubredditPostsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.subredditRulesResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.SubredditRulesResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.subredditSearchResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.SubredditSearchResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.subredditSuggestResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.SubredditSuggestResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.subredditWikiResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.SubredditWikiResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.subredditsDiscoverResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.SubredditsDiscoverResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.topicSearchResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.TopicSearchResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.topicsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.TopicsResponse"
         },
         "msg": {
           "example": "OK",
@@ -850,6 +3000,22 @@
       },
       "type": "object"
     },
+    "reddit.userFlairsResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.UserFlairsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "reddit.userPostsResponseDoc": {
       "properties": {
         "code": {
@@ -858,6 +3024,22 @@
         },
         "data": {
           "$ref": "#/definitions/reddit.UserPostsResponse"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "reddit.userProfileResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/reddit.UserProfileResponse"
         },
         "msg": {
           "example": "OK",
@@ -1008,12 +3190,765 @@
     }
   },
   "paths": {
+    "/reddit/archive/comments/ids": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Looks up known Reddit comment ids in Arctic Shift's historical archive. Supply 1 to 1,000 comma-separated ids; duplicates are removed, results follow input order, and missing ids are listed separately. The service sends at most two upstream requests of up to 500 ids each. Archived scores are snapshots, and removed_by_category is included when available.",
+        "operationId": "reddit-archive-comments-ids",
+        "parameters": [
+          {
+            "description": "Comma-separated Reddit comment ids (1-1,000); optional t1_ prefixes are accepted",
+            "in": "query",
+            "name": "ids",
+            "required": true,
+            "type": "string",
+            "x-example": "c60n05h,abc123"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.archiveCommentsIDsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Look up archived Reddit comments by ids",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/archive/comments/search": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Searches Arctic Shift's public historical comment archive. Supply at least one of query, author, subreddit, link_id, or parent_id; date bounds can further narrow that search. query searches comment body text and must be combined with author, subreddit, link_id, or parent_id; it maps to Arctic Shift's body parameter. Arctic Shift may time out or throttle broad searches, which return 503 with Retry-After. created_after/created_before are time boundaries, not Reddit listing cursors. Each comment includes created_utc and retrieved_on; archived scores can lag changes for roughly 36 hours. A valid query with no matches returns an empty comments array.",
+        "operationId": "reddit-archive-comments-search",
+        "parameters": [
+          {
+            "description": "Public Reddit username filter",
+            "in": "query",
+            "name": "author",
+            "type": "string"
+          },
+          {
+            "description": "Subreddit name filter",
+            "in": "query",
+            "name": "subreddit",
+            "type": "string"
+          },
+          {
+            "description": "Full-text search within comment bodies; requires author, subreddit, link_id, or parent_id",
+            "in": "query",
+            "name": "query",
+            "type": "string"
+          },
+          {
+            "description": "Reddit post id to scope comments",
+            "in": "query",
+            "name": "link_id",
+            "type": "string"
+          },
+          {
+            "description": "Parent comment id; an explicitly empty value selects top-level comments",
+            "in": "query",
+            "name": "parent_id",
+            "type": "string"
+          },
+          {
+            "description": "Creation-time lower bound; accepts epoch seconds or milliseconds, ISO 8601 dates, or relative offsets such as 1year, 2d, or 5min",
+            "in": "query",
+            "name": "created_after",
+            "type": "string"
+          },
+          {
+            "description": "Creation-time upper bound; accepts epoch seconds or milliseconds, ISO 8601 dates, or relative offsets such as 1year, 2d, or 5min",
+            "in": "query",
+            "name": "created_before",
+            "type": "string"
+          },
+          {
+            "default": "desc",
+            "description": "Sort by creation time",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "in": "query",
+            "name": "sort",
+            "type": "string"
+          },
+          {
+            "description": "Maximum comments, defaults to 25 and clamps to 100",
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.archiveCommentsSearchResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Search archived Reddit comments",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/archive/comments/{id}/tree": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns a bounded nested comment tree from Arctic Shift's public archive. `t1` entries contain comments and their replies; `more` entries mark collapsed branches and include child ids/counts. Omitted parent_id requests the whole tree, while an explicitly empty parent_id requests top-level comments only. Empty archived trees return 200 with an empty comments array. Archived scores can lag changes for roughly 36 hours; slow or throttled upstream requests return 503 with Retry-After.",
+        "operationId": "reddit-archive-comments-tree",
+        "parameters": [
+          {
+            "description": "Reddit post id or t3_ id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "x-example": "7cff0b"
+          },
+          {
+            "description": "Parent comment id; an explicitly empty value selects top-level comments",
+            "in": "query",
+            "name": "parent_id",
+            "type": "string"
+          },
+          {
+            "description": "Maximum archive comment nodes to expand, defaults to 50 and clamps to 100",
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "description": "Initial breadth, defaults to 2 and must be between 0 and 8",
+            "in": "query",
+            "name": "start_breadth",
+            "type": "integer"
+          },
+          {
+            "description": "Initial depth, defaults to 3 and must be between 0 and 8",
+            "in": "query",
+            "name": "start_depth",
+            "type": "integer"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.archiveCommentsTreeResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get an archived Reddit comment tree",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/archive/posts/ids": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Looks up known Reddit post ids in Arctic Shift's historical archive. Supply 1 to 1,000 comma-separated ids; duplicates are removed, results follow input order, and missing ids are listed separately. The service sends at most two upstream requests of up to 500 ids each. Archived scores and comment counts are snapshots, and removed_by_category is included when available.",
+        "operationId": "reddit-archive-posts-ids",
+        "parameters": [
+          {
+            "description": "Comma-separated Reddit post ids (1-1,000); optional t3_ prefixes are accepted",
+            "in": "query",
+            "name": "ids",
+            "required": true,
+            "type": "string",
+            "x-example": "1wwa2ff,z1c9z"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.archivePostsIDsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Look up archived Reddit posts by ids",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/archive/posts/search": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Searches Arctic Shift's public historical post archive. Supply at least one of query, author, subreddit, or url; date bounds can further narrow that search. This is separate from the live Reddit search endpoint. created_after/created_before are time boundaries, not Reddit listing cursors; posts include created_utc and retrieved_on so callers can see when the archive captured each record. Archived scores and comment counts can lag changes for roughly 36 hours. A valid query with no matches returns an empty posts array. Slow or throttled upstream searches return 503 with Retry-After.",
+        "operationId": "reddit-archive-posts-search",
+        "parameters": [
+          {
+            "description": "Text search across archived post titles and selftext",
+            "in": "query",
+            "name": "query",
+            "type": "string"
+          },
+          {
+            "description": "Public Reddit username filter",
+            "in": "query",
+            "name": "author",
+            "type": "string"
+          },
+          {
+            "description": "Subreddit name filter",
+            "in": "query",
+            "name": "subreddit",
+            "type": "string"
+          },
+          {
+            "description": "Linked URL prefix filter",
+            "in": "query",
+            "name": "url",
+            "type": "string"
+          },
+          {
+            "description": "Require an exact URL match; requires url",
+            "in": "query",
+            "name": "url_exact",
+            "type": "boolean"
+          },
+          {
+            "description": "Creation-time lower bound; accepts epoch seconds or milliseconds, ISO 8601 dates, or relative offsets such as 1year, 2d, or 5min",
+            "in": "query",
+            "name": "created_after",
+            "type": "string"
+          },
+          {
+            "description": "Creation-time upper bound; accepts epoch seconds or milliseconds, ISO 8601 dates, or relative offsets such as 1year, 2d, or 5min",
+            "in": "query",
+            "name": "created_before",
+            "type": "string"
+          },
+          {
+            "default": "desc",
+            "description": "Sort by creation time",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "in": "query",
+            "name": "sort",
+            "type": "string"
+          },
+          {
+            "description": "Maximum posts, defaults to 25 and clamps to 100",
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.archivePostsSearchResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Search archived Reddit posts",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/archive/subreddits/search": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Searches Arctic Shift's native subreddit directory by name prefix. Directory metadata is updated infrequently; subscriber counts are archived snapshots and retrieved_on indicates when the source captured the entry. The selectable fields are limited to the verified public directory fields.",
+        "operationId": "reddit-archive-subreddits-search",
+        "parameters": [
+          {
+            "description": "Subreddit name prefix, with or without r/",
+            "in": "query",
+            "name": "query",
+            "required": true,
+            "type": "string",
+            "x-example": "OpenAI"
+          },
+          {
+            "description": "Minimum archived subscriber count",
+            "in": "query",
+            "name": "min_subscribers",
+            "type": "integer"
+          },
+          {
+            "description": "Maximum archived subscriber count",
+            "in": "query",
+            "name": "max_subscribers",
+            "type": "integer"
+          },
+          {
+            "description": "Filter by archived NSFW status",
+            "in": "query",
+            "name": "over_18",
+            "type": "boolean"
+          },
+          {
+            "default": "subscribers",
+            "description": "Sort field",
+            "enum": [
+              "created_utc",
+              "subscribers",
+              "subreddit"
+            ],
+            "in": "query",
+            "name": "sort_by",
+            "type": "string"
+          },
+          {
+            "default": "desc",
+            "description": "Sort direction",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "in": "query",
+            "name": "sort",
+            "type": "string"
+          },
+          {
+            "description": "Maximum subreddits, defaults to 25 and clamps to 100",
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.archiveSubredditsSearchResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Search Reddit's archived subreddit directory",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/archive/time-series": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns Arctic Shift's native time-series values. Supply an absolute creation-time range and a precision; ranges that could exceed 1,000 points are rejected. Counts, score sums, and retrieval-delay sums are archive metrics, not current Reddit totals. Arctic Shift says time-series data may be approximate and take hours or days to update.",
+        "operationId": "reddit-archive-time-series",
+        "parameters": [
+          {
+            "description": "Archive metric",
+            "enum": [
+              "posts_count",
+              "comments_count",
+              "posts_score_sum",
+              "comments_score_sum",
+              "posts_retrieval_delay_seconds_sum",
+              "comments_retrieval_delay_seconds_sum",
+              "subreddit_subscribers"
+            ],
+            "in": "query",
+            "name": "metric",
+            "required": true,
+            "type": "string",
+            "x-example": "posts_count"
+          },
+          {
+            "description": "Optional subreddit scope; required for subreddit_subscribers, and unsupported for retrieval-delay metrics",
+            "in": "query",
+            "name": "subreddit",
+            "type": "string",
+            "x-example": "OpenAI"
+          },
+          {
+            "description": "Time bucket precision",
+            "enum": [
+              "year",
+              "quarter",
+              "month",
+              "week",
+              "day",
+              "hour",
+              "minute"
+            ],
+            "in": "query",
+            "name": "precision",
+            "required": true,
+            "type": "string",
+            "x-example": "year"
+          },
+          {
+            "description": "Absolute start time: epoch seconds/milliseconds or ISO 8601",
+            "in": "query",
+            "name": "created_after",
+            "required": true,
+            "type": "string",
+            "x-example": "2024-01-01"
+          },
+          {
+            "description": "Absolute end time: epoch seconds/milliseconds or ISO 8601",
+            "in": "query",
+            "name": "created_before",
+            "required": true,
+            "type": "string",
+            "x-example": "2025-01-01"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.archiveTimeSeriesResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get historical Reddit archive time series",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/comment/{id}": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns one comment by id with its author, body, score, permalink and the post context (`post_id`, `post_title`, `subreddit`). The id accepts a `t1_` comment id or a Reddit comment URL. This route reads Reddit's authenticated app surface; a disabled source returns a retryable 503, a malformed id returns 400, an unknown or removed comment returns 404, and upstream blocks or rate limits return 503 with a `Retry-After` header.",
+        "operationId": "reddit-comment",
+        "parameters": [
+          {
+            "description": "Comment id with or without t1_, or a comment URL",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "x-example": "p8402di"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.commentDetailResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get a Reddit comment",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/comment/{id}/awards": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the award types a comment received, with each award's id, name, description, icon and tags plus how many times it was given. A comment without awards returns 200 with an empty `awards` list. The id accepts a `t1_` comment id or a Reddit comment URL. This route reads Reddit's authenticated app surface; a disabled source returns a retryable 503, a malformed id returns 400, an unknown comment returns 404, and upstream blocks or rate limits return 503 with a `Retry-After` header.",
+        "operationId": "reddit-comment-awards",
+        "parameters": [
+          {
+            "description": "Comment id with or without t1_, or a comment URL",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "x-example": "19shpw8bwhfnn"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.commentAwardsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get Reddit comment awards",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
     "/reddit/comments/{id}": {
       "get": {
         "consumes": [
           "application/json"
         ],
-        "description": "Returns a Reddit post with its public comments. The default mode is 1 credit. Set `include_metrics=true` to return the comments with public net score and award count plus post engagement metrics for 3 credits. Large threads may expose only an initial comment subset. Reddit does not expose per-comment upvote ratios or exact upvote/downvote totals anonymously. A post that exists but has no comments yet returns a 200 response with an empty comments list; a post that does not exist returns 404, and a temporary block or upstream failure returns 503 (retryable) rather than 404. If source.type is redlib, public fields and credit weights are preserved.",
+        "description": "Returns a Reddit post with its public comments, including post engagement metrics and per-comment public score and award count, in one 3-credit request. Large threads may expose only an initial comment subset. Reddit does not expose per-comment upvote ratios or exact upvote/downvote totals anonymously. A post that exists but has no comments yet returns a 200 response with an empty comments list; a post that does not exist returns 404, and a temporary block or upstream failure returns 503 (retryable) rather than 404. If source.type is app, the data was read through Reddit's authenticated app surface and the public fields and credit weight are preserved.",
         "operationId": "reddit-comments",
         "parameters": [
           {
@@ -1026,7 +3961,7 @@
           },
           {
             "default": "confidence",
-            "description": "Comment order: confidence, top, new, controversial, old, or qa. Applied to the anonymous HTML request when metrics are enabled.",
+            "description": "Comment order: confidence, top, new, controversial, old, or qa.",
             "enum": [
               "confidence",
               "top",
@@ -1047,17 +3982,10 @@
           },
           {
             "default": 3,
-            "description": "Maximum flat comment depth returned in metrics mode.",
+            "description": "Maximum flat comment depth returned.",
             "in": "query",
             "name": "depth",
             "type": "integer"
-          },
-          {
-            "default": false,
-            "description": "Include public post and per-comment engagement metrics; costs 3 credits instead of 1",
-            "in": "query",
-            "name": "include_metrics",
-            "type": "boolean"
           }
         ],
         "produces": [
@@ -1111,7 +4039,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns public posts submitted from a linked domain. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is redlib, public fields and credit weights are preserved.",
+        "description": "Returns public posts submitted from a linked domain. The app source serves this listing when the native feed fails. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is app, the data was read through Reddit's authenticated app surface and the public fields and credit weights are preserved.",
         "operationId": "reddit-domain-posts",
         "parameters": [
           {
@@ -1330,12 +4258,104 @@
         ]
       }
     },
+    "/reddit/popular": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns posts from Reddit's public popular feed. The feed exposes `hot` and `top`; `top` accepts a time window. This route reads Reddit's authenticated app surface, so it requires the app source to be enabled; a disabled source returns a retryable 503. Invalid sort/time values or limits return 400; empty feeds return 404; upstream blocks and rate limits return 503 with a `Retry-After` header.",
+        "operationId": "reddit-popular",
+        "parameters": [
+          {
+            "default": "hot",
+            "description": "Sort order: hot or top",
+            "enum": [
+              "hot",
+              "top"
+            ],
+            "in": "query",
+            "name": "sort",
+            "type": "string"
+          },
+          {
+            "description": "Time window for top: hour, day, week, month, year, or all",
+            "enum": [
+              "hour",
+              "day",
+              "week",
+              "month",
+              "year",
+              "all"
+            ],
+            "in": "query",
+            "name": "time",
+            "type": "string"
+          },
+          {
+            "description": "Maximum posts, defaults to 25 and clamps to 100",
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "description": "Pagination cursor from a previous response",
+            "in": "query",
+            "name": "after",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.popularResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List Reddit popular posts",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
     "/reddit/post/{id}": {
       "get": {
         "consumes": [
           "application/json"
         ],
-        "description": "Returns a public Reddit post. The default mode is 1 credit. Set `include_metrics=true` to return public net score, upvote ratio, comment count, award count, and estimated upvote/downvote totals for 3 credits. Reddit fuzzes voting data, so estimates are approximate; share, repost/crosspost, and view counts are not exposed anonymously. If source.type is redlib, public fields and credit weights are preserved.",
+        "description": "Returns a public Reddit post with public engagement metrics (net score, upvote ratio, comment count, award count, and approximate upvote/downvote totals) in one 3-credit request. Reddit fuzzes voting data, so the vote totals are estimates; share, repost/crosspost and view counts are not exposed anonymously. If source.type is app, the data was read through Reddit's authenticated app surface and the public fields and credit weight are preserved.",
         "operationId": "reddit-post",
         "parameters": [
           {
@@ -1345,13 +4365,6 @@
             "required": true,
             "type": "string",
             "x-example": "1v8hy3q"
-          },
-          {
-            "default": false,
-            "description": "Include public engagement metrics; costs 3 credits instead of 1",
-            "in": "query",
-            "name": "include_metrics",
-            "type": "boolean"
           }
         ],
         "produces": [
@@ -1400,12 +4413,138 @@
         ]
       }
     },
+    "/reddit/post/{id}/awards": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the award types a post received, with each award's id, name, description, icon and tags plus how many times it was given. An unawarded post returns 200 with an empty `awards` list. This route reads Reddit's authenticated app surface; a disabled source returns a retryable 503, an invalid post id returns 400, an unknown post returns 404, and upstream blocks or rate limits return 503 with a `Retry-After` header.",
+        "operationId": "reddit-post-awards",
+        "parameters": [
+          {
+            "description": "Reddit post id or t3_ id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "x-example": "1v8hy3q"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.postAwardsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get Reddit post awards",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/posts/ids": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Looks up 1 to 100 comma-separated Reddit post ids in one app-surface request and returns the resolved posts in input order, with ids that did not resolve listed in `missing_ids`. This route reads Reddit's authenticated app surface, so it requires the app source to be enabled; a disabled source returns a retryable 503. A missing, malformed, duplicate-only or oversized id list returns 400; when none of the ids resolve the response is 404.",
+        "operationId": "reddit-posts-by-ids",
+        "parameters": [
+          {
+            "description": "Comma-separated post ids, with or without the t3_ prefix (maximum 100)",
+            "in": "query",
+            "name": "ids",
+            "required": true,
+            "type": "string",
+            "x-example": "1v8hy3q,1tka90t"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.postsByIDsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get Reddit posts by ids",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
     "/reddit/search": {
       "get": {
         "consumes": [
           "application/json"
         ],
-        "description": "Searches public Reddit content and returns public post entries. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is redlib, public fields and credit weights are preserved.",
+        "description": "Searches public Reddit content and returns public post entries. The app source (source.type=app) is the default because anonymous Reddit search is blocked; `sort`, `time`, and `subreddit` map to the app's own search filters. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is app, the data was read through Reddit's authenticated app surface and the public fields and credit weights are preserved.",
         "operationId": "reddit-search",
         "parameters": [
           {
@@ -1509,12 +4648,210 @@
         ]
       }
     },
+    "/reddit/search/comments": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Searches comments across public Reddit and returns them with the post id, post title and subreddit each comment belongs to. Comment scores are included. This route reads Reddit's authenticated app surface, so it requires the app source to be enabled; a disabled source returns a retryable 503. Invalid sort/time values or limits return 400; empty result sets return 404; upstream blocks and rate limits return 503 with a `Retry-After` header.",
+        "operationId": "reddit-search-comments",
+        "parameters": [
+          {
+            "description": "Search keywords",
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "type": "string",
+            "x-example": "golang generics"
+          },
+          {
+            "description": "Restrict search to a subreddit name, without r/",
+            "in": "query",
+            "name": "subreddit",
+            "type": "string"
+          },
+          {
+            "default": "relevance",
+            "description": "Sort: relevance, hot, new, top, or comments",
+            "enum": [
+              "relevance",
+              "hot",
+              "new",
+              "top",
+              "comments"
+            ],
+            "in": "query",
+            "name": "sort",
+            "type": "string"
+          },
+          {
+            "description": "Time window for top/comments sorts: hour, day, week, month, year, or all",
+            "enum": [
+              "hour",
+              "day",
+              "week",
+              "month",
+              "year",
+              "all"
+            ],
+            "in": "query",
+            "name": "time",
+            "type": "string"
+          },
+          {
+            "description": "Maximum comments, defaults to 25 and clamps to 100",
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "description": "Opaque app pagination cursor from a previous response",
+            "in": "query",
+            "name": "after",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.searchCommentsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Search Reddit comments",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/search/people": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Searches public Reddit accounts by username or profile keyword and returns matching users with karma, avatar, follower settings and profile URL. This route reads Reddit's authenticated app surface, so it requires the app source to be enabled; a disabled source returns a retryable 503. An invalid sort or limit returns 400; no matches return 404; upstream blocks and rate limits return 503 with a `Retry-After` header. `after` is the app's opaque page cursor.",
+        "operationId": "reddit-search-people",
+        "parameters": [
+          {
+            "description": "Username or profile keyword",
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "type": "string",
+            "x-example": "spez"
+          },
+          {
+            "default": "relevance",
+            "description": "Sort: relevance, hot, new, top, or comments",
+            "enum": [
+              "relevance",
+              "hot",
+              "new",
+              "top",
+              "comments"
+            ],
+            "in": "query",
+            "name": "sort",
+            "type": "string"
+          },
+          {
+            "description": "Maximum people, defaults to 25 and clamps to 100",
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "description": "Opaque app pagination cursor from a previous response",
+            "in": "query",
+            "name": "after",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.searchPeopleResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Search Reddit people",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
     "/reddit/subreddit/{subreddit}/about": {
       "get": {
         "consumes": [
           "application/json"
         ],
-        "description": "Returns public metadata and sample posts for a subreddit. Subscriber counts, icons, and banners are omitted because they are not available on anonymous Reddit pages. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is redlib, public fields and credit weights are preserved.",
+        "description": "Returns public metadata and sample posts for a subreddit. Community counts, description, type, icon, banner, and creation time are populated when the app source (source.type=app) serves the request and are omitted when the anonymous native or Redlib source has no such fields. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is app, the data was read through Reddit's authenticated app surface and the public fields and credit weights are preserved.",
         "operationId": "reddit-subreddit-about",
         "parameters": [
           {
@@ -1583,7 +4920,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns flat public comment entries from a subreddit latest-comments feed. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is redlib, public fields and credit weights are preserved.",
+        "description": "Returns flat public comment entries from a subreddit latest-comments feed. When the native and Redlib sources are unavailable, the app source scans the community's five most recent listings, reads each post's newest comments and merges them newest-first with post context; unavailable posts are skipped and the aggregation serves the first page only. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is redlib, public fields and credit weights are preserved.",
         "operationId": "reddit-subreddit-comments",
         "parameters": [
           {
@@ -1653,12 +4990,201 @@
         ]
       }
     },
+    "/reddit/subreddit/{subreddit}/flairs": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns a community's public post flair templates (tags) with their ids, text, type, layout colors and moderation flags. `type` is `text` or `richtext`; `allowable_content` is `ALL`, `TEXT` or `LINK`; `text_color` is `DARK` or `LIGHT`. This route reads Reddit's authenticated app surface; a disabled source returns a retryable 503, an invalid subreddit returns 400, an unknown community or one without public flairs returns 404, and upstream blocks or rate limits return 503 with a `Retry-After` header.",
+        "operationId": "reddit-subreddit-flairs",
+        "parameters": [
+          {
+            "description": "Subreddit name, without r/",
+            "in": "path",
+            "name": "subreddit",
+            "required": true,
+            "type": "string",
+            "x-example": "golang"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.subredditFlairsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List Reddit community post flairs",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/subreddit/{subreddit}/highlights": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Lists the posts a community currently highlights, each with its optional label, expiry and normalized post fields. This route reads Reddit's authenticated app surface; a disabled source returns a retryable 503, an invalid subreddit returns 400, an unknown community or one without highlights returns 404, and upstream blocks or rate limits return 503 with a `Retry-After` header.",
+        "operationId": "reddit-subreddit-highlights",
+        "parameters": [
+          {
+            "description": "Subreddit name, without r/",
+            "in": "path",
+            "name": "subreddit",
+            "required": true,
+            "type": "string",
+            "x-example": "golang"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.subredditHighlightsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List Reddit community highlights",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/subreddit/{subreddit}/leaderboard/categories": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Lists the community leaderboard categories Reddit exposes for a subreddit, with each category's id, name, description, active flag, cadence labels and selectable periods. Reddit serves the category vocabulary publicly but returns a null ranking for anonymous callers, so ranking rows are not exposed by this API. This route reads Reddit's authenticated app surface; a disabled source returns a retryable 503, an invalid subreddit returns 400, an unknown community returns 404, and upstream blocks or rate limits return 503 with a `Retry-After` header.",
+        "operationId": "reddit-subreddit-leaderboard-categories",
+        "parameters": [
+          {
+            "description": "Subreddit name, without r/",
+            "in": "path",
+            "name": "subreddit",
+            "required": true,
+            "type": "string",
+            "x-example": "golang"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.leaderboardCategoriesResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List Reddit community leaderboard categories",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
     "/reddit/subreddit/{subreddit}/posts": {
       "get": {
         "consumes": [
           "application/json"
         ],
-        "description": "Returns public posts from a subreddit. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is redlib, public fields and credit weights are preserved.",
+        "description": "Returns public posts from a subreddit. `sort=hot`, `sort=top` and `sort=controversial` are served by the authenticated app listing when the native feed fails, while `sort=new` and `sort=rising` are served by the app feed surface (its page size is upstream-controlled, so `limit` is an upper bound and posts carry the fields that feed exposes). A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is app, the data was read through Reddit's authenticated app surface and the public fields and credit weights are preserved.",
         "operationId": "reddit-subreddit-posts",
         "parameters": [
           {
@@ -1671,12 +5197,13 @@
           },
           {
             "default": "hot",
-            "description": "Sort: hot, new, top, or rising",
+            "description": "Sort: hot, new, top, rising, or controversial",
             "enum": [
               "hot",
               "new",
               "top",
-              "rising"
+              "rising",
+              "controversial"
             ],
             "in": "query",
             "name": "sort",
@@ -1755,12 +5282,287 @@
         ]
       }
     },
+    "/reddit/subreddit/{subreddit}/rules": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns a community's public posting rules plus the Reddit-wide site rules shown with them. This route reads Reddit's authenticated app surface; a disabled source returns a retryable 503, an invalid subreddit returns 400, an unknown community returns 404, and upstream blocks or rate limits return 503 with a `Retry-After` header.",
+        "operationId": "reddit-subreddit-rules",
+        "parameters": [
+          {
+            "description": "Subreddit name, without r/",
+            "in": "path",
+            "name": "subreddit",
+            "required": true,
+            "type": "string",
+            "x-example": "golang"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.subredditRulesResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get Reddit community rules",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/subreddit/{subreddit}/user-flairs": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns a community's public user-flair templates (account tags): id, text, layout colors and moderation flags. `type` is `text` or `richtext`; `allowable_content` is `ALL`, `TEXT` or `LINK`; `text_color` is `DARK` or `LIGHT`. A community that offers no public user flairs returns 200 with an empty `flairs` list. This route reads Reddit's authenticated app surface; a disabled source returns a retryable 503, an invalid subreddit returns 400, an unknown community returns 404, and upstream blocks or rate limits return 503 with a `Retry-After` header.",
+        "operationId": "reddit-subreddit-user-flairs",
+        "parameters": [
+          {
+            "description": "Subreddit name, without r/",
+            "in": "path",
+            "name": "subreddit",
+            "required": true,
+            "type": "string",
+            "x-example": "nba"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.userFlairsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List Reddit community user flairs",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/subreddit/{subreddit}/wiki": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns a community wiki's page tree plus the requested page content, defaulting to the `index` page. Page paths use letters, digits, underscore, hyphen and slash (for example `config/description`). This route reads Reddit's authenticated app surface; a disabled source returns a retryable 503, an invalid subreddit or page path returns 400, an unknown community or missing wiki returns 404, and upstream blocks or rate limits return 503 with a `Retry-After` header.",
+        "operationId": "reddit-subreddit-wiki",
+        "parameters": [
+          {
+            "description": "Subreddit name, without r/",
+            "in": "path",
+            "name": "subreddit",
+            "required": true,
+            "type": "string",
+            "x-example": "golang"
+          },
+          {
+            "description": "Wiki page path, defaults to index",
+            "in": "query",
+            "name": "page",
+            "type": "string",
+            "x-example": "index"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.subredditWikiResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get Reddit community wiki",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/subreddits/discover": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Lists Reddit's public community directory feeds and returns their subreddits with subscriber counts, descriptions, types, icons and creation dates. `feed` accepts the upstream's own variants `popular`, `new` and `default` and defaults to `popular`. This route reads Reddit's authenticated app surface; a disabled source returns a retryable 503, an invalid feed or limit returns 400, an empty feed returns 404, and upstream blocks or rate limits return 503 with a `Retry-After` header.",
+        "operationId": "reddit-subreddits-discover",
+        "parameters": [
+          {
+            "default": "popular",
+            "description": "Community feed: popular, new, or default",
+            "enum": [
+              "popular",
+              "new",
+              "default"
+            ],
+            "in": "query",
+            "name": "feed",
+            "type": "string"
+          },
+          {
+            "description": "Maximum communities, defaults to 25 and clamps to 100",
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "description": "Pagination cursor from a previous response",
+            "in": "query",
+            "name": "after",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.subredditsDiscoverResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List Reddit community discovery feeds",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
     "/reddit/subreddits/posts": {
       "get": {
         "consumes": [
           "application/json"
         ],
-        "description": "Returns public posts from a combined multi-subreddit feed. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is redlib, public fields and credit weights are preserved.",
+        "description": "Returns public posts from a combined multi-subreddit feed. When the native and Redlib sources are unavailable, the app source aggregates one bounded listing per community (at most ten), deduplicates posts and merges them by score for `hot`/`top` or creation time for `new`/`rising`; unreadable communities appear in `warnings` and the aggregation serves the first merged page only. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is redlib, public fields and credit weights are preserved.",
         "operationId": "reddit-subreddits-posts",
         "parameters": [
           {
@@ -1857,12 +5659,327 @@
         ]
       }
     },
+    "/reddit/subreddits/search": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Searches Reddit's public community directory and returns matching subreddits with subscriber counts and descriptions. This route reads Reddit's authenticated app surface, so it requires the app source to be enabled; a disabled source returns a retryable 503. A missing query or invalid limit returns 400; no matches return 404; upstream blocks and rate limits return 503 with a `Retry-After` header.",
+        "operationId": "reddit-subreddits-search",
+        "parameters": [
+          {
+            "description": "Community name search query",
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "type": "string",
+            "x-example": "golang"
+          },
+          {
+            "description": "Maximum communities, defaults to 25 and clamps to 100",
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "description": "Pagination cursor from a previous response",
+            "in": "query",
+            "name": "after",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.subredditSearchResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Search Reddit communities",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/subreddits/suggest": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns community typeahead suggestions for a prefix or name, with display name, subscriber count, icon and NSFW flag. This route reads Reddit's authenticated app surface; a disabled source returns a retryable 503, a missing query returns 400, no matches return 404, and upstream blocks or rate limits return 503 with a `Retry-After` header.",
+        "operationId": "reddit-subreddits-suggest",
+        "parameters": [
+          {
+            "description": "Community name or prefix",
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "type": "string",
+            "x-example": "golang"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.subredditSuggestResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Suggest Reddit communities",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/topics": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Lists the taxonomy topics Reddit's discovery surfaces use, with each topic's id, name, title, type and parent node ids. Use the ids as navigation context, or pass a topic's name to the search endpoints. This route reads Reddit's authenticated app surface; a disabled source returns a retryable 503, invalid limits return 400, an empty taxonomy returns 404, and upstream blocks or rate limits return 503 with a `Retry-After` header. `after` is the app's opaque page cursor.",
+        "operationId": "reddit-topics",
+        "parameters": [
+          {
+            "description": "Maximum topics, defaults to 25 and clamps to 100",
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "description": "Opaque app pagination cursor from a previous response",
+            "in": "query",
+            "name": "after",
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.topicsResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List Reddit taxonomy topics",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/topics/broad": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Lists Reddit's broad onboarding topics with their id, image and preselection flag. This route reads Reddit's authenticated app surface; a disabled source returns a retryable 503, an empty taxonomy returns 404, and upstream blocks or rate limits return 503 with a `Retry-After` header.",
+        "operationId": "reddit-topics-broad",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.broadTopicsResponseDoc"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List Reddit broad topics",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/topics/search": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Searches Reddit's taxonomy topics and returns matching topics with id, name, title, type and parent node ids. This route reads Reddit's authenticated app surface; a disabled source returns a retryable 503, a missing query returns 400, no matches return 404, and upstream blocks or rate limits return 503 with a `Retry-After` header.",
+        "operationId": "reddit-topics-search",
+        "parameters": [
+          {
+            "description": "Topic search query",
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "type": "string",
+            "x-example": "golang"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.topicSearchResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Search Reddit topics",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
     "/reddit/trends": {
       "get": {
         "consumes": [
           "application/json"
         ],
-        "description": "Returns public posts from broad Reddit hot, new, rising, or top feeds. For subreddit-specific trends, use `/reddit/subreddit/{subreddit}/posts` with `sort=hot`, `sort=new`, `sort=rising`, or `sort=top`. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is redlib, public fields and credit weights are preserved.",
+        "description": "Returns public posts from broad Reddit hot, new, rising, or top feeds. For subreddit-specific trends, use `/reddit/subreddit/{subreddit}/posts` with `sort=hot`, `sort=new`, `sort=rising`, or `sort=top`. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is app, the data was read through Reddit's authenticated app surface and the public fields and credit weights are preserved; when source.type is redlib, public fields and credit weights are also preserved.",
         "operationId": "reddit-trends",
         "parameters": [
           {
@@ -1956,7 +6073,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns flat public comment entries from a public Reddit user's comments feed. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is redlib, public fields and credit weights are preserved.",
+        "description": "Returns flat public comment entries from a public Reddit user's comments feed. The app source serves this listing when the native feed fails and populates comment scores. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is app, the data was read through Reddit's authenticated app surface and the public fields and credit weights are preserved.",
         "operationId": "reddit-user-comments",
         "parameters": [
           {
@@ -2031,7 +6148,7 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Returns public posts from a public Reddit user's submitted feed. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is redlib, public fields and credit weights are preserved.",
+        "description": "Returns public posts from a public Reddit user's submitted feed. The app source serves this listing when the native feed fails. A `503` with a `Retry-After` header means Reddit is temporarily throttling the request; wait that many seconds and retry. If source.type is app, the data was read through Reddit's authenticated app surface and the public fields and credit weights are preserved.",
         "operationId": "reddit-user-posts",
         "parameters": [
           {
@@ -2096,6 +6213,69 @@
           }
         ],
         "summary": "List Reddit user posts",
+        "tags": [
+          "reddit"
+        ]
+      }
+    },
+    "/reddit/user/{username}/profile": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the public profile of a Reddit user: username, karma, post and comment counts, trophy count, avatar, banner, description and account flags. This route reads Reddit's authenticated app surface, so it requires the app source to be enabled; a disabled source returns a retryable 503. An invalid username returns 400, an unknown or deleted user returns 404, and upstream blocks and rate limits return 503 with a `Retry-After` header.",
+        "operationId": "reddit-user-profile",
+        "parameters": [
+          {
+            "description": "Public Reddit username, without u/",
+            "in": "path",
+            "name": "username",
+            "required": true,
+            "type": "string",
+            "x-example": "spez"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/reddit.userProfileResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get a Reddit user profile",
         "tags": [
           "reddit"
         ]

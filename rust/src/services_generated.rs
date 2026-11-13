@@ -21,6 +21,120 @@ impl Services {
 }
 
 #[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditArchiveCommentsIdsParams {
+    #[serde(rename = "ids", skip_serializing_if = "Option::is_none")]
+    pub ids: Option<String>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditArchiveCommentsSearchParams {
+    #[serde(rename = "author", skip_serializing_if = "Option::is_none")]
+    pub author: Option<String>,
+    #[serde(rename = "subreddit", skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+    #[serde(rename = "query", skip_serializing_if = "Option::is_none")]
+    pub query: Option<String>,
+    #[serde(rename = "link_id", skip_serializing_if = "Option::is_none")]
+    pub link_id: Option<String>,
+    #[serde(rename = "parent_id", skip_serializing_if = "Option::is_none")]
+    pub parent_id: Option<String>,
+    #[serde(rename = "created_after", skip_serializing_if = "Option::is_none")]
+    pub created_after: Option<String>,
+    #[serde(rename = "created_before", skip_serializing_if = "Option::is_none")]
+    pub created_before: Option<String>,
+    #[serde(rename = "sort", skip_serializing_if = "Option::is_none")]
+    pub sort: Option<String>,
+    #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i64>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditArchiveCommentsTreeParams {
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    #[serde(rename = "parent_id", skip_serializing_if = "Option::is_none")]
+    pub parent_id: Option<String>,
+    #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i64>,
+    #[serde(rename = "start_breadth", skip_serializing_if = "Option::is_none")]
+    pub start_breadth: Option<i64>,
+    #[serde(rename = "start_depth", skip_serializing_if = "Option::is_none")]
+    pub start_depth: Option<i64>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditArchivePostsIdsParams {
+    #[serde(rename = "ids", skip_serializing_if = "Option::is_none")]
+    pub ids: Option<String>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditArchivePostsSearchParams {
+    #[serde(rename = "query", skip_serializing_if = "Option::is_none")]
+    pub query: Option<String>,
+    #[serde(rename = "author", skip_serializing_if = "Option::is_none")]
+    pub author: Option<String>,
+    #[serde(rename = "subreddit", skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "url_exact", skip_serializing_if = "Option::is_none")]
+    pub url_exact: Option<bool>,
+    #[serde(rename = "created_after", skip_serializing_if = "Option::is_none")]
+    pub created_after: Option<String>,
+    #[serde(rename = "created_before", skip_serializing_if = "Option::is_none")]
+    pub created_before: Option<String>,
+    #[serde(rename = "sort", skip_serializing_if = "Option::is_none")]
+    pub sort: Option<String>,
+    #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i64>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditArchiveSubredditsSearchParams {
+    #[serde(rename = "query", skip_serializing_if = "Option::is_none")]
+    pub query: Option<String>,
+    #[serde(rename = "min_subscribers", skip_serializing_if = "Option::is_none")]
+    pub min_subscribers: Option<i64>,
+    #[serde(rename = "max_subscribers", skip_serializing_if = "Option::is_none")]
+    pub max_subscribers: Option<i64>,
+    #[serde(rename = "over_18", skip_serializing_if = "Option::is_none")]
+    pub over_18: Option<bool>,
+    #[serde(rename = "sort_by", skip_serializing_if = "Option::is_none")]
+    pub sort_by: Option<String>,
+    #[serde(rename = "sort", skip_serializing_if = "Option::is_none")]
+    pub sort: Option<String>,
+    #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i64>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditArchiveTimeSeriesParams {
+    #[serde(rename = "metric", skip_serializing_if = "Option::is_none")]
+    pub metric: Option<String>,
+    #[serde(rename = "subreddit", skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+    #[serde(rename = "precision", skip_serializing_if = "Option::is_none")]
+    pub precision: Option<String>,
+    #[serde(rename = "created_after", skip_serializing_if = "Option::is_none")]
+    pub created_after: Option<String>,
+    #[serde(rename = "created_before", skip_serializing_if = "Option::is_none")]
+    pub created_before: Option<String>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditCommentParams {
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditCommentAwardsParams {
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
 pub struct RedditCommentsParams {
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -30,8 +144,6 @@ pub struct RedditCommentsParams {
     pub limit: Option<i64>,
     #[serde(rename = "depth", skip_serializing_if = "Option::is_none")]
     pub depth: Option<i64>,
-    #[serde(rename = "include_metrics", skip_serializing_if = "Option::is_none")]
-    pub include_metrics: Option<bool>,
 }
 
 #[derive(Debug, Clone, Default, serde::Serialize)]
@@ -67,11 +179,33 @@ pub struct RedditLeadsParams {
 }
 
 #[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditPopularParams {
+    #[serde(rename = "sort", skip_serializing_if = "Option::is_none")]
+    pub sort: Option<String>,
+    #[serde(rename = "time", skip_serializing_if = "Option::is_none")]
+    pub time: Option<String>,
+    #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i64>,
+    #[serde(rename = "after", skip_serializing_if = "Option::is_none")]
+    pub after: Option<String>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
 pub struct RedditPostParams {
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
-    #[serde(rename = "include_metrics", skip_serializing_if = "Option::is_none")]
-    pub include_metrics: Option<bool>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditPostAwardsParams {
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditPostsByIdsParams {
+    #[serde(rename = "ids", skip_serializing_if = "Option::is_none")]
+    pub ids: Option<String>,
 }
 
 #[derive(Debug, Clone, Default, serde::Serialize)]
@@ -84,6 +218,34 @@ pub struct RedditSearchParams {
     pub sort: Option<String>,
     #[serde(rename = "time", skip_serializing_if = "Option::is_none")]
     pub time: Option<String>,
+    #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i64>,
+    #[serde(rename = "after", skip_serializing_if = "Option::is_none")]
+    pub after: Option<String>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditSearchCommentsParams {
+    #[serde(rename = "q", skip_serializing_if = "Option::is_none")]
+    pub q: Option<String>,
+    #[serde(rename = "subreddit", skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+    #[serde(rename = "sort", skip_serializing_if = "Option::is_none")]
+    pub sort: Option<String>,
+    #[serde(rename = "time", skip_serializing_if = "Option::is_none")]
+    pub time: Option<String>,
+    #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i64>,
+    #[serde(rename = "after", skip_serializing_if = "Option::is_none")]
+    pub after: Option<String>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditSearchPeopleParams {
+    #[serde(rename = "q", skip_serializing_if = "Option::is_none")]
+    pub q: Option<String>,
+    #[serde(rename = "sort", skip_serializing_if = "Option::is_none")]
+    pub sort: Option<String>,
     #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
     #[serde(rename = "after", skip_serializing_if = "Option::is_none")]
@@ -109,6 +271,24 @@ pub struct RedditSubredditCommentsParams {
 }
 
 #[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditSubredditFlairsParams {
+    #[serde(rename = "subreddit", skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditSubredditHighlightsParams {
+    #[serde(rename = "subreddit", skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditSubredditLeaderboardCategoriesParams {
+    #[serde(rename = "subreddit", skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
 pub struct RedditSubredditPostsParams {
     #[serde(rename = "subreddit", skip_serializing_if = "Option::is_none")]
     pub subreddit: Option<String>,
@@ -116,6 +296,36 @@ pub struct RedditSubredditPostsParams {
     pub sort: Option<String>,
     #[serde(rename = "time", skip_serializing_if = "Option::is_none")]
     pub time: Option<String>,
+    #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i64>,
+    #[serde(rename = "after", skip_serializing_if = "Option::is_none")]
+    pub after: Option<String>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditSubredditRulesParams {
+    #[serde(rename = "subreddit", skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditSubredditUserFlairsParams {
+    #[serde(rename = "subreddit", skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditSubredditWikiParams {
+    #[serde(rename = "subreddit", skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+    #[serde(rename = "page", skip_serializing_if = "Option::is_none")]
+    pub page: Option<String>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditSubredditsDiscoverParams {
+    #[serde(rename = "feed", skip_serializing_if = "Option::is_none")]
+    pub feed: Option<String>,
     #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
     #[serde(rename = "after", skip_serializing_if = "Option::is_none")]
@@ -134,6 +344,42 @@ pub struct RedditSubredditsPostsParams {
     pub limit: Option<i64>,
     #[serde(rename = "after", skip_serializing_if = "Option::is_none")]
     pub after: Option<String>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditSubredditsSearchParams {
+    #[serde(rename = "q", skip_serializing_if = "Option::is_none")]
+    pub q: Option<String>,
+    #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i64>,
+    #[serde(rename = "after", skip_serializing_if = "Option::is_none")]
+    pub after: Option<String>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditSubredditsSuggestParams {
+    #[serde(rename = "q", skip_serializing_if = "Option::is_none")]
+    pub q: Option<String>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditTopicsParams {
+    #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i64>,
+    #[serde(rename = "after", skip_serializing_if = "Option::is_none")]
+    pub after: Option<String>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditTopicsBroadParams {
+    #[serde(skip)]
+    _empty: Option<()>,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditTopicsSearchParams {
+    #[serde(rename = "q", skip_serializing_if = "Option::is_none")]
+    pub q: Option<String>,
 }
 
 #[derive(Debug, Clone, Default, serde::Serialize)]
@@ -168,12 +414,124 @@ pub struct RedditUserPostsParams {
     pub after: Option<String>,
 }
 
+#[derive(Debug, Clone, Default, serde::Serialize)]
+pub struct RedditUserProfileParams {
+    #[serde(rename = "username", skip_serializing_if = "Option::is_none")]
+    pub username: Option<String>,
+}
+
 #[derive(Clone)]
 pub struct RedditApi {
     pub(crate) inner: Arc<ClientInner>,
 }
 
 impl RedditApi {
+    pub async fn archive_comments_ids(
+        &self,
+        params: RedditArchiveCommentsIdsParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call(
+                "reddit-archive-comments-ids",
+                &params,
+                RequestOptions::default(),
+            )
+            .await
+    }
+
+    pub async fn archive_comments_search(
+        &self,
+        params: RedditArchiveCommentsSearchParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call(
+                "reddit-archive-comments-search",
+                &params,
+                RequestOptions::default(),
+            )
+            .await
+    }
+
+    pub async fn archive_comments_tree(
+        &self,
+        params: RedditArchiveCommentsTreeParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call(
+                "reddit-archive-comments-tree",
+                &params,
+                RequestOptions::default(),
+            )
+            .await
+    }
+
+    pub async fn archive_posts_ids(
+        &self,
+        params: RedditArchivePostsIdsParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call(
+                "reddit-archive-posts-ids",
+                &params,
+                RequestOptions::default(),
+            )
+            .await
+    }
+
+    pub async fn archive_posts_search(
+        &self,
+        params: RedditArchivePostsSearchParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call(
+                "reddit-archive-posts-search",
+                &params,
+                RequestOptions::default(),
+            )
+            .await
+    }
+
+    pub async fn archive_subreddits_search(
+        &self,
+        params: RedditArchiveSubredditsSearchParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call(
+                "reddit-archive-subreddits-search",
+                &params,
+                RequestOptions::default(),
+            )
+            .await
+    }
+
+    pub async fn archive_time_series(
+        &self,
+        params: RedditArchiveTimeSeriesParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call(
+                "reddit-archive-time-series",
+                &params,
+                RequestOptions::default(),
+            )
+            .await
+    }
+
+    pub async fn comment(&self, params: RedditCommentParams) -> Result<ApiResponse, Error> {
+        self.inner
+            .call("reddit-comment", &params, RequestOptions::default())
+            .await
+    }
+
+    pub async fn comment_awards(
+        &self,
+        params: RedditCommentAwardsParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call("reddit-comment-awards", &params, RequestOptions::default())
+            .await
+    }
+
     pub async fn comments(&self, params: RedditCommentsParams) -> Result<ApiResponse, Error> {
         self.inner
             .call("reddit-comments", &params, RequestOptions::default())
@@ -195,15 +553,51 @@ impl RedditApi {
             .await
     }
 
+    pub async fn popular(&self, params: RedditPopularParams) -> Result<ApiResponse, Error> {
+        self.inner
+            .call("reddit-popular", &params, RequestOptions::default())
+            .await
+    }
+
     pub async fn post(&self, params: RedditPostParams) -> Result<ApiResponse, Error> {
         self.inner
             .call("reddit-post", &params, RequestOptions::default())
             .await
     }
 
+    pub async fn post_awards(&self, params: RedditPostAwardsParams) -> Result<ApiResponse, Error> {
+        self.inner
+            .call("reddit-post-awards", &params, RequestOptions::default())
+            .await
+    }
+
+    pub async fn posts_by_ids(&self, params: RedditPostsByIdsParams) -> Result<ApiResponse, Error> {
+        self.inner
+            .call("reddit-posts-by-ids", &params, RequestOptions::default())
+            .await
+    }
+
     pub async fn search(&self, params: RedditSearchParams) -> Result<ApiResponse, Error> {
         self.inner
             .call("reddit-search", &params, RequestOptions::default())
+            .await
+    }
+
+    pub async fn search_comments(
+        &self,
+        params: RedditSearchCommentsParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call("reddit-search-comments", &params, RequestOptions::default())
+            .await
+    }
+
+    pub async fn search_people(
+        &self,
+        params: RedditSearchPeopleParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call("reddit-search-people", &params, RequestOptions::default())
             .await
     }
 
@@ -229,12 +623,95 @@ impl RedditApi {
             .await
     }
 
+    pub async fn subreddit_flairs(
+        &self,
+        params: RedditSubredditFlairsParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call(
+                "reddit-subreddit-flairs",
+                &params,
+                RequestOptions::default(),
+            )
+            .await
+    }
+
+    pub async fn subreddit_highlights(
+        &self,
+        params: RedditSubredditHighlightsParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call(
+                "reddit-subreddit-highlights",
+                &params,
+                RequestOptions::default(),
+            )
+            .await
+    }
+
+    pub async fn subreddit_leaderboard_categories(
+        &self,
+        params: RedditSubredditLeaderboardCategoriesParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call(
+                "reddit-subreddit-leaderboard-categories",
+                &params,
+                RequestOptions::default(),
+            )
+            .await
+    }
+
     pub async fn subreddit_posts(
         &self,
         params: RedditSubredditPostsParams,
     ) -> Result<ApiResponse, Error> {
         self.inner
             .call("reddit-subreddit-posts", &params, RequestOptions::default())
+            .await
+    }
+
+    pub async fn subreddit_rules(
+        &self,
+        params: RedditSubredditRulesParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call("reddit-subreddit-rules", &params, RequestOptions::default())
+            .await
+    }
+
+    pub async fn subreddit_user_flairs(
+        &self,
+        params: RedditSubredditUserFlairsParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call(
+                "reddit-subreddit-user-flairs",
+                &params,
+                RequestOptions::default(),
+            )
+            .await
+    }
+
+    pub async fn subreddit_wiki(
+        &self,
+        params: RedditSubredditWikiParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call("reddit-subreddit-wiki", &params, RequestOptions::default())
+            .await
+    }
+
+    pub async fn subreddits_discover(
+        &self,
+        params: RedditSubredditsDiscoverParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call(
+                "reddit-subreddits-discover",
+                &params,
+                RequestOptions::default(),
+            )
             .await
     }
 
@@ -248,6 +725,56 @@ impl RedditApi {
                 &params,
                 RequestOptions::default(),
             )
+            .await
+    }
+
+    pub async fn subreddits_search(
+        &self,
+        params: RedditSubredditsSearchParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call(
+                "reddit-subreddits-search",
+                &params,
+                RequestOptions::default(),
+            )
+            .await
+    }
+
+    pub async fn subreddits_suggest(
+        &self,
+        params: RedditSubredditsSuggestParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call(
+                "reddit-subreddits-suggest",
+                &params,
+                RequestOptions::default(),
+            )
+            .await
+    }
+
+    pub async fn topics(&self, params: RedditTopicsParams) -> Result<ApiResponse, Error> {
+        self.inner
+            .call("reddit-topics", &params, RequestOptions::default())
+            .await
+    }
+
+    pub async fn topics_broad(
+        &self,
+        params: RedditTopicsBroadParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call("reddit-topics-broad", &params, RequestOptions::default())
+            .await
+    }
+
+    pub async fn topics_search(
+        &self,
+        params: RedditTopicsSearchParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call("reddit-topics-search", &params, RequestOptions::default())
             .await
     }
 
@@ -269,6 +796,15 @@ impl RedditApi {
     pub async fn user_posts(&self, params: RedditUserPostsParams) -> Result<ApiResponse, Error> {
         self.inner
             .call("reddit-user-posts", &params, RequestOptions::default())
+            .await
+    }
+
+    pub async fn user_profile(
+        &self,
+        params: RedditUserProfileParams,
+    ) -> Result<ApiResponse, Error> {
+        self.inner
+            .call("reddit-user-profile", &params, RequestOptions::default())
             .await
     }
 }

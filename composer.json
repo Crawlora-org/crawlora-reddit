@@ -1,6 +1,6 @@
 {
   "name": "crawlora/reddit",
-  "description": "Crawlora Reddit API client with 12 endpoints for search, post and comment details, subreddit feeds, user history, domain listings, trends, and leads",
+  "description": "Crawlora Reddit API client with 39 endpoints for search, post and comment details, subreddit feeds, user history, domain listings, trends, and leads",
   "keywords": [
     "crawlora",
     "api-client",

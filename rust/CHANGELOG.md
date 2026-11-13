@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.0 — 2026-11-13
+
+- Added operations: reddit-archive-comments-ids, reddit-archive-comments-search, reddit-archive-comments-tree, reddit-archive-posts-ids, reddit-archive-posts-search, reddit-archive-subreddits-search, reddit-archive-time-series, reddit-comment, reddit-comment-awards, reddit-popular, reddit-post-awards, reddit-posts-by-ids, reddit-search-comments, reddit-search-people, reddit-subreddit-flairs, reddit-subreddit-highlights, reddit-subreddit-leaderboard-categories, reddit-subreddit-rules, reddit-subreddit-user-flairs, reddit-subreddit-wiki, reddit-subreddits-discover, reddit-subreddits-search, reddit-subreddits-suggest, reddit-topics, reddit-topics-broad, reddit-topics-search, reddit-user-profile.
+- Updated operation contracts: reddit-comments, reddit-domain-posts, reddit-post, reddit-search, reddit-subreddit-about, reddit-subreddit-comments, reddit-subreddit-posts, reddit-subreddits-posts, reddit-trends, reddit-user-comments, reddit-user-posts.
+
 ## 0.2.0 — 2026-10-14
 
 - Updated operation contracts: reddit-comments, reddit-domain-posts, reddit-leads, reddit-post, reddit-search, reddit-subreddit-about, reddit-subreddit-comments, reddit-subreddit-posts, reddit-subreddits-posts, reddit-trends, reddit-user-comments, reddit-user-posts.

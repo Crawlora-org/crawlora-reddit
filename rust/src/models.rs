@@ -16,6 +16,476 @@ pub struct ModelAppResponse {
 }
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchiveBatchSource {
+    #[serde(rename = "requests", default, skip_serializing_if = "Option::is_none")]
+    pub requests: Option<i64>,
+    #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
+    pub type_: Option<String>,
+    #[serde(rename = "url", default, skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchiveComment {
+    #[serde(rename = "author", default, skip_serializing_if = "Option::is_none")]
+    pub author: Option<String>,
+    #[serde(
+        rename = "author_flair_text",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub author_flair_text: Option<String>,
+    #[serde(
+        rename = "author_fullname",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub author_fullname: Option<String>,
+    #[serde(rename = "body", default, skip_serializing_if = "Option::is_none")]
+    pub body: Option<String>,
+    #[serde(
+        rename = "created_utc",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_utc: Option<i64>,
+    #[serde(rename = "depth", default, skip_serializing_if = "Option::is_none")]
+    pub depth: Option<i64>,
+    #[serde(
+        rename = "distinguished",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub distinguished: Option<String>,
+    #[serde(rename = "id", default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    #[serde(rename = "link_id", default, skip_serializing_if = "Option::is_none")]
+    pub link_id: Option<String>,
+    #[serde(rename = "name", default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    #[serde(rename = "parent_id", default, skip_serializing_if = "Option::is_none")]
+    pub parent_id: Option<String>,
+    #[serde(rename = "permalink", default, skip_serializing_if = "Option::is_none")]
+    pub permalink: Option<String>,
+    #[serde(
+        rename = "removed_by_category",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub removed_by_category: Option<String>,
+    #[serde(
+        rename = "retrieved_on",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub retrieved_on: Option<i64>,
+    #[serde(rename = "score", default, skip_serializing_if = "Option::is_none")]
+    pub score: Option<i64>,
+    #[serde(rename = "subreddit", default, skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+    #[serde(
+        rename = "subreddit_id",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub subreddit_id: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchiveCommentTreeEntry {
+    #[serde(rename = "comment", default, skip_serializing_if = "Option::is_none")]
+    pub comment: Option<ModelRedditArchiveCommentTreeNode>,
+    #[serde(rename = "kind", default, skip_serializing_if = "Option::is_none")]
+    pub kind: Option<String>,
+    #[serde(rename = "more", default, skip_serializing_if = "Option::is_none")]
+    pub more: Option<ModelRedditArchiveMoreComments>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchiveCommentTreeNode {
+    #[serde(rename = "comment", default, skip_serializing_if = "Option::is_none")]
+    pub comment: Option<ModelRedditArchiveComment>,
+    #[serde(rename = "replies", default, skip_serializing_if = "Option::is_none")]
+    pub replies: Option<Vec<ModelRedditArchiveCommentTreeEntry>>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchiveCommentsIdsResponse {
+    #[serde(rename = "comments", default, skip_serializing_if = "Option::is_none")]
+    pub comments: Option<Vec<ModelRedditArchiveComment>>,
+    #[serde(
+        rename = "missing_ids",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub missing_ids: Option<Vec<String>>,
+    #[serde(
+        rename = "requested_count",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub requested_count: Option<i64>,
+    #[serde(
+        rename = "returned_count",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub returned_count: Option<i64>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditArchiveBatchSource>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchiveCommentsSearchResponse {
+    #[serde(rename = "author", default, skip_serializing_if = "Option::is_none")]
+    pub author: Option<String>,
+    #[serde(rename = "comments", default, skip_serializing_if = "Option::is_none")]
+    pub comments: Option<Vec<ModelRedditArchiveComment>>,
+    #[serde(
+        rename = "created_after",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_after: Option<String>,
+    #[serde(
+        rename = "created_before",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_before: Option<String>,
+    #[serde(rename = "limit", default, skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i64>,
+    #[serde(rename = "link_id", default, skip_serializing_if = "Option::is_none")]
+    pub link_id: Option<String>,
+    #[serde(rename = "parent_id", default, skip_serializing_if = "Option::is_none")]
+    pub parent_id: Option<String>,
+    #[serde(rename = "query", default, skip_serializing_if = "Option::is_none")]
+    pub query: Option<String>,
+    #[serde(rename = "sort", default, skip_serializing_if = "Option::is_none")]
+    pub sort: Option<String>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(rename = "subreddit", default, skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchiveCommentsTreeResponse {
+    #[serde(rename = "comments", default, skip_serializing_if = "Option::is_none")]
+    pub comments: Option<Vec<ModelRedditArchiveCommentTreeEntry>>,
+    #[serde(rename = "limit", default, skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i64>,
+    #[serde(rename = "parent_id", default, skip_serializing_if = "Option::is_none")]
+    pub parent_id: Option<String>,
+    #[serde(rename = "post_id", default, skip_serializing_if = "Option::is_none")]
+    pub post_id: Option<String>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(
+        rename = "start_breadth",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub start_breadth: Option<i64>,
+    #[serde(
+        rename = "start_depth",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub start_depth: Option<i64>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchiveMoreComments {
+    #[serde(rename = "children", default, skip_serializing_if = "Option::is_none")]
+    pub children: Option<Vec<String>>,
+    #[serde(rename = "count", default, skip_serializing_if = "Option::is_none")]
+    pub count: Option<i64>,
+    #[serde(rename = "depth", default, skip_serializing_if = "Option::is_none")]
+    pub depth: Option<i64>,
+    #[serde(rename = "id", default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    #[serde(rename = "name", default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    #[serde(rename = "parent_id", default, skip_serializing_if = "Option::is_none")]
+    pub parent_id: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchivePost {
+    #[serde(rename = "author", default, skip_serializing_if = "Option::is_none")]
+    pub author: Option<String>,
+    #[serde(
+        rename = "author_flair_text",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub author_flair_text: Option<String>,
+    #[serde(
+        rename = "author_fullname",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub author_fullname: Option<String>,
+    #[serde(
+        rename = "created_utc",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_utc: Option<i64>,
+    #[serde(
+        rename = "crosspost_parent",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub crosspost_parent: Option<String>,
+    #[serde(
+        rename = "distinguished",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub distinguished: Option<String>,
+    #[serde(rename = "id", default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    #[serde(
+        rename = "link_flair_text",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub link_flair_text: Option<String>,
+    #[serde(
+        rename = "num_comments",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub num_comments: Option<i64>,
+    #[serde(rename = "over_18", default, skip_serializing_if = "Option::is_none")]
+    pub over_18: Option<bool>,
+    #[serde(rename = "post_hint", default, skip_serializing_if = "Option::is_none")]
+    pub post_hint: Option<String>,
+    #[serde(
+        rename = "removed_by_category",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub removed_by_category: Option<String>,
+    #[serde(
+        rename = "retrieved_on",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub retrieved_on: Option<i64>,
+    #[serde(rename = "score", default, skip_serializing_if = "Option::is_none")]
+    pub score: Option<i64>,
+    #[serde(rename = "selftext", default, skip_serializing_if = "Option::is_none")]
+    pub selftext: Option<String>,
+    #[serde(rename = "spoiler", default, skip_serializing_if = "Option::is_none")]
+    pub spoiler: Option<bool>,
+    #[serde(rename = "subreddit", default, skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+    #[serde(
+        rename = "subreddit_id",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub subreddit_id: Option<String>,
+    #[serde(rename = "title", default, skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    #[serde(rename = "url", default, skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchivePostsIdsResponse {
+    #[serde(
+        rename = "missing_ids",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub missing_ids: Option<Vec<String>>,
+    #[serde(rename = "posts", default, skip_serializing_if = "Option::is_none")]
+    pub posts: Option<Vec<ModelRedditArchivePost>>,
+    #[serde(
+        rename = "requested_count",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub requested_count: Option<i64>,
+    #[serde(
+        rename = "returned_count",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub returned_count: Option<i64>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditArchiveBatchSource>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchivePostsSearchResponse {
+    #[serde(rename = "author", default, skip_serializing_if = "Option::is_none")]
+    pub author: Option<String>,
+    #[serde(
+        rename = "created_after",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_after: Option<String>,
+    #[serde(
+        rename = "created_before",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_before: Option<String>,
+    #[serde(rename = "limit", default, skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i64>,
+    #[serde(rename = "posts", default, skip_serializing_if = "Option::is_none")]
+    pub posts: Option<Vec<ModelRedditArchivePost>>,
+    #[serde(rename = "query", default, skip_serializing_if = "Option::is_none")]
+    pub query: Option<String>,
+    #[serde(rename = "sort", default, skip_serializing_if = "Option::is_none")]
+    pub sort: Option<String>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(rename = "subreddit", default, skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+    #[serde(rename = "url", default, skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "url_exact", default, skip_serializing_if = "Option::is_none")]
+    pub url_exact: Option<bool>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchiveSubreddit {
+    #[serde(
+        rename = "created_utc",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_utc: Option<i64>,
+    #[serde(
+        rename = "display_name",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub display_name: Option<String>,
+    #[serde(rename = "id", default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    #[serde(rename = "over_18", default, skip_serializing_if = "Option::is_none")]
+    pub over_18: Option<bool>,
+    #[serde(
+        rename = "retrieved_on",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub retrieved_on: Option<i64>,
+    #[serde(
+        rename = "subscribers",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub subscribers: Option<i64>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchiveSubredditsSearchResponse {
+    #[serde(rename = "limit", default, skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i64>,
+    #[serde(
+        rename = "max_subscribers",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub max_subscribers: Option<i64>,
+    #[serde(
+        rename = "min_subscribers",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub min_subscribers: Option<i64>,
+    #[serde(rename = "over_18", default, skip_serializing_if = "Option::is_none")]
+    pub over_18: Option<bool>,
+    #[serde(rename = "query", default, skip_serializing_if = "Option::is_none")]
+    pub query: Option<String>,
+    #[serde(rename = "sort", default, skip_serializing_if = "Option::is_none")]
+    pub sort: Option<String>,
+    #[serde(rename = "sort_by", default, skip_serializing_if = "Option::is_none")]
+    pub sort_by: Option<String>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(
+        rename = "subreddits",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub subreddits: Option<Vec<ModelRedditArchiveSubreddit>>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchiveTimeSeriesPoint {
+    #[serde(rename = "date", default, skip_serializing_if = "Option::is_none")]
+    pub date: Option<i64>,
+    #[serde(rename = "value", default, skip_serializing_if = "Option::is_none")]
+    pub value: Option<f64>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchiveTimeSeriesResponse {
+    #[serde(
+        rename = "created_after",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_after: Option<String>,
+    #[serde(
+        rename = "created_before",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_before: Option<String>,
+    #[serde(rename = "metric", default, skip_serializing_if = "Option::is_none")]
+    pub metric: Option<String>,
+    #[serde(rename = "points", default, skip_serializing_if = "Option::is_none")]
+    pub points: Option<Vec<ModelRedditArchiveTimeSeriesPoint>>,
+    #[serde(rename = "precision", default, skip_serializing_if = "Option::is_none")]
+    pub precision: Option<String>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(rename = "subreddit", default, skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct ModelRedditAuthor {
     #[serde(rename = "name", default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -25,6 +495,52 @@ pub struct ModelRedditAuthor {
         skip_serializing_if = "Option::is_none"
     )]
     pub profile_url: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditAward {
+    #[serde(
+        rename = "description",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub description: Option<String>,
+    #[serde(rename = "icon_url", default, skip_serializing_if = "Option::is_none")]
+    pub icon_url: Option<String>,
+    #[serde(rename = "id", default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    #[serde(rename = "name", default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    #[serde(rename = "tags", default, skip_serializing_if = "Option::is_none")]
+    pub tags: Option<Vec<String>>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditBroadTopic {
+    #[serde(rename = "id", default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    #[serde(rename = "image_url", default, skip_serializing_if = "Option::is_none")]
+    pub image_url: Option<String>,
+    #[serde(
+        rename = "is_preselected",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_preselected: Option<bool>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditBroadTopicsResponse {
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(rename = "topics", default, skip_serializing_if = "Option::is_none")]
+    pub topics: Option<Vec<ModelRedditBroadTopic>>,
     #[serde(flatten)]
     pub additional: BTreeMap<String, Value>,
 }
@@ -51,18 +567,90 @@ pub struct ModelRedditComment {
     pub created_utc: Option<i64>,
     #[serde(rename = "depth", default, skip_serializing_if = "Option::is_none")]
     pub depth: Option<i64>,
+    #[serde(
+        rename = "distinguished",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub distinguished: Option<String>,
+    #[serde(rename = "edited", default, skip_serializing_if = "Option::is_none")]
+    pub edited: Option<String>,
+    #[serde(
+        rename = "edited_utc",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub edited_utc: Option<i64>,
     #[serde(rename = "id", default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
+    #[serde(
+        rename = "is_archived",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_archived: Option<bool>,
+    #[serde(rename = "is_locked", default, skip_serializing_if = "Option::is_none")]
+    pub is_locked: Option<bool>,
+    #[serde(rename = "is_op", default, skip_serializing_if = "Option::is_none")]
+    pub is_op: Option<bool>,
+    #[serde(
+        rename = "is_score_hidden",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_score_hidden: Option<bool>,
+    #[serde(
+        rename = "is_stickied",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_stickied: Option<bool>,
     #[serde(rename = "name", default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(rename = "parent_id", default, skip_serializing_if = "Option::is_none")]
     pub parent_id: Option<String>,
     #[serde(rename = "permalink", default, skip_serializing_if = "Option::is_none")]
     pub permalink: Option<String>,
+    #[serde(rename = "post_id", default, skip_serializing_if = "Option::is_none")]
+    pub post_id: Option<String>,
+    #[serde(
+        rename = "post_title",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub post_title: Option<String>,
     #[serde(rename = "replies", default, skip_serializing_if = "Option::is_none")]
     pub replies: Option<Vec<ModelRedditComment>>,
     #[serde(rename = "score", default, skip_serializing_if = "Option::is_none")]
     pub score: Option<i64>,
+    #[serde(rename = "subreddit", default, skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditCommentAwardsResponse {
+    #[serde(rename = "awards", default, skip_serializing_if = "Option::is_none")]
+    pub awards: Option<Vec<ModelRedditPostAwarding>>,
+    #[serde(
+        rename = "comment_id",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub comment_id: Option<String>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditCommentDetailResponse {
+    #[serde(rename = "comment", default, skip_serializing_if = "Option::is_none")]
+    pub comment: Option<ModelRedditComment>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
     #[serde(flatten)]
     pub additional: BTreeMap<String, Value>,
 }
@@ -81,6 +669,72 @@ pub struct ModelRedditCommentsResponse {
     pub post: Option<ModelRedditPost>,
     #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
     pub source: Option<ModelRedditSourceDetail>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditCommunity {
+    #[serde(
+        rename = "banner_url",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub banner_url: Option<String>,
+    #[serde(rename = "created", default, skip_serializing_if = "Option::is_none")]
+    pub created: Option<String>,
+    #[serde(
+        rename = "created_utc",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_utc: Option<i64>,
+    #[serde(
+        rename = "display_name",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub display_name: Option<String>,
+    #[serde(rename = "icon_url", default, skip_serializing_if = "Option::is_none")]
+    pub icon_url: Option<String>,
+    #[serde(
+        rename = "is_quarantined",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_quarantined: Option<bool>,
+    #[serde(rename = "name", default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    #[serde(rename = "over_18", default, skip_serializing_if = "Option::is_none")]
+    pub over_18: Option<bool>,
+    #[serde(
+        rename = "public_description",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub public_description: Option<String>,
+    #[serde(
+        rename = "public_url",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub public_url: Option<String>,
+    #[serde(rename = "subreddit", default, skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+    #[serde(
+        rename = "subreddit_type",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub subreddit_type: Option<String>,
+    #[serde(
+        rename = "subscribers",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub subscribers: Option<i64>,
+    #[serde(rename = "title", default, skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
     #[serde(flatten)]
     pub additional: BTreeMap<String, Value>,
 }
@@ -108,6 +762,144 @@ pub struct ModelRedditDomainPostsResponse {
 }
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditFlairTemplate {
+    #[serde(
+        rename = "allowable_content",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub allowable_content: Option<String>,
+    #[serde(
+        rename = "background_color",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub background_color: Option<String>,
+    #[serde(rename = "id", default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    #[serde(
+        rename = "is_editable",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_editable: Option<bool>,
+    #[serde(
+        rename = "is_mod_only",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_mod_only: Option<bool>,
+    #[serde(
+        rename = "max_emojis",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub max_emojis: Option<i64>,
+    #[serde(rename = "richtext", default, skip_serializing_if = "Option::is_none")]
+    pub richtext: Option<String>,
+    #[serde(rename = "text", default, skip_serializing_if = "Option::is_none")]
+    pub text: Option<String>,
+    #[serde(
+        rename = "text_color",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub text_color: Option<String>,
+    #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
+    pub type_: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditHighlight {
+    #[serde(
+        rename = "expires_at",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub expires_at: Option<String>,
+    #[serde(rename = "label", default, skip_serializing_if = "Option::is_none")]
+    pub label: Option<String>,
+    #[serde(rename = "post", default, skip_serializing_if = "Option::is_none")]
+    pub post: Option<ModelRedditPost>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditLeaderboardCategoriesResponse {
+    #[serde(
+        rename = "categories",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub categories: Option<Vec<ModelRedditLeaderboardCategory>>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(rename = "subreddit", default, skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditLeaderboardCategory {
+    #[serde(
+        rename = "deeplink_url",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub deeplink_url: Option<String>,
+    #[serde(
+        rename = "description",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub description: Option<String>,
+    #[serde(
+        rename = "footer_text",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub footer_text: Option<String>,
+    #[serde(rename = "id", default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    #[serde(rename = "is_active", default, skip_serializing_if = "Option::is_none")]
+    pub is_active: Option<bool>,
+    #[serde(
+        rename = "last_updated_label",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_updated_label: Option<String>,
+    #[serde(rename = "name", default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    #[serde(rename = "periods", default, skip_serializing_if = "Option::is_none")]
+    pub periods: Option<Vec<ModelRedditLeaderboardPeriod>>,
+    #[serde(
+        rename = "update_interval_label",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub update_interval_label: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditLeaderboardPeriod {
+    #[serde(rename = "id", default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    #[serde(rename = "is_active", default, skip_serializing_if = "Option::is_none")]
+    pub is_active: Option<bool>,
+    #[serde(rename = "name", default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct ModelRedditMultiSubredditPostsResponse {
     #[serde(
         rename = "pagination",
@@ -129,6 +921,8 @@ pub struct ModelRedditMultiSubredditPostsResponse {
     pub subreddits: Option<Vec<String>>,
     #[serde(rename = "time", default, skip_serializing_if = "Option::is_none")]
     pub time: Option<String>,
+    #[serde(rename = "warnings", default, skip_serializing_if = "Option::is_none")]
+    pub warnings: Option<Vec<String>>,
     #[serde(flatten)]
     pub additional: BTreeMap<String, Value>,
 }
@@ -139,6 +933,60 @@ pub struct ModelRedditPagination {
     pub after: Option<String>,
     #[serde(rename = "limit", default, skip_serializing_if = "Option::is_none")]
     pub limit: Option<i64>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditPerson {
+    #[serde(
+        rename = "accepts_followers",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub accepts_followers: Option<bool>,
+    #[serde(
+        rename = "display_name",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub display_name: Option<String>,
+    #[serde(rename = "icon_url", default, skip_serializing_if = "Option::is_none")]
+    pub icon_url: Option<String>,
+    #[serde(rename = "karma", default, skip_serializing_if = "Option::is_none")]
+    pub karma: Option<i64>,
+    #[serde(rename = "name", default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    #[serde(rename = "over_18", default, skip_serializing_if = "Option::is_none")]
+    pub over_18: Option<bool>,
+    #[serde(
+        rename = "public_url",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub public_url: Option<String>,
+    #[serde(rename = "username", default, skip_serializing_if = "Option::is_none")]
+    pub username: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditPopularResponse {
+    #[serde(
+        rename = "pagination",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub pagination: Option<ModelRedditPagination>,
+    #[serde(rename = "posts", default, skip_serializing_if = "Option::is_none")]
+    pub posts: Option<Vec<ModelRedditPost>>,
+    #[serde(rename = "sort", default, skip_serializing_if = "Option::is_none")]
+    pub sort: Option<String>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(rename = "time", default, skip_serializing_if = "Option::is_none")]
+    pub time: Option<String>,
     #[serde(flatten)]
     pub additional: BTreeMap<String, Value>,
 }
@@ -167,8 +1015,28 @@ pub struct ModelRedditPost {
         skip_serializing_if = "Option::is_none"
     )]
     pub created_utc: Option<i64>,
+    #[serde(
+        rename = "crosspost_count",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub crosspost_count: Option<i64>,
+    #[serde(
+        rename = "distinguished",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub distinguished: Option<String>,
     #[serde(rename = "domain", default, skip_serializing_if = "Option::is_none")]
     pub domain: Option<String>,
+    #[serde(rename = "edited", default, skip_serializing_if = "Option::is_none")]
+    pub edited: Option<String>,
+    #[serde(
+        rename = "edited_utc",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub edited_utc: Option<i64>,
     #[serde(
         rename = "estimated_downvotes",
         default,
@@ -185,10 +1053,52 @@ pub struct ModelRedditPost {
     pub flair: Option<String>,
     #[serde(rename = "id", default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
+    #[serde(
+        rename = "is_archived",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_archived: Option<bool>,
+    #[serde(
+        rename = "is_contest_mode",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_contest_mode: Option<bool>,
+    #[serde(
+        rename = "is_crosspostable",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_crosspostable: Option<bool>,
+    #[serde(
+        rename = "is_original_content",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_original_content: Option<bool>,
+    #[serde(
+        rename = "is_score_hidden",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_score_hidden: Option<bool>,
     #[serde(rename = "is_self", default, skip_serializing_if = "Option::is_none")]
     pub is_self: Option<bool>,
+    #[serde(
+        rename = "is_spoiler",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_spoiler: Option<bool>,
     #[serde(rename = "is_video", default, skip_serializing_if = "Option::is_none")]
     pub is_video: Option<bool>,
+    #[serde(
+        rename = "language_code",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub language_code: Option<String>,
     #[serde(rename = "locked", default, skip_serializing_if = "Option::is_none")]
     pub locked: Option<bool>,
     #[serde(rename = "name", default, skip_serializing_if = "Option::is_none")]
@@ -211,6 +1121,12 @@ pub struct ModelRedditPost {
     pub stickied: Option<bool>,
     #[serde(rename = "subreddit", default, skip_serializing_if = "Option::is_none")]
     pub subreddit: Option<String>,
+    #[serde(
+        rename = "suggested_comment_sort",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub suggested_comment_sort: Option<String>,
     #[serde(rename = "thumbnail", default, skip_serializing_if = "Option::is_none")]
     pub thumbnail: Option<String>,
     #[serde(rename = "title", default, skip_serializing_if = "Option::is_none")]
@@ -234,6 +1150,34 @@ pub struct ModelRedditPost {
 }
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditPostAwarding {
+    #[serde(rename = "award", default, skip_serializing_if = "Option::is_none")]
+    pub award: Option<ModelRedditAward>,
+    #[serde(
+        rename = "gold_count",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub gold_count: Option<i64>,
+    #[serde(rename = "total", default, skip_serializing_if = "Option::is_none")]
+    pub total: Option<i64>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditPostAwardsResponse {
+    #[serde(rename = "awards", default, skip_serializing_if = "Option::is_none")]
+    pub awards: Option<Vec<ModelRedditPostAwarding>>,
+    #[serde(rename = "post_id", default, skip_serializing_if = "Option::is_none")]
+    pub post_id: Option<String>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct ModelRedditPostResponse {
     #[serde(
         rename = "metrics_source",
@@ -243,6 +1187,66 @@ pub struct ModelRedditPostResponse {
     pub metrics_source: Option<ModelRedditSourceDetail>,
     #[serde(rename = "post", default, skip_serializing_if = "Option::is_none")]
     pub post: Option<ModelRedditPost>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditPostsByIdsResponse {
+    #[serde(
+        rename = "missing_ids",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub missing_ids: Option<Vec<String>>,
+    #[serde(rename = "posts", default, skip_serializing_if = "Option::is_none")]
+    pub posts: Option<Vec<ModelRedditPost>>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditSearchCommentsResponse {
+    #[serde(rename = "comments", default, skip_serializing_if = "Option::is_none")]
+    pub comments: Option<Vec<ModelRedditComment>>,
+    #[serde(
+        rename = "pagination",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub pagination: Option<ModelRedditPagination>,
+    #[serde(rename = "query", default, skip_serializing_if = "Option::is_none")]
+    pub query: Option<String>,
+    #[serde(rename = "sort", default, skip_serializing_if = "Option::is_none")]
+    pub sort: Option<String>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(rename = "subreddit", default, skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+    #[serde(rename = "time", default, skip_serializing_if = "Option::is_none")]
+    pub time: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditSearchPeopleResponse {
+    #[serde(
+        rename = "pagination",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub pagination: Option<ModelRedditPagination>,
+    #[serde(rename = "people", default, skip_serializing_if = "Option::is_none")]
+    pub people: Option<Vec<ModelRedditPerson>>,
+    #[serde(rename = "query", default, skip_serializing_if = "Option::is_none")]
+    pub query: Option<String>,
+    #[serde(rename = "sort", default, skip_serializing_if = "Option::is_none")]
+    pub sort: Option<String>,
     #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
     pub source: Option<ModelRedditSourceDetail>,
     #[serde(flatten)]
@@ -274,6 +1278,14 @@ pub struct ModelRedditSearchResponse {
 }
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditSiteRule {
+    #[serde(rename = "text", default, skip_serializing_if = "Option::is_none")]
+    pub text: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct ModelRedditSourceDetail {
     #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
     pub type_: Option<String>,
@@ -286,6 +1298,32 @@ pub struct ModelRedditSourceDetail {
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct ModelRedditSubredditAboutResponse {
     #[serde(
+        rename = "allowed_post_types",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub allowed_post_types: Option<Vec<String>>,
+    #[serde(
+        rename = "banner_url",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub banner_url: Option<String>,
+    #[serde(
+        rename = "community_leaderboard_enabled",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub community_leaderboard_enabled: Option<bool>,
+    #[serde(rename = "created", default, skip_serializing_if = "Option::is_none")]
+    pub created: Option<String>,
+    #[serde(
+        rename = "created_utc",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_utc: Option<i64>,
+    #[serde(
         rename = "display_name",
         default,
         skip_serializing_if = "Option::is_none"
@@ -293,6 +1331,26 @@ pub struct ModelRedditSubredditAboutResponse {
     pub display_name: Option<String>,
     #[serde(rename = "feed_url", default, skip_serializing_if = "Option::is_none")]
     pub feed_url: Option<String>,
+    #[serde(rename = "icon_url", default, skip_serializing_if = "Option::is_none")]
+    pub icon_url: Option<String>,
+    #[serde(
+        rename = "is_crossposting_allowed",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_crossposting_allowed: Option<bool>,
+    #[serde(
+        rename = "is_quarantined",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_quarantined: Option<bool>,
+    #[serde(
+        rename = "is_spoiler_available",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_spoiler_available: Option<bool>,
     #[serde(
         rename = "latest_post_created",
         default,
@@ -305,6 +1363,20 @@ pub struct ModelRedditSubredditAboutResponse {
         skip_serializing_if = "Option::is_none"
     )]
     pub latest_post_created_utc: Option<i64>,
+    #[serde(rename = "over_18", default, skip_serializing_if = "Option::is_none")]
+    pub over_18: Option<bool>,
+    #[serde(
+        rename = "primary_color",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub primary_color: Option<String>,
+    #[serde(
+        rename = "public_description",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub public_description: Option<String>,
     #[serde(
         rename = "public_url",
         default,
@@ -327,8 +1399,28 @@ pub struct ModelRedditSubredditAboutResponse {
     pub source: Option<ModelRedditSourceDetail>,
     #[serde(rename = "subreddit", default, skip_serializing_if = "Option::is_none")]
     pub subreddit: Option<String>,
+    #[serde(
+        rename = "subscribers",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub subscribers: Option<i64>,
     #[serde(rename = "title", default, skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
+    #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
+    pub type_: Option<String>,
+    #[serde(
+        rename = "weekly_active_users",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub weekly_active_users: Option<i64>,
+    #[serde(
+        rename = "weekly_contributions",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub weekly_contributions: Option<i64>,
     #[serde(flatten)]
     pub additional: BTreeMap<String, Value>,
 }
@@ -343,6 +1435,34 @@ pub struct ModelRedditSubredditCommentsResponse {
         skip_serializing_if = "Option::is_none"
     )]
     pub pagination: Option<ModelRedditPagination>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(rename = "subreddit", default, skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditSubredditFlairsResponse {
+    #[serde(rename = "flairs", default, skip_serializing_if = "Option::is_none")]
+    pub flairs: Option<Vec<ModelRedditFlairTemplate>>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(rename = "subreddit", default, skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditSubredditHighlightsResponse {
+    #[serde(
+        rename = "highlights",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub highlights: Option<Vec<ModelRedditHighlight>>,
     #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
     pub source: Option<ModelRedditSourceDetail>,
     #[serde(rename = "subreddit", default, skip_serializing_if = "Option::is_none")]
@@ -369,6 +1489,172 @@ pub struct ModelRedditSubredditPostsResponse {
     pub subreddit: Option<String>,
     #[serde(rename = "time", default, skip_serializing_if = "Option::is_none")]
     pub time: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditSubredditRule {
+    #[serde(
+        rename = "content_html",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub content_html: Option<String>,
+    #[serde(
+        rename = "description",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub description: Option<String>,
+    #[serde(rename = "name", default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditSubredditRulesResponse {
+    #[serde(rename = "rules", default, skip_serializing_if = "Option::is_none")]
+    pub rules: Option<Vec<ModelRedditSubredditRule>>,
+    #[serde(
+        rename = "site_rules",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub site_rules: Option<Vec<ModelRedditSiteRule>>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(rename = "subreddit", default, skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditSubredditSearchResponse {
+    #[serde(
+        rename = "pagination",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub pagination: Option<ModelRedditPagination>,
+    #[serde(rename = "query", default, skip_serializing_if = "Option::is_none")]
+    pub query: Option<String>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(
+        rename = "subreddits",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub subreddits: Option<Vec<ModelRedditCommunity>>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditSubredditSuggestResponse {
+    #[serde(rename = "query", default, skip_serializing_if = "Option::is_none")]
+    pub query: Option<String>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(
+        rename = "subreddits",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub subreddits: Option<Vec<ModelRedditCommunity>>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditSubredditWikiResponse {
+    #[serde(rename = "page", default, skip_serializing_if = "Option::is_none")]
+    pub page: Option<String>,
+    #[serde(
+        rename = "page_content",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub page_content: Option<ModelRedditWikiPageContent>,
+    #[serde(rename = "page_tree", default, skip_serializing_if = "Option::is_none")]
+    pub page_tree: Option<Vec<ModelRedditWikiPageNode>>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(rename = "subreddit", default, skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditSubredditsDiscoverResponse {
+    #[serde(rename = "feed", default, skip_serializing_if = "Option::is_none")]
+    pub feed: Option<String>,
+    #[serde(
+        rename = "pagination",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub pagination: Option<ModelRedditPagination>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(
+        rename = "subreddits",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub subreddits: Option<Vec<ModelRedditCommunity>>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditTopic {
+    #[serde(rename = "id", default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    #[serde(rename = "name", default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    #[serde(rename = "parents", default, skip_serializing_if = "Option::is_none")]
+    pub parents: Option<Vec<String>>,
+    #[serde(rename = "title", default, skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    #[serde(
+        rename = "topic_type",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub topic_type: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditTopicSearchResponse {
+    #[serde(rename = "query", default, skip_serializing_if = "Option::is_none")]
+    pub query: Option<String>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(rename = "topics", default, skip_serializing_if = "Option::is_none")]
+    pub topics: Option<Vec<ModelRedditTopic>>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditTopicsResponse {
+    #[serde(
+        rename = "pagination",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub pagination: Option<ModelRedditPagination>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(rename = "topics", default, skip_serializing_if = "Option::is_none")]
+    pub topics: Option<Vec<ModelRedditTopic>>,
     #[serde(flatten)]
     pub additional: BTreeMap<String, Value>,
 }
@@ -412,6 +1698,18 @@ pub struct ModelRedditUserCommentsResponse {
 }
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditUserFlairsResponse {
+    #[serde(rename = "flairs", default, skip_serializing_if = "Option::is_none")]
+    pub flairs: Option<Vec<ModelRedditFlairTemplate>>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(rename = "subreddit", default, skip_serializing_if = "Option::is_none")]
+    pub subreddit: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct ModelRedditUserPostsResponse {
     #[serde(
         rename = "pagination",
@@ -425,6 +1723,278 @@ pub struct ModelRedditUserPostsResponse {
     pub source: Option<ModelRedditSourceDetail>,
     #[serde(rename = "username", default, skip_serializing_if = "Option::is_none")]
     pub username: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditUserProfileResponse {
+    #[serde(
+        rename = "accepts_chats",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub accepts_chats: Option<bool>,
+    #[serde(
+        rename = "accepts_followers",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub accepts_followers: Option<bool>,
+    #[serde(
+        rename = "banner_url",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub banner_url: Option<String>,
+    #[serde(
+        rename = "comment_count",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub comment_count: Option<i64>,
+    #[serde(rename = "created", default, skip_serializing_if = "Option::is_none")]
+    pub created: Option<String>,
+    #[serde(
+        rename = "created_utc",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_utc: Option<i64>,
+    #[serde(
+        rename = "display_name",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub display_name: Option<String>,
+    #[serde(rename = "icon_url", default, skip_serializing_if = "Option::is_none")]
+    pub icon_url: Option<String>,
+    #[serde(
+        rename = "is_employee",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_employee: Option<bool>,
+    #[serde(rename = "is_gilded", default, skip_serializing_if = "Option::is_none")]
+    pub is_gilded: Option<bool>,
+    #[serde(rename = "karma", default, skip_serializing_if = "Option::is_none")]
+    pub karma: Option<i64>,
+    #[serde(rename = "name", default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    #[serde(rename = "over_18", default, skip_serializing_if = "Option::is_none")]
+    pub over_18: Option<bool>,
+    #[serde(
+        rename = "post_count",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub post_count: Option<i64>,
+    #[serde(
+        rename = "public_description",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub public_description: Option<String>,
+    #[serde(
+        rename = "public_url",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub public_url: Option<String>,
+    #[serde(rename = "source", default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<ModelRedditSourceDetail>,
+    #[serde(rename = "title", default, skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    #[serde(
+        rename = "trophy_count",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub trophy_count: Option<i64>,
+    #[serde(rename = "username", default, skip_serializing_if = "Option::is_none")]
+    pub username: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditWikiPageContent {
+    #[serde(
+        rename = "content_html",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub content_html: Option<String>,
+    #[serde(
+        rename = "content_markdown",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub content_markdown: Option<String>,
+    #[serde(
+        rename = "content_richtext",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub content_richtext: Option<String>,
+    #[serde(
+        rename = "is_revisable",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_revisable: Option<bool>,
+    #[serde(rename = "name", default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    #[serde(
+        rename = "revision_count",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub revision_count: Option<i64>,
+    #[serde(rename = "status", default, skip_serializing_if = "Option::is_none")]
+    pub status: Option<String>,
+    #[serde(rename = "title", default, skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditWikiPageNode {
+    #[serde(rename = "depth", default, skip_serializing_if = "Option::is_none")]
+    pub depth: Option<i64>,
+    #[serde(rename = "name", default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    #[serde(
+        rename = "page_present",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub page_present: Option<bool>,
+    #[serde(rename = "parent", default, skip_serializing_if = "Option::is_none")]
+    pub parent: Option<String>,
+    #[serde(rename = "path", default, skip_serializing_if = "Option::is_none")]
+    pub path: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchiveCommentsIdsResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditArchiveCommentsIdsResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchiveCommentsSearchResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditArchiveCommentsSearchResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchiveCommentsTreeResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditArchiveCommentsTreeResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchivePostsIdsResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditArchivePostsIdsResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchivePostsSearchResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditArchivePostsSearchResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchiveSubredditsSearchResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditArchiveSubredditsSearchResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditArchiveTimeSeriesResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditArchiveTimeSeriesResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditBroadTopicsResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditBroadTopicsResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditCommentAwardsResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditCommentAwardsResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditCommentDetailResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditCommentDetailResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
     #[serde(flatten)]
     pub additional: BTreeMap<String, Value>,
 }
@@ -447,6 +2017,18 @@ pub struct ModelRedditDomainPostsResponseDoc {
     pub code: Option<i64>,
     #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
     pub data: Option<ModelRedditDomainPostsResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditLeaderboardCategoriesResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditLeaderboardCategoriesResponse>,
     #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
     pub msg: Option<String>,
     #[serde(flatten)]
@@ -478,11 +2060,71 @@ pub struct ModelRedditMultiSubredditPostsResponseDoc {
 }
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditPopularResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditPopularResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditPostAwardsResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditPostAwardsResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct ModelRedditPostResponseDoc {
     #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
     pub code: Option<i64>,
     #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
     pub data: Option<ModelRedditPostResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditPostsByIdsResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditPostsByIdsResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditSearchCommentsResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditSearchCommentsResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditSearchPeopleResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditSearchPeopleResponse>,
     #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
     pub msg: Option<String>,
     #[serde(flatten)]
@@ -526,11 +2168,119 @@ pub struct ModelRedditSubredditCommentsResponseDoc {
 }
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditSubredditFlairsResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditSubredditFlairsResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditSubredditHighlightsResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditSubredditHighlightsResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct ModelRedditSubredditPostsResponseDoc {
     #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
     pub code: Option<i64>,
     #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
     pub data: Option<ModelRedditSubredditPostsResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditSubredditRulesResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditSubredditRulesResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditSubredditSearchResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditSubredditSearchResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditSubredditSuggestResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditSubredditSuggestResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditSubredditWikiResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditSubredditWikiResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditSubredditsDiscoverResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditSubredditsDiscoverResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditTopicSearchResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditTopicSearchResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditTopicsResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditTopicsResponse>,
     #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
     pub msg: Option<String>,
     #[serde(flatten)]
@@ -562,11 +2312,35 @@ pub struct ModelRedditUserCommentsResponseDoc {
 }
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditUserFlairsResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditUserFlairsResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct ModelRedditUserPostsResponseDoc {
     #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
     pub code: Option<i64>,
     #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
     pub data: Option<ModelRedditUserPostsResponse>,
+    #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
+    #[serde(flatten)]
+    pub additional: BTreeMap<String, Value>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ModelRedditUserProfileResponseDoc {
+    #[serde(rename = "code", default, skip_serializing_if = "Option::is_none")]
+    pub code: Option<i64>,
+    #[serde(rename = "data", default, skip_serializing_if = "Option::is_none")]
+    pub data: Option<ModelRedditUserProfileResponse>,
     #[serde(rename = "msg", default, skip_serializing_if = "Option::is_none")]
     pub msg: Option<String>,
     #[serde(flatten)]

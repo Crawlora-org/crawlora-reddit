@@ -42,13 +42,13 @@ class ClientTest {
     @AfterEach void stopServer() { if (server != null) server.stop(0); }
 
     @Test void platformCatalogIsAnExactAllowlistAndExposesDirectMethod() throws Exception {
-        assertEquals(12, Client.OPERATION_IDS.size());
-        assertEquals(List.of("reddit-comments", "reddit-domain-posts", "reddit-leads", "reddit-post", "reddit-search", "reddit-subreddit-about", "reddit-subreddit-comments", "reddit-subreddit-posts", "reddit-subreddits-posts", "reddit-trends", "reddit-user-comments", "reddit-user-posts"), Client.OPERATION_IDS);
+        assertEquals(39, Client.OPERATION_IDS.size());
+        assertEquals(List.of("reddit-archive-comments-ids", "reddit-archive-comments-search", "reddit-archive-comments-tree", "reddit-archive-posts-ids", "reddit-archive-posts-search", "reddit-archive-subreddits-search", "reddit-archive-time-series", "reddit-comment", "reddit-comment-awards", "reddit-comments", "reddit-domain-posts", "reddit-leads", "reddit-popular", "reddit-post", "reddit-post-awards", "reddit-posts-by-ids", "reddit-search", "reddit-search-comments", "reddit-search-people", "reddit-subreddit-about", "reddit-subreddit-comments", "reddit-subreddit-flairs", "reddit-subreddit-highlights", "reddit-subreddit-leaderboard-categories", "reddit-subreddit-posts", "reddit-subreddit-rules", "reddit-subreddit-user-flairs", "reddit-subreddit-wiki", "reddit-subreddits-discover", "reddit-subreddits-posts", "reddit-subreddits-search", "reddit-subreddits-suggest", "reddit-topics", "reddit-topics-broad", "reddit-topics-search", "reddit-trends", "reddit-user-comments", "reddit-user-posts", "reddit-user-profile"), Client.OPERATION_IDS);
         assertEquals(new java.util.TreeSet<>(Client.OPERATION_IDS), new java.util.TreeSet<>(Client.operations().keySet()));
         assertEquals(Client.OPERATION_IDS.size(), new Client("key").getOperationCount());
         try (Client client = new Client("test-key", baseUrl, Duration.ofSeconds(2))) {
             assertThrows(IllegalArgumentException.class, () -> client.request("instagram-search", Map.of()));
-            Object result = client.request("reddit-domain-posts", Map.ofEntries(Map.entry("domain", "path /one"), Map.entry("after", "value &/one")));
+            Object result = client.request("reddit-archive-comments-tree", Map.ofEntries(Map.entry("id", "path /one"), Map.entry("parent_id", "value &/one")));
             assertInstanceOf(Map.class, result);
             assertEquals("test-key", seenKey.get());
             assertTrue(seenUri.get().startsWith("/api/v1/"));
@@ -59,7 +59,7 @@ class ClientTest {
 
     @Test void directMethodUsesTheSameOperationDispatch() throws Exception {
         try (Client client = new Client("test-key", baseUrl, Duration.ofSeconds(2))) {
-            Object result = Client.class.getMethod("domainPosts", Map.class).invoke(client, Map.ofEntries(Map.entry("domain", "path /one"), Map.entry("after", "value &/one")));
+            Object result = Client.class.getMethod("archiveCommentsTree", Map.class).invoke(client, Map.ofEntries(Map.entry("id", "path /one"), Map.entry("parent_id", "value &/one")));
             assertInstanceOf(Map.class, result);
         }
     }
@@ -68,7 +68,7 @@ class ClientTest {
         contentType = "text/plain; charset=utf-8";
         body = "line one\nline two";
         try (Client client = new Client("test-key", baseUrl, Duration.ofSeconds(2))) {
-            assertEquals("line one\nline two", client.request("reddit-comments", Map.ofEntries(Map.entry("id", "sample"))));
+            assertEquals("line one\nline two", client.request("reddit-archive-comments-ids", Map.ofEntries(Map.entry("ids", "sample"))));
         }
     }
 
@@ -77,21 +77,21 @@ class ClientTest {
         body = "{\"code\":422,\"msg\":\"bad input\"}";
         try (Client client = new Client("test-key", baseUrl, Duration.ofSeconds(2))) {
             CrawloraException error = assertThrows(CrawloraException.class,
-                    () -> client.request("reddit-domain-posts", Map.ofEntries(Map.entry("domain", "path /one"), Map.entry("after", "value &/one"))));
+                    () -> client.request("reddit-archive-comments-tree", Map.ofEntries(Map.entry("id", "path /one"), Map.entry("parent_id", "value &/one"))));
             assertEquals(422, error.statusCode());
             assertTrue(error.getMessage().contains("bad input"));
         }
         status = 200;
         delayMillis = 250;
         try (Client client = new Client("test-key", baseUrl, Duration.ofMillis(20))) {
-            assertThrows(CrawloraException.class, () -> client.request("reddit-domain-posts", Map.ofEntries(Map.entry("domain", "path /one"), Map.entry("after", "value &/one"))));
+            assertThrows(CrawloraException.class, () -> client.request("reddit-archive-comments-tree", Map.ofEntries(Map.entry("id", "path /one"), Map.entry("parent_id", "value &/one"))));
         }
     }
 
     @Test void rejectsInvalidEnumsAndClosedClientCalls() {
-        assertThrows(IllegalArgumentException.class, () -> new Client("key", baseUrl, Duration.ofSeconds(1)).request("reddit-comments", Map.ofEntries(Map.entry("id", "sample"), Map.entry("sort", "__invalid_java_test_enum__"))));
+        assertThrows(IllegalArgumentException.class, () -> new Client("key", baseUrl, Duration.ofSeconds(1)).request("reddit-archive-comments-search", Map.ofEntries(Map.entry("sort", "__invalid_java_test_enum__"))));
         Client client = new Client("key", baseUrl, Duration.ofSeconds(1));
         client.close();
-        assertThrows(IllegalStateException.class, () -> client.request("reddit-domain-posts", Map.ofEntries(Map.entry("domain", "path /one"), Map.entry("after", "value &/one"))));
+        assertThrows(IllegalStateException.class, () -> client.request("reddit-archive-comments-tree", Map.ofEntries(Map.entry("id", "path /one"), Map.entry("parent_id", "value &/one"))));
     }
 }

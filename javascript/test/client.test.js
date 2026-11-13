@@ -13,8 +13,8 @@ test("exports only this platform and exposes direct and grouped methods", async 
   const client = new RedditClient({ apiKey: "test-key", fetch: async () => json({ ok: true }) });
   assert.equal(operationCount, Object.keys(operations).length);
   assert.deepEqual(Object.keys(groups), ["reddit"]);
-  assert.equal(typeof client["comments"], "function");
-  assert.equal(typeof client["reddit"]["comments"], "function");
+  assert.equal(typeof client["archiveCommentsIds"], "function");
+  assert.equal(typeof client["reddit"]["archiveCommentsIds"], "function");
 });
 
 test("serializes required query/path values, adds API key and platform User-Agent", async () => {
@@ -23,10 +23,10 @@ test("serializes required query/path values, adds API key and platform User-Agen
     seen = { url: String(url), headers: init.headers };
     return json({ ok: true });
   } });
-  await client.request("reddit-comments", {"id": "sample"});
-  assert.match(seen.url, /\/reddit\/comments\/[^/]+/);
+  await client.request("reddit-archive-comments-ids", {"ids": "sample"});
+  assert.match(seen.url, /\/reddit\/archive\/comments\/ids/);
   assert.equal(seen.headers["x-api-key"], "secret");
-  assert.equal(seen.headers["user-agent"], "crawlora-reddit-js/0.2.0");
+  assert.equal(seen.headers["user-agent"], "crawlora-reddit-js/0.3.0");
 });
 
 test("allows caller User-Agent override and response text mode", async () => {
@@ -35,7 +35,7 @@ test("allows caller User-Agent override and response text mode", async () => {
     seen = init.headers;
     return new Response("caption text", { headers: { "content-type": "text/plain" } });
   } });
-  const result = await client.request("reddit-comments", {"id": "sample"}, { responseType: "text" });
+  const result = await client.request("reddit-archive-comments-ids", {"ids": "sample"}, { responseType: "text" });
   assert.equal(seen["user-agent"], "custom-agent");
   assert.equal(result, "caption text");
 
@@ -43,7 +43,7 @@ test("allows caller User-Agent override and response text mode", async () => {
   const autoClient = new RedditClient({ fetch: async () => new Response(rawFeed, {
     headers: { "content-type": "text/plain" }
   }) });
-  assert.equal(await autoClient.request("reddit-comments", {"id": "sample"}), rawFeed);
+  assert.equal(await autoClient.request("reddit-archive-comments-ids", {"ids": "sample"}), rawFeed);
 });
 
 test("maps API errors and retries server failures", async () => {
@@ -52,13 +52,13 @@ test("maps API errors and retries server failures", async () => {
     calls++;
     return calls === 1 ? json({ msg: "try again" }, 503) : json({ ok: true });
   } });
-  assert.deepEqual(await client.request("reddit-comments", {"id": "sample"}), { ok: true });
+  assert.deepEqual(await client.request("reddit-archive-comments-ids", {"ids": "sample"}), { ok: true });
   assert.equal(calls, 2);
 
   const bad = new RedditClient({ fetch: async () => json({ msg: "bad input" }, 400) });
-  await assert.rejects(bad.request("reddit-comments", {"id": "sample"}), CrawloraClientError);
+  await assert.rejects(bad.request("reddit-archive-comments-ids", {"ids": "sample"}), CrawloraClientError);
   const down = new RedditClient({ fetch: async () => json({ msg: "down" }, 503) });
-  await assert.rejects(down.request("reddit-comments", {"id": "sample"}), CrawloraServerError);
+  await assert.rejects(down.request("reddit-archive-comments-ids", {"ids": "sample"}), CrawloraServerError);
 });
 
 test("reports timeout and caller cancellation as network errors", async () => {
@@ -66,11 +66,11 @@ test("reports timeout and caller cancellation as network errors", async () => {
     signal.addEventListener("abort", () => reject(new Error("aborted")), { once: true });
   });
   const timed = new RedditClient({ timeout: 5, fetch: hanging });
-  await assert.rejects(timed.request("reddit-comments", {"id": "sample"}), CrawloraNetworkError);
+  await assert.rejects(timed.request("reddit-archive-comments-ids", {"ids": "sample"}), CrawloraNetworkError);
 
   const controller = new AbortController();
   const aborted = new RedditClient({ fetch: hanging });
-  const pending = aborted.request("reddit-comments", {"id": "sample"}, { signal: controller.signal });
+  const pending = aborted.request("reddit-archive-comments-ids", {"ids": "sample"}, { signal: controller.signal });
   controller.abort();
   await assert.rejects(pending, CrawloraNetworkError);
 });
